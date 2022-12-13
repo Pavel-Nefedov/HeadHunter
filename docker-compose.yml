@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+
+  postgres:
+    container_name: ${POSTGRES_CONTAINER_NAME}
+    image: postgres:14.0-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+    ports:
+      - "54321:5432"
+
+volumes:
+  postgres-volume:

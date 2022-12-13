@@ -1,0 +1,24 @@
+### IDE ###
+.idea
+
+### ENV ###
+.env
+
+### VENV ###
+venv
+
+### Python ###
+__pycache__/
+
+### BD ###
+*.sqlite3
+
+### Django ###
+*.pyc
+/media
+/static
+
+### Django migration folder ###
+
+
+### Other ###
