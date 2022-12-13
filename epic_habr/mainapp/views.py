@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
-from epic_habr.mainapp.models import Article
+from .models import Article
 
 
 # Create your views here.
