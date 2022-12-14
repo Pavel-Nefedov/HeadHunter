@@ -3,7 +3,7 @@ export
 
 # --- Docker section ----------------------
 docker-down:
-	docker-compose -f docker-compose.yml down -v --remove-orphans
+	docker-compose -f docker-compose.yml down --remove-orphans
 
 docker-build-up:
 	docker-compose -f docker-compose.yml up -d --build
