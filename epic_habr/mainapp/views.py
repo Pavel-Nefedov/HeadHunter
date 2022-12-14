@@ -6,7 +6,7 @@ from .models import Article
 # Create your views here.
 
 def main(request):
-    title = 'Статьи'
+    title = 'Эпик Хабр - Главная'
     article_list = Article.objects.filter(is_posted=True)
 
     content = {

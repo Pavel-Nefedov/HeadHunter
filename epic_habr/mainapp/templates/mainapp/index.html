@@ -15,9 +15,9 @@
 
                 <h3>{{ article.title|title }}</h3>
                 <h4>{{ article.posted_at|date:"M d, Y"}}</h4>
-                <h4>{{ article.author|title }}</h4>
-                <p>{{ article.subject }}</p>
-                <a href="{% url 'art:article' article.pk %}">Подробнее</a>
+                <h4>Автор: {{ article.author|title }}</h4>
+                <p>Тема: {{ article.subject }}</p>
+                <a href="{% url 'art:article' article.pk %}">Читать</a>
             </li>
 
         {% endfor %}
