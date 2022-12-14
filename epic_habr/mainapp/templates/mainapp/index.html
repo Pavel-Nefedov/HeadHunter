@@ -1,26 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Главная страница эпичного хабра</title>
-</head>
-<body>
-<h1>Главная страница эпичного хабра</h1>
+{% extends 'mainapp/base.html' %}
+{% load static %}
 
-<ul>
-    {% for article in article_list %}
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock %}
 
-        <li>
+{% block content %}
+    <h1>Главная страница эпичного хабра</h1>
+
+    <ul>
+        {% for article in article_list %}
+
+            <li>
 
                 <h3>{{ article.title|title }}</h3>
+                <h4>{{ article.posted_at|date:"M d, Y"}}</h4>
                 <h4>{{ article.author|title }}</h4>
                 <p>{{ article.subject }}</p>
                 <a href="{% url 'art:article' article.pk %}">Подробнее</a>
-        </li>
+            </li>
 
-    {% endfor %}
-</ul>
+        {% endfor %}
+    </ul>
+{% endblock %}
 
 
-</body>
-</html>

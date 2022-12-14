@@ -17,8 +17,11 @@ class Author(models.Model):
 
 class Article(models.Model):
     title = models.CharField(verbose_name='Название статьи', max_length=128)
-    date = models.DateTimeField(verbose_name='Дата публикации', blank=True)
-    # todo date of creation, date of deleting
+    posted_at = models.DateTimeField(verbose_name='Дата публикации', blank=True)
+    deleted_at = models.DateTimeField(verbose_name='Дата удаления', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     # todo think maybe list of subjects or we can use keywords
     subject = models.CharField(verbose_name='Тема статьи', max_length=32)
     text = models.TextField(verbose_name='Статья', blank=True)
@@ -31,4 +34,4 @@ class Article(models.Model):
 
     @staticmethod
     def get_items():
-        return Article.objects.filter(is_posted=True).order_by('-date')
+        return Article.objects.filter(is_posted=True).order_by('-posted_at')
