@@ -1,5 +1,7 @@
 asgiref==3.5.2
 Django==4.1.4
+django-debug-toolbar-template-profiler==2.1.0
+django_debug_toolbar==3.8.1
 flake8==6.0.0
 isort==5.11.1
 mccabe==0.7.0
@@ -8,3 +10,4 @@ pycodestyle==2.10.0
 pyflakes==3.0.1
 sqlparse==0.4.3
 tzdata==2022.7
+wrapt==1.14.1
