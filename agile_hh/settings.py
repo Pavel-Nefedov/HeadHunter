@@ -35,6 +35,8 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost ").split(" ")
 
 INSTALLED_APPS = [
     # My apps
+    'authapp.apps.AuthappConfig',
+    'candidateapp',
 
     # Third-party apps
     'debug_toolbar',
@@ -47,8 +49,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'authapp',
-    'candidateapp',
 ]
 
 MIDDLEWARE = [
@@ -70,7 +70,10 @@ ROOT_URLCONF = 'agile_hh.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['agile_hh/templates'],
+        'DIRS': [
+            # 'agile_hh/templates',
+            BASE_DIR / 'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -5,6 +5,5 @@ from authapp import views
 app_name = 'authapp'
 
 urlpatterns = [
-    # path('login/', views.login, name='login'),
-    # path('logout/', views.logout, name='logout'),
+    path('login/', views.Login.as_view(), name='login'),
 ]
