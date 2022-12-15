@@ -20,6 +20,7 @@ __pycache__/
 
 ### Django migration folder ###
 candidateapp/migrations
+authapp/migrations
 
 
 ### Other ###
