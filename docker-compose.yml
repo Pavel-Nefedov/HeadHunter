@@ -1,7 +1,17 @@
 version: "3.7"
 services:
 
-  postgres:
+  adminer_container:
+    container_name: ${ADMINER_CONTAINER_NAME}
+    image: adminer
+    restart: always
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres_container
+      ADMINER_DESIGN: nette
+    ports:
+      - "8080:8080"
+
+  postgres_container:
     container_name: ${POSTGRES_CONTAINER_NAME}
     image: postgres:14.0-alpine
     restart: always
@@ -14,7 +24,7 @@ services:
     env_file:
       - ./.env
     ports:
-      - "54321:5432"
+      - "5432:5432"
 
 volumes:
   postgres-volume:
