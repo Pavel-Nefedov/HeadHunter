@@ -1,3 +1,11 @@
-<h2>
-    Эпик меню
-</h2>
+{% load my_filter %}
+<ul class="menu-main">
+
+   {% for key, value in url_dict.items %}
+
+        <li{% if request.path == full_url_dict|filter:key %} class="IamHere"{% endif %}>
+            <a href="{% url 'art:index' %}{{ value }}">{{ key }}</a>
+        </li>
+
+    {% endfor %}
+</ul>
