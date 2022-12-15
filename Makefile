@@ -28,6 +28,6 @@ createsuperuser:
 
 # --- Code section ----------------------
 check-code:
-	isort agile_hh/
-	flake8 --extend-ignore E501,F401 agile_hh/
+	isort agile_hh/ candidateapp/
+	flake8 --extend-ignore E501,F401 agile_hh/ candidateapp/
 # --------------------------------------------

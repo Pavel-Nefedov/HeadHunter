@@ -19,6 +19,7 @@ __pycache__/
 /static
 
 ### Django migration folder ###
+candidateapp/migrations
 
 
 ### Other ###
