@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     # My apps
     'authapp.apps.AuthappConfig',
     'candidateapp',
+    'companyapp',
 
     # Third-party apps
     'debug_toolbar',
