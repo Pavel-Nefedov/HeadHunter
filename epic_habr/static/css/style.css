@@ -12,6 +12,7 @@
     display: inline-block;
 }
 
+
 .menu-main li:after {
     content: "|";
     color: #606060;
@@ -63,6 +64,42 @@
 
 .menu-main a:hover:after, .menu-main .current:after {
     right: 0;
+}
+
+.IamHere {
+    font-weight: bold;
+    font-size: 18px;
+    color: #9a00fd;
+}
+
+.block_content {
+    list-style: none;
+    margin: 40px 0 5px;
+    padding: 25px 0 5px;
+    text-align: center;
+    background: white;
+}
+
+footer {
+    text-align: center;
+    color: #feb386;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    letter-spacing: 2px;
+    padding-bottom: 20px;
+    margin: 0 34px 0 30px;
+    font-size: 17px;
+    text-transform: uppercase;
+}
+
+h1 {
+    color: #feb386;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    letter-spacing: 2px;
+    padding-bottom: 20px;
+    margin: 0 34px 0 30px;
+    font-size: 17px;
+    text-transform: uppercase;
+
 }
 
 @media (max-width: 550px) {

@@ -12,10 +12,11 @@ reversed_full_url_dict = {}
 for key, value in URL_DICT.items():
     if key == '/':
         reversed_url_dict[value] = ''
-        reversed_full_url_dict = 'article'
+        reversed_full_url_dict[value] = '/articles/'
     else:
         reversed_url_dict[value] = key
-        reversed_full_url_dict = f'article\\{key}'
+        reversed_full_url_dict[value] = f'/articles/{key}/'
+
 
 # Create your views here.
 
