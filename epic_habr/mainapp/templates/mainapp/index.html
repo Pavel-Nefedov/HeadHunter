@@ -1,0 +1,27 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock %}
+
+{% block content %}
+    <h1>Главная страница эпичного хабра</h1>
+
+    <ul>
+        {% for article in article_list %}
+
+            <li>
+
+                <h3>{{ article.title|title }}</h3>
+                <h4>{{ article.posted_at|date:"M d, Y"}}</h4>
+                <h4>Автор: {{ article.author|title }}</h4>
+                <p>Тема: {{ article.subject }}</p>
+                <a href="{% url 'art:article' article.pk %}">Читать</a>
+            </li>
+
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+

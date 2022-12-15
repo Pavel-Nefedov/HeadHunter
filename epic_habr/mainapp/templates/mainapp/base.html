@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    {% endblock %}
+    {% block css %}
+    {% endblock %}
+    {% block js %}
+    {% endblock %}
+</head>
+{% block header %}
+    {% include 'mainapp/includes/inc_header.html' %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+<footer>
+    {% block footer %}
+        {% include 'mainapp/includes/inc_footer.html' %}
+    {% endblock %}
+</footer>
+</html>
