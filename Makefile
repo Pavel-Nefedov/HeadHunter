@@ -5,6 +5,9 @@ export
 docker-down:
 	docker-compose -f docker-compose.yml down --remove-orphans
 
+docker-down-remove-volumes:
+	docker-compose -f docker-compose.yml down -v --remove-orphans
+
 docker-build-up:
 	docker-compose -f docker-compose.yml up -d --build
 
@@ -13,6 +16,9 @@ docker-logs:
 # --------------------------------------------
 
 # --- Django section ----------------------
+flush:
+	python manage.py flush
+
 runserver:
 	python manage.py runserver
 
@@ -28,6 +34,6 @@ createsuperuser:
 
 # --- Code section ----------------------
 check-code:
-	isort agile_hh/
-	flake8 --extend-ignore E501,F401 agile_hh/
+	isort agile_hh/ candidateapp/ authapp/
+	flake8 --extend-ignore E501,F401 agile_hh/ candidateapp/ authapp/
 # --------------------------------------------

@@ -1,6 +1,8 @@
 from django.urls import path
+
 # from .views import candidate
 from .views import ShowProfilePageView
+
 app_name = 'candidateapp'
 
 # urlpatterns = [
