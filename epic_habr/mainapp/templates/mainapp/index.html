@@ -1,27 +1,31 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
+{% load my_filter %}
 
 {% block title %}
     <title>{{ title }}</title>
 {% endblock %}
 
 {% block content %}
-    <h1>Главная страница эпичного хабра</h1>
+    <div class="block_content">
+        <h1>{{ h1 }}</h1>
 
-    <ul>
-        {% for article in article_list %}
+        <ul>
+            {% for article in article_list %}
 
-            <li>
+                <li>
 
-                <h3>{{ article.title|title }}</h3>
-                <h4>{{ article.posted_at|date:"M d, Y"}}</h4>
-                <h4>Автор: {{ article.author|title }}</h4>
-                <p>Тема: {{ article.subject }}</p>
-                <a href="{% url 'art:article' article.pk %}">Читать</a>
-            </li>
+                    <h3>{{ article.title|title }}</h3>
+                    <h4>{{ article.posted_at|date:"M d, Y" }}</h4>
+                    <h4>Автор: {{ article.author|title }}</h4>
+                    <p>Тема: {{ article.subject }}</p>
+                    <a href="{% url 'art:article' article.pk %}">Читать</a>
+                </li>
 
-        {% endfor %}
-    </ul>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
+
 
 

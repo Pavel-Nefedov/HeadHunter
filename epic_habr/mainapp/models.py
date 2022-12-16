@@ -1,4 +1,10 @@
+import sys
+from pprint import pprint
 from django.db import models
+
+sys.path.append('../')
+
+from common.variables import MENU_LIST
 
 
 # Create your models here.
@@ -16,6 +22,7 @@ class Author(models.Model):
 
 
 class Article(models.Model):
+    SUBJECT_CHOICES = tuple([(subject, subject) for subject in MENU_LIST])
     title = models.CharField(verbose_name='Название статьи', max_length=128)
     posted_at = models.DateTimeField(verbose_name='Дата публикации', blank=True)
     deleted_at = models.DateTimeField(verbose_name='Дата удаления', null=True, blank=True)
@@ -23,11 +30,11 @@ class Article(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     # todo think maybe list of subjects or we can use keywords
-    subject = models.CharField(verbose_name='Тема статьи', max_length=32)
+    subject = models.CharField(verbose_name='Тема статьи', max_length=32, choices=SUBJECT_CHOICES, default='Другое')
     text = models.TextField(verbose_name='Статья', blank=True)
     # todo think maybe list of authors
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    is_posted = models.BooleanField(verbose_name='размещена', default=False)
+    is_posted = models.BooleanField(verbose_name='размещена', default=True)
 
     def __str__(self):
         return f'Статья {self.title}, Автор {self.author}, Тема {self.subject}'
