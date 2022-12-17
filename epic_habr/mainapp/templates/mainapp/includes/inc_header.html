@@ -1,8 +1,17 @@
 {% load my_filter %}
 {% load static %}
+<ul style="display:flex;">
+    {% if request.user %}
+        <li style="margin-right: 30px">Привет, {{ request.user }}!</li>
+        <li style="margin-right: 30px"><a href="#">Личный кабинет</a></li>
+        <li><a href="#">Выйти</a></li>
+    {% else %}
+        <li style="margin-right: 30px"><a href="{% url 'login:index' %}">Авторизация</a></li>
+        <li><a href="{% url 'login:register' %}">Регистрация</a></li>
+    {% endif %}
+</ul>
 <ul class="menu-main">
-
-   {% for key, value in url_dict.items %}
+    {% for key, value in url_dict.items %}
         <li{% if request.path == full_url_dict|get_from_dict:key %} class="IamHere"{% endif %}>
             <a href="{% url 'art:index' %}{{ value }}">{{ key }}</a>
         </li>

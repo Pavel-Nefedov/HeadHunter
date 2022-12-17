@@ -17,6 +17,11 @@
 
                     <h3>{{ article.title|title }}</h3>
                     <h4>{{ article.posted_at|date:"M d, Y" }}</h4>
+                    <h4>Хабы:
+                        {% for hub in article.hubs.all %}
+                            {{ hub.name }}{% if not forloop.last %},{% else %}.{% endif %}
+                        {% endfor %}
+                    </h4>
                     <h4>Автор: {{ article.author|title }}</h4>
                     <p>Тема: {{ article.subject }}</p>
                     <a href="{% url 'art:article' article.pk %}">Читать</a>
