@@ -5,8 +5,12 @@
     border-radius: 4px;
 }
 
-.form_auth_block_content {
-    padding-top: 15%;
+/*.form_auth_block_content {*/
+/*    padding-top: 15%;*/
+/*}*/
+
+.aligncenter {
+    text-align: center;
 }
 
 .form_auth_block_head_text {
@@ -39,6 +43,10 @@
     outline: none;
 }
 
+.readonly {
+    color: #606060;
+}
+
 
 
 input:focus {
@@ -56,6 +64,14 @@ input:focus {
     height: 35px;
     border: none;
     cursor: pointer;
+}
+
+.alert-success {
+    background: #b8ecb8;
+}
+
+.alert-warning {
+    background: #f6bc77;
 }
 
 ::-webkit-input-placeholder {

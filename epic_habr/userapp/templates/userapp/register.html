@@ -9,7 +9,7 @@
 {% endblock %}
 {% block content %}
     <div class="form_auth_block">
-        <div class="form_auth_block_content">
+        <p class="form_auth_block_content">
             <p class="form_auth_block_head_text">Регистрация</p>
             <form class="form_auth_style" action="{% url 'login:register' %}" method="post">
                 {% csrf_token %}
@@ -27,7 +27,7 @@
                 {{ form.password2 }}
                 <button class="form_auth_button" type="submit" name="form_auth_submit">Зарегистрироваться</button>
             </form>
-            <div class="small"><a href="{% url 'login:index' %}">Уже есть аккаунт? Авторизоваться</a></div>
+            <p class="aligncenter"><a href="{% url 'login:index' %}">Уже есть аккаунт? Авторизоваться</a></p>
         </div>
     </div>
 {% endblock %}
