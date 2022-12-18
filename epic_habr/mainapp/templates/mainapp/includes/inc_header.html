@@ -1,8 +1,8 @@
 {% load my_filter %}
 {% load static %}
-<ul style="display:flex;">
+<ul class="login_top_string">
     {% if user.username %}
-        <li style="margin-right: 30px">Привет,
+        <li>Привет,
             {% if user.first_name %}
                 {{ user.first_name|title }} {{ user.last_name|title }}!</li>
             {% else %}
@@ -11,7 +11,7 @@
         <li style="margin-right: 30px"><a href="{% url 'login:profile' %}">Личный кабинет</a></li>
         <li><a href="{% url 'login:logout' %}">Выйти</a></li>
     {% else %}
-        <li style="margin-right: 30px"><a href="{% url 'login:index' %}">Авторизация</a></li>
+        <li><a href="{% url 'login:index' %}">Авторизация</a></li>
         <li><a href="{% url 'login:register' %}">Регистрация</a></li>
     {% endif %}
 </ul>
