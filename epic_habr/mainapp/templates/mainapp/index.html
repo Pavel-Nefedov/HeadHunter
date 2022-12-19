@@ -10,16 +10,26 @@
     <div class="block_content">
         <h1>{{ h1 }}</h1>
 
-        <ul>
+        <ul class="article_list">
             {% for article in article_list %}
 
                 <li>
 
                     <h3>{{ article.title|title }}</h3>
                     <h4>{{ article.posted_at|date:"M d, Y" }}</h4>
-                    <h4>Автор: {{ article.author|title }}</h4>
-                    <p>Тема: {{ article.subject }}</p>
-                    <a href="{% url 'art:article' article.pk %}">Читать</a>
+                    <h4>Хабы:
+                        {% for hub in article.hubs.all %}
+                            {{ hub.name }}{% if not forloop.last %},{% else %}.{% endif %}
+                        {% endfor %}
+                    </h4>
+                    <h4>Автор: {% if article.author.first_name %}
+                        {{ article.author.first_name|title }} {{ article.author.last_name|title }}</li>
+                    {% else %}
+                        {{ article.author.username }}
+                    {% endif %}
+                </h4>
+                <p>Тема: {{ article.subject }}</p>
+                <a href="{% url 'art:article' article.pk %}">Читать</a>
                 </li>
 
             {% endfor %}
