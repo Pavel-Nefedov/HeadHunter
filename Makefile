@@ -2,8 +2,24 @@ include .env
 export
 
 # --- Common section ----------------------
+some-sleep:
+	sleep 3
+
+rm-migrations-dirs:
+	rm -rf authapp/migrations
+	rm -rf candidateapp/migrations
+	rm -rf candidateapp/companyapp
+
+clean-start-for-development:rm-migrations-dirs docker-down-remove-volumes docker-build-up \
+some-sleep makemigrations migrate createsuperuser runserver
+
 start-for-development: docker-down docker-build-up makemigrations migrate check-code runserver
 
+# --------------------------------------------
+
+# --- Poetry section ----------------------
+poetry-shell:
+	poetry shell
 # --------------------------------------------
 
 # --- Docker section ----------------------
@@ -28,7 +44,9 @@ runserver:
 	python manage.py runserver
 
 makemigrations:
-	python manage.py makemigrations
+	python manage.py makemigrations authapp
+	python manage.py makemigrations candidateapp
+	python manage.py makemigrations companyapp
 
 migrate:
 	python manage.py migrate

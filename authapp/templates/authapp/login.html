@@ -1,7 +1,121 @@
 {% extends 'base.html' %}
 
+{% block css_style %}
+<script type="text/javascript"
+        src="/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=JlHYDiw9gY4qAXbzdCLqEL0Mnz9u1iHCYJvGYj8SablGIuYfHJ4VnRmxSJtk_dN79SilyFU1CPMRPqj3LY70iajQEGIgUbWDOI_4tTMDAKQ"
+        charset="UTF-8"></script>
+<link rel="stylesheet" crossorigin="anonymous"
+      href="/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9nZXRib290c3RyYXAuY29tL2RvY3MvNS4yL2V4YW1wbGVzL21vZGFscy8"/>
+<style>
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+
+    @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+        }
+    }
+
+    .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+
+    .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+    }
+
+    .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+    }
+
+    .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+    }
+
+    .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+</style>
+{% endblock css_style %}
+
 {% block content %}
-    <div>
-        Войти в систему
+<!--<h1>Авторизация</h1>-->
+<!--<form method="post">-->
+<!--    {% csrf_token %}-->
+
+<!--    <div class="form-error">{{ form.non_field_errors }}</div>-->
+
+<!--    {% for f in form %}-->
+<!--    <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>-->
+<!--    <div class="form-error">{{ f.errors }}</div>-->
+
+<!--    {% endfor %}-->
+
+<!--    {{form}}-->
+<!--    <button type="submit">Войти</button>-->
+<!--</form>-->
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+    <ul class="errorlist error_border">
+        {% for error in form.non_field_errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="modal modal-signin position-static d-block py-5" tabindex="-1" role="dialog"
+         id="modalSignin">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header p-5 pb-4 border-bottom-0">
+                    <!-- <h1 class="modal-title fs-5" >Modal title</h1> -->
+                    <h1 class="fw-bold mb-0 fs-2">Авторизация</h1>
+                </div>
+
+                <div class="modal-body p-5 pt-0">
+                    <form class="">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control rounded-3" id="floatingInput"
+                                   name="{{ form.username.name }}"
+                                   placeholder="{{ form.username.label }}">
+                            <label for="floatingInput">{{form.username.label}}</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control rounded-3" id="floatingPassword"
+                                   name="{{ form.password.name }}"
+                                   placeholder="{{ form.password.label }}">
+                            <label for="floatingPassword">{{ form.password.label }}</label>
+                        </div>
+                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Войти</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+</form>
 {% endblock %}
