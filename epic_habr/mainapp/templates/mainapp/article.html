@@ -7,9 +7,20 @@
 
 {% block content %}
 
-    <div>
-        <h1>{{ article.title|title }}</h1>
-        <br>
+    <div class="block_content">
+        <h1>Статья "{{ article.title|title }}"</h1>
+        <h4>Автор: {% if article.author.first_name %}
+            {{ article.author.first_name|title }} {{ article.author.last_name|title }}
+        {% else %}
+            {{ article.author.username }}
+        {% endif %}</h4>
+        <p>Тема: {{ article.subject }}</p>
+        <h4>Хабы:
+            {% for hub in article.hubs.all %}
+                <a href="{% url 'art:hub_related_articles' hub.name_slug %}">{{ hub.name }}</a>{% if not forloop.last %}
+                ,{% else %}.{% endif %}
+            {% endfor %}
+        </h4>
         <p> {{ article.text }}</p>
         <br>
     </div>

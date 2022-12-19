@@ -7,6 +7,8 @@ urlpatterns = [
 
     path('', mainapp.main, name='index'),
     path('<int:pk>/', mainapp.get_article, name='article'),
+    path('delete/<int:pk>/', mainapp.delete_article, name='delete'),
     path('<str:subject>/', mainapp.get_subject_related_articles, name='subject_related_articles'),
+    path('hub/<str:hub_en_name>/', mainapp.get_hub_related_articles, name='hub_related_articles'),
 
 ]

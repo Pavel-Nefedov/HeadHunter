@@ -4,6 +4,8 @@ from django.contrib import auth, messages
 
 import sys
 
+from mainapp.models import Article
+
 sys.path.append('../')
 
 from userapp.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
@@ -69,10 +71,12 @@ def profile(request):
         form = UserProfileForm(instance=request.user)
     title = 'Личный кабинет'
     h1 = 'Личный кабинет на эпичном хабре'
+    article_list = Article.objects.filter(author=request.user, deleted_at=None)
     content = {
         'h1': h1,
         'title': title,
-        'form': form
+        'form': form,
+        'article_list': article_list,
     }
     return render(request, 'userapp/profile.html', content)
 

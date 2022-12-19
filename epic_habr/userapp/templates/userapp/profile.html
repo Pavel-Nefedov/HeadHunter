@@ -33,4 +33,8 @@
             <p class="aligncenter"><a href="{% url 'main' %}">Вернуться на главную</a></p>
         </div>
     </div>
+    <div class="block_content">
+    <h2>Мои статьи</h2>
+    {% include 'mainapp/includes/inc_article_list.html' %}
+    </div>
 {% endblock %}
