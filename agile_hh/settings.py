@@ -36,6 +36,7 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost ").split(" ")
 INSTALLED_APPS = [
     # My apps
     'authapp.apps.AuthappConfig',
+    'mainapp.apps.MainappConfig',
     'candidateapp',
     'companyapp',
 

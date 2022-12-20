@@ -6,6 +6,7 @@ some-sleep:
 	sleep 3
 
 rm-migrations-dirs:
+	rm -rf authapp/mainapp
 	rm -rf authapp/migrations
 	rm -rf candidateapp/migrations
 	rm -rf candidateapp/companyapp
@@ -44,6 +45,7 @@ runserver:
 	python manage.py runserver
 
 makemigrations:
+	python manage.py makemigrations mainapp
 	python manage.py makemigrations authapp
 	python manage.py makemigrations candidateapp
 	python manage.py makemigrations companyapp
@@ -57,6 +59,6 @@ createsuperuser:
 
 # --- Code section ----------------------
 check-code:
-	isort agile_hh/ candidateapp/ authapp/ companyapp/
-	flake8 --extend-ignore E501,F401 agile_hh/ candidateapp/ authapp/ companyapp/
+	isort agile_hh/ candidateapp/ authapp/ companyapp/ mainapp/
+	flake8 --extend-ignore E501,F401 agile_hh/ candidateapp/ authapp/ companyapp/ mainapp/
 # --------------------------------------------
