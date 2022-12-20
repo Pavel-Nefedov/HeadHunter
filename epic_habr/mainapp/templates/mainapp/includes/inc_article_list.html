@@ -19,9 +19,9 @@
         </h4>
         <p>Тема: {{ article.subject }}</p>
         <ul>
-            <li><a href="{% url 'art:article' article.pk %}">Читать</a></li>
+            <li><a href="{% url 'art:article' article.uid %}">Читать</a></li>
             {% if user.username == article.author.username %}
-                <li><a href="{% url 'art:delete' article.pk %}">Удалить</a></li>
+                <li><a href="{% url 'art:delete' article.uid %}">Удалить</a></li>
             {% endif %}
         </ul>
         <p>_______________________________________</p>
