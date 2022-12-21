@@ -21,7 +21,7 @@
                 ,{% else %}.{% endif %}
             {% endfor %}
         </h4>
-        <p> {{ article.text }}</p>
+        <p> {{ article.text|safe }}</p>
         <br>
     </div>
 
