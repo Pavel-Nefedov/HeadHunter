@@ -30,6 +30,9 @@ docker-down:
 docker-down-remove-volumes:
 	docker-compose -f docker-compose.yml down -v --remove-orphans
 
+docker-up:
+	docker-compose -f docker-compose.yml up -d
+
 docker-build-up:
 	docker-compose -f docker-compose.yml up -d --build
 
@@ -59,6 +62,9 @@ migrate:
 
 createsuperuser:
 	 python manage.py createsuperuser --noinput
+
+collectstatic:
+	python manage.py collectstatic --no-input
 # --------------------------------------------
 
 # --- Code section ----------------------
