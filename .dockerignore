@@ -1,0 +1,6 @@
+.git/
+.idea/
+*.md
+venv/
+.env.example
+.gitlab-ci.yml

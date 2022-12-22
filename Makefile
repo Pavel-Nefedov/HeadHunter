@@ -35,11 +35,15 @@ docker-build-up:
 
 docker-logs:
 	docker-compose -f docker-compose.yml logs -f
+
+python-cli:
+	docker exec -ti hh-agile-python-cli sh
+
 # --------------------------------------------
 
 # --- Django section ----------------------
 flush:
-	python manage.py flush
+	python manage.py flush --no-input
 
 runserver:
 	python manage.py runserver
