@@ -6,10 +6,10 @@ some-sleep:
 	sleep 3
 
 rm-migrations-dirs:
-	rm -rf authapp/mainapp
+	rm -rf mainapp/migrations
 	rm -rf authapp/migrations
 	rm -rf candidateapp/migrations
-	rm -rf candidateapp/companyapp
+	rm -rf companyapp/migrations
 
 clean-start-for-development:rm-migrations-dirs docker-down-remove-volumes docker-build-up \
 some-sleep makemigrations migrate createsuperuser runserver
