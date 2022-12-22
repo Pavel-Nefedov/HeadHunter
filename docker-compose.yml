@@ -7,11 +7,11 @@ services:
     build:
       context: ./
       dockerfile: ./docker/development/python-cli.docker
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn agile_hh.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - ./:/usr/src/app/
-    ports:
-      - 8000:8000
+      - ./:/home/app/web/
+    expose:
+      - 8000
     env_file:
       - ./.env
     depends_on:
@@ -36,11 +36,11 @@ services:
       context: ./
       dockerfile: ./docker/development/nginx.docker
     volumes:
-      - static_volume:/home/app/web/staticfiles
+      - ./staticfiles:/home/app/web/staticfiles
     ports:
       - "80:80"
     depends_on:
-      - python-cli
+      - python_container
 
   adminer_container:
     container_name: ${ADMINER_CONTAINER_NAME}

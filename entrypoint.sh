@@ -15,5 +15,6 @@ make flush
 make makemigrations
 make migrate
 make createsuperuser
+make collectstatic
 
 exec "$@"
