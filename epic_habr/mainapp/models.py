@@ -1,5 +1,7 @@
 import sys
 from pprint import pprint
+from uuid import uuid4
+
 from django.db import models
 from datetime import datetime
 
@@ -12,16 +14,7 @@ from userapp.models import User
 from common.variables import MENU_LIST
 
 
-# Create your models here.
 
-#
-# class Author(models.Model):
-#     name = models.CharField(verbose_name='Имя', max_length=32)
-#     last_name = models.CharField(verbose_name='Фамилия', max_length=64)
-#     is_active = models.BooleanField(verbose_name='Активен', default=False)
-#
-#     # def __str__(self):
-#         return f'{self.name} {self.last_name}'
 
 
 # Класс Хабов(Тэгов или ключевых слов)
@@ -40,6 +33,7 @@ class Hub(models.Model):
 
 # Класс статей
 class Article(models.Model):
+    uid = models.UUIDField(primary_key=True, default=uuid4)
     # Тема или поток, большие категории из верхнего меню. Все берется из констант в common\variables.py
     SUBJECT_CHOICES = tuple([(subject, subject) for subject in MENU_LIST if subject != 'Главная'])
     subject = models.CharField(verbose_name='Тема статьи', max_length=32, choices=SUBJECT_CHOICES, default='Другое')
@@ -51,22 +45,27 @@ class Article(models.Model):
     title = models.CharField(verbose_name='Название статьи', max_length=128)
 
     # Дата публикации, если не заполнено, то это черновик
+    # Todo: Решить, как статья будет автоматически выкладываться, если будет проставлена posted_at в будущем
+    # Todo: Реализовать отображения статуса черновик, убрать auto_now_add=True
     posted_at = models.DateTimeField(verbose_name='Дата публикации', null=True, blank=True, auto_now_add=True)
 
     # Для нежного удаления, если проставлено, значит статья не показывается
     deleted_at = models.DateTimeField(verbose_name='Дата удаления', null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
+
     updated_at = models.DateTimeField(auto_now=True)
-    # todo think maybe list of subjects or we can use keywords
 
     text = models.TextField(verbose_name='Статья', blank=True)
+
     # todo think maybe list of authors
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+
     is_posted = models.BooleanField(verbose_name='размещена', default=False, blank=True)
 
     def __str__(self):
         return f'Статья {self.title}, Автор {self.author}, Тема {self.subject}'
+
 
     def save(self, *args, **kwargs):
         if self.deleted_at:

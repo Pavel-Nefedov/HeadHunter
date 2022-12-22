@@ -1,5 +1,6 @@
 import json
 import os
+from mimesis import Person, Generic
 
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
@@ -20,7 +21,8 @@ class Command(BaseCommand):
         users = load_from_json('users')
         User.objects.all().delete()
         for user in users:
-            print(user)
             new_user = User(**user)
+            new_user.password = '12345678aA'
+            print(user)
             new_user.save()
         super_user = User.objects.create_superuser('admin', 'admin@admin.ru', 'admin')

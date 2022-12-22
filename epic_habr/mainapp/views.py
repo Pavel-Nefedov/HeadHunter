@@ -39,7 +39,7 @@ def main(request):
     return render(request, 'mainapp/index.html', content)
 
 
-def get_article(request, pk):
+def get_article(request, uid):
     title = 'Статья'
     content = {
 
@@ -47,7 +47,7 @@ def get_article(request, pk):
         'url_dict': reversed_url_dict,
         'full_url_dict': reversed_full_url_dict,
         'title': title,
-        'article': get_object_or_404(Article, pk=pk)}
+        'article': get_object_or_404(Article, uid=uid)}
     return render(request, 'mainapp/article.html', content)
 
 
@@ -91,8 +91,8 @@ def get_hub_related_articles(request, hub_en_name):
     return render(request, 'mainapp/index.html', content)
 
 
-def delete_article(request, pk):
-    article = Article.objects.get(pk=pk)
+def delete_article(request, uid):
+    article = Article.objects.get(uid=uid)
     user = request.user
     if user.username == article.author.username:
         article.deleted_at = now()
