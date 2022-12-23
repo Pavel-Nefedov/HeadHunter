@@ -106,7 +106,7 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME', BASE_DIR / "db.sqlite3"),
         'USER': os.getenv('DB_USER', "user"),
         'PASSWORD': os.getenv('DB_PASSWORD', "password"),
-        'HOST': os.getenv('IMAGE_NAME', "localhost"),
+        'HOST': os.getenv('DB_HOST', "localhost"),
         'PORT': os.getenv('DB_PORT', "5432"),
     }
 }
@@ -146,6 +146,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
