@@ -16,7 +16,7 @@ __pycache__/
 ### Django ###
 *.pyc
 /media
-/static
+/staticfiles
 
 ### Django migration folder ###
 candidateapp/migrations
