@@ -11,10 +11,9 @@ then
     echo "PostgreSQL started"
 fi
 
-make flush
-make makemigrations
-make migrate
-make createsuperuser
-make collectstatic
+make makemigrations-local
+make migrate-local
+make createsuperuser-local
+make collectstatic-local
 
 exec "$@"

@@ -13,11 +13,9 @@ class Company(models.Model):
     phone_number = models.CharField(max_length=12)
 
 
-
 class CompanyProfile(models.Model):
     company = models.OneToOneField(Company, unique=True, null=False, db_index=True, on_delete=models.CASCADE)
     about = models.CharField(blank=True, max_length=512, verbose_name='обо мне')
-
 
     @receiver(post_save, sender=Company)
     def create_user_profile(sender, instance, created, **kwargs):
@@ -54,5 +52,3 @@ class Vacancy(models.Model):
         verbose_name='Cтажировка',
         help_text=('Отметьте, если вакансия является стажировкой')
     )
-
-

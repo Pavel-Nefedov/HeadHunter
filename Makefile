@@ -42,33 +42,57 @@ docker-logs:
 python-cli:
 	docker exec -ti hh-agile-python-cli sh
 
+python-cli-log:
+	docker-compose -f docker-compose.yml logs -f python_container
+
 # --------------------------------------------
 
 # --- Django section ----------------------
-flush:
+flush-local:
 	python manage.py flush --no-input
 
-runserver:
+runserver-local:
 	python manage.py runserver
 
-makemigrations:
+makemigrations-local:
 	python manage.py makemigrations mainapp
 	python manage.py makemigrations authapp
 	python manage.py makemigrations candidateapp
 	python manage.py makemigrations companyapp
 
-migrate:
+migrate-local:
 	python manage.py migrate
 
+createsuperuser-local:
+	 python manage.py createsuperuser --no-input
+
+collectstatic-local:
+	python manage.py collectstatic --no-input
+
+flush:
+	docker-compose -f docker-compose.yml exec python_container python manage.py flush --no-input
+
+runserver:
+	docker-compose -f docker-compose.yml exec python_container python manage.py runserver
+
+makemigrations:
+	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations mainapp
+	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations authapp
+	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations candidateapp
+	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations companyapp
+
+migrate:
+	docker-compose -f docker-compose.yml exec python_container python manage.py migrate
+
 createsuperuser:
-	 python manage.py createsuperuser --noinput
+	docker-compose -f docker-compose.yml exec python_container python manage.py createsuperuser --no-input
 
 collectstatic:
-	python manage.py collectstatic --no-input
+	docker-compose -f docker-compose.yml exec python_container python manage.py collectstatic --no-input
 # --------------------------------------------
 
 # --- Code section ----------------------
 check-code:
-	isort agile_hh/ candidateapp/ authapp/ companyapp/ mainapp/
-	flake8 --extend-ignore E501,F401 agile_hh/ candidateapp/ authapp/ companyapp/ mainapp/
+	docker-compose -f docker-compose.yml exec python_container isort agile_hh/ candidateapp/ authapp/ companyapp/ mainapp/
+	docker-compose -f docker-compose.yml exec python_container flake8 --extend-ignore E501,F401 agile_hh/ candidateapp/ authapp/ companyapp/ mainapp/
 # --------------------------------------------
