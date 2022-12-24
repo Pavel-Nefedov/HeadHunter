@@ -14,6 +14,7 @@ rm-migrations-dirs:
 clean-start-for-development:rm-migrations-dirs docker-down-remove-volumes docker-build-up \
 some-sleep makemigrations migrate createsuperuser runserver
 
+# Сначала запусти виртуальную среду
 start-for-development: docker-down docker-build-up makemigrations migrate check-code runserver
 
 # --------------------------------------------
@@ -39,60 +40,60 @@ docker-build-up:
 docker-logs:
 	docker-compose -f docker-compose.yml logs -f
 
-python-cli:
-	docker exec -ti hh-agile-python-cli sh
-
-python-cli-log:
-	docker-compose -f docker-compose.yml logs -f python_container
+#python-cli:
+#	docker exec -ti hh-agile-python-cli sh
+#
+#python-cli-log:
+#	docker-compose -f docker-compose.yml logs -f python_container
 
 # --------------------------------------------
 
 # --- Django section ----------------------
-flush-local:
+flush:
 	python manage.py flush --no-input
 
-runserver-local:
+runserver:
 	python manage.py runserver
 
-makemigrations-local:
+makemigrations:
 	python manage.py makemigrations mainapp
 	python manage.py makemigrations authapp
 	python manage.py makemigrations candidateapp
 	python manage.py makemigrations companyapp
 
-migrate-local:
+migrate:
 	python manage.py migrate
 
-createsuperuser-local:
+createsuperuser:
 	 python manage.py createsuperuser --no-input
 
-collectstatic-local:
+collectstatic:
 	python manage.py collectstatic --no-input
 
-flush:
-	docker-compose -f docker-compose.yml exec python_container python manage.py flush --no-input
-
-runserver:
-	docker-compose -f docker-compose.yml exec python_container python manage.py runserver
-
-makemigrations:
-	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations mainapp
-	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations authapp
-	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations candidateapp
-	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations companyapp
-
-migrate:
-	docker-compose -f docker-compose.yml exec python_container python manage.py migrate
-
-createsuperuser:
-	docker-compose -f docker-compose.yml exec python_container python manage.py createsuperuser --no-input
-
-collectstatic:
-	docker-compose -f docker-compose.yml exec python_container python manage.py collectstatic --no-input
+#flush:
+#	docker-compose -f docker-compose.yml exec python_container python manage.py flush --no-input
+#
+#runserver:
+#	docker-compose -f docker-compose.yml exec python_container python manage.py runserver
+#
+#makemigrations:
+#	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations mainapp
+#	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations authapp
+#	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations candidateapp
+#	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations companyapp
+#
+#migrate:
+#	docker-compose -f docker-compose.yml exec python_container python manage.py migrate
+#
+#createsuperuser:
+#	docker-compose -f docker-compose.yml exec python_container python manage.py createsuperuser --no-input
+#
+#collectstatic:
+#	docker-compose -f docker-compose.yml exec python_container python manage.py collectstatic --no-input
 # --------------------------------------------
 
 # --- Code section ----------------------
 check-code:
-	docker-compose -f docker-compose.yml exec python_container isort agile_hh/ candidateapp/ authapp/ companyapp/ mainapp/
-	docker-compose -f docker-compose.yml exec python_container flake8 --extend-ignore E501,F401 agile_hh/ candidateapp/ authapp/ companyapp/ mainapp/
+	isort agile_hh/ candidateapp/ authapp/ companyapp/ mainapp/
+	flake8 --extend-ignore E501,F401 agile_hh/ candidateapp/ authapp/ companyapp/ mainapp/
 # --------------------------------------------

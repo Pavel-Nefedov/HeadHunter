@@ -19,6 +19,7 @@ __pycache__/
 /staticfiles
 
 ### Django migration folder ###
+mainapp/migrations
 candidateapp/migrations
 authapp/migrations
 companyapp/migrations
