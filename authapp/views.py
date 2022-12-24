@@ -12,7 +12,9 @@ from authapp.forms import RegisterUserForm
 class LoginUser(LoginView):
     form_class = AuthenticationForm
     template_name = 'authapp/login.html'
-    success_url = reverse_lazy('authapp:register_success')
+
+    def get_success_url(self):
+        return reverse_lazy('authapp:login_success')
     # Тут будет перенаправление в ЛК кандидата или в ЛК работодателя
 
 
@@ -38,11 +40,5 @@ class RegisterUser(CreateView):
             raise BadRequest
 
 
-
-
-
-
-
-
-class SuccessRegister(TemplateView):
-    template_name = 'authapp/register_success.html'
+class SuccessLogin(TemplateView):
+    template_name = 'authapp/login_success.html'

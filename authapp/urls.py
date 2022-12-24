@@ -7,5 +7,5 @@ app_name = 'authapp'
 urlpatterns = [
     path('login/', views.LoginUser.as_view(), name='login'),
     path('register/', views.RegisterUser.as_view(), name='register'),
-    path('register_success/', views.SuccessRegister.as_view(), name='register_success'),
+    path('login_success/', views.SuccessLogin.as_view(), name='login_success'),
 ]
