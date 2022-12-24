@@ -81,3 +81,16 @@ class Article(models.Model):
     @staticmethod
     def get_items():
         return Article.objects.filter(is_posted=True).order_by('-posted_at')
+
+
+class Comment(models.Model):
+    text = models.TextField(verbose_name='Комментарий')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    article_id = models.ForeignKey(Article, on_delete=models.CASCADE)
+
+    # список целочисленных значений, который будет содержать полный путь к корню
+    path = models.JSONField(models.IntegerField())
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(verbose_name='Дата удаления', null=True, blank=True)
