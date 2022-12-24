@@ -26,16 +26,22 @@ class RegisterUser(CreateView):
 
         if form.cleaned_data['user_role'] == 'is_company':
             user.is_company = True
+            user.save()
+            login(self.request, user)
+            return redirect('companyapp:company_profile', pk=user.pk)
         elif form.cleaned_data['user_role'] == 'is_candidate':
             user.is_candidate = True
+            user.save()
+            login(self.request, user)
+            return redirect('candidateapp:user_profile', pk=user.pk)
         else:
             raise BadRequest
 
-        user.save()
 
-        login(self.request, user)
 
-        return redirect('authapp:register_success')
+
+
+
 
 
 class SuccessRegister(TemplateView):
