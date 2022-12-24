@@ -12,7 +12,9 @@ from authapp.forms import RegisterUserForm
 class LoginUser(LoginView):
     form_class = AuthenticationForm
     template_name = 'authapp/login.html'
-    success_url = reverse_lazy('authapp:register_success')
+
+    def get_success_url(self):
+        return reverse_lazy('authapp:login_success')
     # Тут будет перенаправление в ЛК кандидата или в ЛК работодателя
 
 
@@ -26,17 +28,17 @@ class RegisterUser(CreateView):
 
         if form.cleaned_data['user_role'] == 'is_company':
             user.is_company = True
+            user.save()
+            login(self.request, user)
+            return redirect('companyapp:company_profile', pk=user.pk)
         elif form.cleaned_data['user_role'] == 'is_candidate':
             user.is_candidate = True
+            user.save()
+            login(self.request, user)
+            return redirect('candidateapp:user_profile', pk=user.pk)
         else:
             raise BadRequest
 
-        user.save()
 
-        login(self.request, user)
-
-        return redirect('authapp:register_success')
-
-
-class SuccessRegister(TemplateView):
-    template_name = 'authapp/register_success.html'
+class SuccessLogin(TemplateView):
+    template_name = 'authapp/login_success.html'

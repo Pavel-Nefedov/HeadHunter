@@ -1,17 +1,41 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block content %}
 
-<h1>Регистрация</h1>
+{% block header %}
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>Рекрутинговое агенство @Agile-HH@</h1>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <li class="selected"><a href="/">Главная</a></li>
+                    <li><a href="/auth/register/">Регистрация</a></li>
+                    <li><a href="/auth/login">Войти</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
-<form method="post">
-    {% csrf_token %}
 
-    {% for f in form %}
-    <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
-    <div class="form-error">{{ f.errors }}</div>
-    {% endfor %}
 
-    <button type="submit">Регистрация</button>
-</form>
+{% block site_content %}
+
+    <div id="site_content">
+        <div id="content">
+            <h1>Регистрация</h1>
+            <form method="post">
+                {% csrf_token %}
+
+                {% for f in form %}
+                    <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
+                    <div class="form-error">{{ f.errors }}</div>
+                {% endfor %}
+
+                <button type="submit">Регистрация</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}
