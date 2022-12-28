@@ -6,4 +6,5 @@ app_name = 'companyapp'
 
 urlpatterns = [
     path('company_profile/<int:pk>/', CompanyLK.as_view(), name='company_profile'),
+
 ]

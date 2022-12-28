@@ -6,7 +6,6 @@ from django.views.generic.detail import DetailView
 from authapp.models import HHUser
 from candidateapp.models import Candidate
 
-
 #
 # def candidate(request):
 #     title = 'Личный кабинет'
