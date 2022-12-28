@@ -20,14 +20,15 @@ class CompanyProfile(models.Model):
     @receiver(post_save, sender=Company)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
-            CompanyProfile.objects.create(user=instance)
+            CompanyProfile.objects.create(company=instance)
 
     @receiver(post_save, sender=Company)
     def save_user_profile(sender, instance, **kwargs):
-        instance.shopuserprofile.save()
+        instance.companyprofile.save()
 
 
 class Vacancy(models.Model):
+    company = models.OneToOneField(Company, unique=True, null=False, db_index=True, on_delete=models.CASCADE)
     about_company = models.CharField(blank=True, max_length=512, verbose_name='Обязанности')
     duties_description = models.CharField(blank=True, max_length=512, verbose_name='Обязанности')
     requirements_description = models.CharField(blank=True, max_length=512, verbose_name='Требования')
@@ -52,3 +53,12 @@ class Vacancy(models.Model):
         verbose_name='Cтажировка',
         help_text=('Отметьте, если вакансия является стажировкой')
     )
+
+    @receiver(post_save, sender=Company)
+    def create_vacancy(sender, instance, created, **kwargs):
+        if created:
+            Vacancy.objects.create(company=instance)
+
+    @receiver(post_save, sender=Company)
+    def save_vacancy(sender, instance, **kwargs):
+        instance.vacancy.save()
