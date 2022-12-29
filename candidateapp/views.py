@@ -21,3 +21,6 @@ from candidateapp.models import Candidate
 class ShowProfilePageView(TemplateView):
     template_name = 'candidateapp/candidate.html'
 
+
+class CandidateLK(TemplateView):
+    template_name = 'candidateapp/candidate_lk.html'
