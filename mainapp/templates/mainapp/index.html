@@ -2,42 +2,36 @@
 {% load static %}
 
 {% block header %}
-<div id="main">
-    <div id="header">
-        <div id="logo">
-            <h1>Рекрутинговое агенство @Agile-HH@</h1>
-        </div>
-        <div id="menubar">
-            <ul id="menu">
-                <li class="selected"><a href="/">Главная</a></li>
-                <li><a href="/auth/register/">Регистрация</a></li>
-                <li><a href="/auth/login">Войти</a></li>
-            </ul>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>Рекрутинговое агенство @Agile-HH@</h1>
+            </div>
+            {% include 'mainapp/includes/main_menu.html' %}
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% block site_content %}
-<div id="site_content">
-    <div class="sidebar">
-        <h3>Новости</h3>
-        <p>Какая-то статья 1<br/><a href="https://dzen.ru/news/">Читай больше</a></p>
-        <p>Какая-то статья 2<br/><a href="https://dzen.ru/news/">Читай больше</a></p>
-        <p>Какая-то статья 3<br/><a href="https://dzen.ru/news/">Читай больше</a></p>
-        <p></p>
-        <h3>Список компаний партнеров</h3>
-        <ul>
-            <li><a href="#">Компания 1</a></li>
-            <li><a href="#">Компания 2</a></li>
-            <li><a href="#">Компания 3</a></li>
-            <li><a href="#">Компания 4</a></li>
-        </ul>
-    </div>
+    <div id="site_content">
+        <div class="sidebar">
+            <h3>Новости</h3>
+            <p>Какая-то статья 1<br/><a href="https://dzen.ru/news/">Читай больше</a></p>
+            <p>Какая-то статья 2<br/><a href="https://dzen.ru/news/">Читай больше</a></p>
+            <p>Какая-то статья 3<br/><a href="https://dzen.ru/news/">Читай больше</a></p>
+            <p></p>
+            <h3>Список компаний партнеров</h3>
+            <ul>
+                <li><a href="#">Компания 1</a></li>
+                <li><a href="#">Компания 2</a></li>
+                <li><a href="#">Компания 3</a></li>
+                <li><a href="#">Компания 4</a></li>
+            </ul>
+        </div>
 
-    <div id="content">
-        <h1>Правила портала</h1>
-        <p>описание правил</p>
+        <div id="content">
+            <h1>Правила портала</h1>
+            <p>описание правил</p>
+        </div>
     </div>
-</div>
 {% endblock %}

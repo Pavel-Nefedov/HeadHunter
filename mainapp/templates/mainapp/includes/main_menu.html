@@ -1,0 +1,12 @@
+{#{% include 'mainapp/includes/main_menu.html' %}#}
+<div id="menubar">
+    <ul id="menu">
+        <li class="selected"><a href="/">Главная</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="/auth/logout">Выйти</a></li>
+        {% else %}
+            <li><a href="/auth/register/">Регистрация</a></li>
+            <li><a href="/auth/login">Войти</a></li>
+        {% endif %}
+    </ul>
+</div>
