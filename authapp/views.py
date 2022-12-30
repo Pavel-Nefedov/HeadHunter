@@ -5,6 +5,7 @@ from django.core.exceptions import BadRequest, PermissionDenied
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView
+from authapp.models import HHUser
 
 from authapp.forms import RegisterUserForm
 
@@ -13,9 +14,16 @@ class LoginUser(LoginView):
     form_class = AuthenticationForm
     template_name = 'authapp/login.html'
 
-    def get_success_url(self):
-        return reverse_lazy('authapp:login_success')
-    # Тут будет перенаправление в ЛК кандидата или в ЛК работодателя
+    def form_valid(self, form):
+        user = form.get_user()
+        if user.is_candidate:
+            return redirect('candidateapp:user_profile', pk=user.pk)
+        if user.is_company:
+            return redirect('companyapp:company_profile', pk=user.pk)
+        if user.is_superuser:
+            return redirect('/admin', pk=user.pk)
+
+# Тут будет перенаправление в ЛК кандидата или в ЛК работодателя
 
 
 class RegisterUser(CreateView):
