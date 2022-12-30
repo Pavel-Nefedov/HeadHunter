@@ -8,7 +8,12 @@
             <div id="logo">
                 <h1>Рекрутинговое агенство @Agile-HH@</h1>
             </div>
-            {% include 'mainapp/includes/main_menu.html' %}
+            <div id="menubar">
+                <ul id="menu">
+                    <li class="selected"><a href="/">Главная</a></li>
+                    <li><a href="/auth/logout">Выйти</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 {% endblock %}

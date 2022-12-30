@@ -3,16 +3,7 @@
     <ul id="menu">
         <li class="selected"><a href="/">Главная</a></li>
         {% if user.is_authenticated %}
-            {% if user.is_candidate %}
-                <li><a href="{% url 'candidate:user_profile' user.pk %}">Личный кабинет соискателя</a></li>
-                <li><a href="{% url 'candidate:candidate_lk' %}">Мое резюме</a></li>
-            {% endif %}
-            {% if user.is_company %}
-                <li><a href="{% url 'company:company_profile' user.pk %}">Личный кабинет компании</a></li>
-                <li><a href="{% url 'company:company_lk' %}">Карточка компании</a></li>
-                <li><a href="{% url 'company:vacancy_search' %}">Поиск вакансий</a></li>
-            {% endif %}
-            <li><a href="/auth/logout?next=/auth/login">Выйти</a></li>
+            <li><a href="/auth/logout">Выйти</a></li>
         {% else %}
             <li><a href="/auth/register/">Регистрация</a></li>
             <li><a href="/auth/login">Войти</a></li>

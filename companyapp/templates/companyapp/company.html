@@ -8,9 +8,15 @@
             <div id="logo">
                 <h1>Рекрутинговое агенство @Agile-HH@</h1>
             </div>
-            {% include 'mainapp/includes/main_menu.html' %}
+            <div id="menubar">
+                <ul id="menu">
+                    <li class="selected"><a href="/">Главная</a></li>
+                    <li><a href="/company/company_lk/">Заполнить карточку</a></li>
+                    <li><a href="/company/vacancy_search/">Поиск вакансий</a></li>
+                    <li><a href=/auth/logout">Выйти</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
     </div>
 {% endblock %}
 
@@ -22,7 +28,7 @@
         <div id="content">
             <h1>Личный кабинет компании</h1>
             <h3>База данных резюме</h3>
-            <p>Добавить базу</a></p>
+                <p>Добавить базу</a></p>
 
             <h3>Для заполнения карточки компании и предлагаемых вакансий перейдите на вкладку "Заполнить карточку"</h3>
         </div>
