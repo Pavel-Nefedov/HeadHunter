@@ -1,6 +1,7 @@
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LogoutView
 from django.core.exceptions import BadRequest, PermissionDenied
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -50,3 +51,7 @@ class RegisterUser(CreateView):
 
 class SuccessLogin(TemplateView):
     template_name = 'authapp/login_success.html'
+
+
+class LogoutUser(LogoutView):
+    template_name = 'authapp/login.html'
