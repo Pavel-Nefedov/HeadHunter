@@ -25,3 +25,4 @@ authapp/migrations
 companyapp/migrations
 
 ### Other ###
+/.env
