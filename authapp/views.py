@@ -17,6 +17,7 @@ class LoginUser(LoginView):
 
     def form_valid(self, form):
         user = form.get_user()
+        login(self.request, user)
         if user.is_candidate:
             return redirect('candidateapp:user_profile', pk=user.pk)
         if user.is_company:
@@ -54,4 +55,5 @@ class SuccessLogin(TemplateView):
 
 
 class LogoutUser(LogoutView):
-    template_name = 'authapp/login.html'
+    next_page = '/auth/login'
+
