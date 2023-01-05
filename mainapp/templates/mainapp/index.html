@@ -16,9 +16,9 @@
     <div id="site_content">
         <div class="sidebar">
             <h3>Новости</h3>
-            <p>Какая-то статья 1<br/><a href="https://dzen.ru/news/">Читай больше</a></p>
-            <p>Какая-то статья 2<br/><a href="https://dzen.ru/news/">Читай больше</a></p>
-            <p>Какая-то статья 3<br/><a href="https://dzen.ru/news/">Читай больше</a></p>
+            {% for item in news %}
+                <p>{{ item.title }}<br/><a href="{{ item.link }}">Читай больше</a></p>
+            {% endfor %}
             <p></p>
             <h3>Список компаний партнеров</h3>
             <ul>
