@@ -70,6 +70,10 @@ createsuperuser:
 collectstatic:
 	python manage.py collectstatic --no-input
 
+parse_news:
+	python manage.py parse_news
+
+
 #flush:
 #	docker-compose -f docker-compose.yml exec python_container python manage.py flush --no-input
 #

@@ -5,6 +5,7 @@ from datetime import datetime
 
 import requests
 from lxml.html import fromstring
+from tqdm import tqdm
 
 
 class Status:
@@ -94,7 +95,7 @@ class HHNewsScrapper(AbstractScrapper):
         dom = fromstring(HTTPResponse.get_response_text(self.URL_FOR_SCRAPING))
 
         items = dom.xpath(self.MAIN_NEWS_XPATH)
-        for item in items:
+        for item in tqdm(items):
             item_news_title = item.xpath(self.PART_NEWS_TITLE_XPATH)[0]
             item_news_link = self.BASE_URL + item.xpath(self.PART_NEWS_HREF_XPATH)[0]
             item_news_date, item_news_description = self.__get_news_date_description_and_content(
