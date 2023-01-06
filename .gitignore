@@ -16,7 +16,8 @@ __pycache__/
 ### Django ###
 *.pyc
 /media
-/mainapp/static
+# Именно эту папку надо игнорить, не менять (Roman Sl)
+/static
 
 ### Django migration folder ###
 mainapp/migrations
@@ -25,4 +26,4 @@ authapp/migrations
 companyapp/migrations
 
 ### Other ###
-/.env
+*.DS_Store
