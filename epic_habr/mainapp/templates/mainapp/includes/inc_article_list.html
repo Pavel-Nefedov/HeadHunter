@@ -1,0 +1,31 @@
+{% load my_filter %}
+<ul class="article_list">
+    {% for article in article_list %}
+
+        <li>
+            <h3>{{ article.title|title }}</h3>
+            <h4>{{ article.posted_at|date:"M d, Y" }}</h4>
+            <h4>Хабы:
+                {% for hub in article.hubs.all %}
+                    <a href="{% url 'art:hub_related_articles' hub.name_slug %}">{{ hub.name }}</a>
+                    {% if not forloop.last %},{% else %}.{% endif %}
+                {% endfor %}
+            </h4>
+            <h4>Автор: {% if article.author.first_name %}
+                {{ article.author.first_name|title }} {{ article.author.last_name|title }}</li>
+            {% else %}
+                {{ article.author.username }}
+            {% endif %}
+        </h4>
+        <p>Тема: {{ article.subject }}</p>
+        <ul>
+            <li><a href="{% url 'art:article' article.uid %}">Читать</a></li>
+            {% if user.username == article.author.username %}
+                <li><a href="{% url 'art:delete' article.uid %}">Удалить</a></li>
+            {% endif %}
+        </ul>
+        <p>_______________________________________</p>
+        </li>
+
+    {% endfor %}
+</ul>

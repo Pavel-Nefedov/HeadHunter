@@ -1,0 +1,44 @@
+{% load my_filter %}
+{% load static %}
+<ul class="login_top_string">
+    {% if user.username %}
+        <li>Привет,
+            {% if user.first_name %}
+                {{ user.first_name|title }} {{ user.last_name|title }}!</li>
+            {% else %}
+                {{ user.username }}
+            {% endif %}
+        <li style="margin-right: 30px"><a href="{% url 'login:profile' %}">Личный кабинет</a></li>
+        <li><a href="{% url 'login:logout' %}">Выйти</a></li>
+    {% else %}
+        <li><a href="{% url 'login:index' %}">Авторизация</a></li>
+        <li><a href="{% url 'login:register' %}">Регистрация</a></li>
+    {% endif %}
+</ul>
+{% if url_dict %}
+    <ul class="menu-main">
+        {% for key, value in url_dict.items %}
+            <li{% if request.path == full_url_dict|get_from_dict:key %} class="IamHere"{% endif %}>
+                <a href="{% url 'art:index' %}{{ value }}">{{ key }}</a>
+            </li>
+
+        {% endfor %}
+    </ul>
+{% endif %}
+{% if request.path|path_contain:"login" %}
+    {% if messages or form.errors %}
+        <div class="alert {% if messages %}alert-success{% else %}alert-warning{% endif %}" >
+            {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            {% else %}
+                {% if form.non_field_errors %}
+                    {{ form.non_field_errors }}
+                {% else %}
+                    {{ form.errors }}
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endif %}
