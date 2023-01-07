@@ -1,3 +1,13 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render
-from django.views.generic.detail import DetailView
+from django.views.generic import TemplateView
+
+
+class CompanyLK(TemplateView):
+    template_name = 'companyapp/company.html'
+
+
+class CompanyK(TemplateView):
+    template_name = 'companyapp/company_lk.html'
+
+
+class VacancySearch(TemplateView):
+    template_name = 'companyapp/vacancy_search.html'

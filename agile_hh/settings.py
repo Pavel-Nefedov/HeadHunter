@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     # My apps
     'authapp.apps.AuthappConfig',
     'mainapp.apps.MainappConfig',
-    'candidateapp',
-    'companyapp',
+    #'candidateapp',
+    'candidateapp.apps.CandidateappConfig',
+    #'companyapp',
+    'companyapp.apps.CompanyappConfig',
 
     # Third-party apps
     'debug_toolbar',
@@ -106,7 +108,7 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME', BASE_DIR / "db.sqlite3"),
         'USER': os.getenv('DB_USER', "user"),
         'PASSWORD': os.getenv('DB_PASSWORD', "password"),
-        'HOST': os.getenv('IMAGE_NAME', "localhost"),
+        'HOST': os.getenv('DB_HOST', "localhost"),
         'PORT': os.getenv('DB_PORT', "5432"),
     }
 }
@@ -146,6 +148,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / "static"
+STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'mainapp/static'),
+        # os.path.join(BASE_DIR, 'authapp/static'),
+    ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

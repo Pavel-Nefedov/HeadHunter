@@ -1,10 +1,37 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load static %}
 
-{% block css_style %}
-{% endblock css_style %}
+{% block header %}
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>Рекрутинговое агенство @Agile-HH@</h1>
+            </div>
+            {% include 'mainapp/includes/main_menu.html' %}
+        </div>
+    </div>
+{% endblock %}
 
-{% block content %}
-    <h1>Главная страница</h1>
+{% block site_content %}
+    <div id="site_content">
+        <div class="sidebar">
+            <h3>Новости</h3>
+            {% for item in news %}
+                <p>{{ item.title }}<br/><a href="{{ item.link }}">Читай больше</a></p>
+            {% endfor %}
+            <p></p>
+            <h3>Список компаний партнеров</h3>
+            <ul>
+                <li><a href="#">Компания 1</a></li>
+                <li><a href="#">Компания 2</a></li>
+                <li><a href="#">Компания 3</a></li>
+                <li><a href="#">Компания 4</a></li>
+            </ul>
+        </div>
 
-    <h2>Новости:</h2>
+        <div id="content">
+            <h1>Правила портала</h1>
+            <p>описание правил</p>
+        </div>
+    </div>
 {% endblock %}

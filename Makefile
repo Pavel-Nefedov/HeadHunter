@@ -14,6 +14,7 @@ rm-migrations-dirs:
 clean-start-for-development:rm-migrations-dirs docker-down-remove-volumes docker-build-up \
 some-sleep makemigrations migrate createsuperuser runserver
 
+# Сначала запусти виртуальную среду
 start-for-development: docker-down docker-build-up makemigrations migrate check-code runserver
 
 # --------------------------------------------
@@ -30,16 +31,26 @@ docker-down:
 docker-down-remove-volumes:
 	docker-compose -f docker-compose.yml down -v --remove-orphans
 
+docker-up:
+	docker-compose -f docker-compose.yml up -d
+
 docker-build-up:
 	docker-compose -f docker-compose.yml up -d --build
 
 docker-logs:
 	docker-compose -f docker-compose.yml logs -f
+
+#python-cli:
+#	docker exec -ti hh-agile-python-cli sh
+#
+#python-cli-log:
+#	docker-compose -f docker-compose.yml logs -f python_container
+
 # --------------------------------------------
 
 # --- Django section ----------------------
 flush:
-	python manage.py flush
+	python manage.py flush --no-input
 
 runserver:
 	python manage.py runserver
@@ -54,7 +65,35 @@ migrate:
 	python manage.py migrate
 
 createsuperuser:
-	 python manage.py createsuperuser --noinput
+	 python manage.py createsuperuser --no-input
+
+collectstatic:
+	python manage.py collectstatic --no-input
+
+parse_news:
+	python manage.py parse_news
+
+
+#flush:
+#	docker-compose -f docker-compose.yml exec python_container python manage.py flush --no-input
+#
+#runserver:
+#	docker-compose -f docker-compose.yml exec python_container python manage.py runserver
+#
+#makemigrations:
+#	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations mainapp
+#	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations authapp
+#	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations candidateapp
+#	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations companyapp
+#
+#migrate:
+#	docker-compose -f docker-compose.yml exec python_container python manage.py migrate
+#
+#createsuperuser:
+#	docker-compose -f docker-compose.yml exec python_container python manage.py createsuperuser --no-input
+#
+#collectstatic:
+#	docker-compose -f docker-compose.yml exec python_container python manage.py collectstatic --no-input
 # --------------------------------------------
 
 # --- Code section ----------------------
