@@ -1,14 +1,18 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render,HttpResponseRedirect
-
 from django.views.generic import UpdateView, DetailView
+from django.shortcuts import get_object_or_404, render
+from django.views import View
+from django.views.generic import TemplateView, ListView
+from django.views.generic.detail import DetailView
 
+from authapp.models import HHUser
+from companyapp.models import Vacancy
 from candidateapp.models import Candidate, Resume
 from candidateapp.forms import CandidateForm
 
 
-class ShowProfilePageView(DetailView):
-    model = Candidate
+class ShowProfilePageView(TemplateView):
     template_name = 'candidateapp/candidate.html'
 
     def get_context_data(self, *args, **kwargs):
@@ -40,3 +44,7 @@ class ShowResumePageView(DetailView):
         page_user = get_object_or_404(Resume, id=self.kwargs['pk'])
         context['page_user'] = page_user
         return context
+
+
+class CandidateLK(TemplateView):
+    template_name = 'candidateapp/candidate_lk.html'

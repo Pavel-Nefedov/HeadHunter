@@ -30,12 +30,21 @@ class CompanyProfile(models.Model):
 class Vacancy(models.Model):
     company = models.OneToOneField(Company, unique=True, null=False, db_index=True, on_delete=models.CASCADE)
     about_company = models.CharField(blank=True, max_length=512, verbose_name='Обязанности')
+    vacancy_name = models.CharField(max_length=30, unique=False, null=False, db_index=True,default='SOME STRING')
+    city = models.CharField(max_length=30, unique=False, null=False, db_index=True, default='CITY N')
+    company = models.OneToOneField(Company, unique=False, null=False, db_index=True, on_delete=models.CASCADE)
+    about_company = models.CharField(blank=True, max_length=512, verbose_name='О компании')
     duties_description = models.CharField(blank=True, max_length=512, verbose_name='Обязанности')
     requirements_description = models.CharField(blank=True, max_length=512, verbose_name='Требования')
     work_conditions = models.CharField(blank=True, max_length=512, verbose_name='Условия труда')
     created = models.DateTimeField(auto_now_add=True)
     salary_min = models.CharField(blank=True, max_length=512, verbose_name='Минимальная заралата')
     salary_max = models.CharField(blank=True, max_length=512, verbose_name='Максимальная заралата')
+    is_active = models.BooleanField(verbose_name='активна', default=True)
+
+    def delete(self, *args, **kwargs):
+        self.is_active = False
+        self.save()
 
     is_for_disabled = models.BooleanField(
         default=False,

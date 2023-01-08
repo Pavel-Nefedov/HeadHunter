@@ -1,6 +1,6 @@
 from django.urls import path
-
 from .views import ShowProfilePageView, ShowProfileUpdateView, ShowResumePageView, CandidateLK
+# from .views import candidate
 
 
 app_name = 'candidateapp'

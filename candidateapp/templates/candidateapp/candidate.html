@@ -3,20 +3,20 @@
 
 
 {% block header %}
-    <div id="main">
+<div id="main">
     <div id="header">
         <div id="logo">
             <h1>Рекрутинговое агенство @Agile-HH@</h1>
             {% include 'mainapp/includes/main_menu.html' %}
         </div>
     </div>
+</div>
 {% endblock %}
 
 
 
 {% block site_content %}
-
-    <div id="site_content">
+<div id="site_content">
     <div id="content">
         <h1>Личный кабинет кандидата</h1>
         <h3>База данных резюме</h3>
@@ -26,4 +26,10 @@
 
         <h3>Для заполнения заполнения резюме перейдите на вкладку "Личный кабинет"</h3>
     </div>
+</div>
+{% endblock %}
+
+
+{% block footer %}
+    {% include 'mainapp/includes/inc_footer.html' %}
 {% endblock %}
