@@ -1,10 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
-from django.views.generic import TemplateView
+from django.views import View
+from django.views.generic import TemplateView, ListView
 from django.views.generic.detail import DetailView
 
 from authapp.models import HHUser
 from candidateapp.models import Candidate
+from companyapp.models import Vacancy
+
 
 #
 # def candidate(request):
@@ -20,6 +23,7 @@ from candidateapp.models import Candidate
 
 class ShowProfilePageView(TemplateView):
     template_name = 'candidateapp/candidate.html'
+
 
 
 class CandidateLK(TemplateView):

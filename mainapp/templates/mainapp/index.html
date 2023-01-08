@@ -32,6 +32,9 @@
         <div id="content">
             <h1>Правила портала</h1>
             <p>описание правил</p>
+            {% if user.is_candidate %}
+                {% include 'mainapp/includes/vacancies_cards.html' %}
+            {% endif %}
         </div>
     </div>
 {% endblock %}
