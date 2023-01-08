@@ -4,6 +4,8 @@ from companyapp.models import Vacancy
 
 from mainapp.models import News
 
+from mainapp.models import News
+
 
 class Index(TemplateView):
     template_name = 'mainapp/index.html'

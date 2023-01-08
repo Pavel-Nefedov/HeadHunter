@@ -28,6 +28,8 @@ class CompanyProfile(models.Model):
 
 
 class Vacancy(models.Model):
+    company = models.OneToOneField(Company, unique=True, null=False, db_index=True, on_delete=models.CASCADE)
+    about_company = models.CharField(blank=True, max_length=512, verbose_name='Обязанности')
     vacancy_name = models.CharField(max_length=30, unique=False, null=False, db_index=True,default='SOME STRING')
     city = models.CharField(max_length=30, unique=False, null=False, db_index=True, default='CITY N')
     company = models.OneToOneField(Company, unique=False, null=False, db_index=True, on_delete=models.CASCADE)

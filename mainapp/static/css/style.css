@@ -332,10 +332,12 @@ ul#menu li a:hover, ul#menu li.selected a, ul#menu li.selected a:hover {
     margin: 0 0 20px 0;
 }
 
+
 .vacancy-cards {
     margin-bottom: 10px;
     text-align: left;
 }
+
 
 table {
     margin: 10px 0 30px 0;
