@@ -9,7 +9,7 @@ from django.views.generic.detail import DetailView
 from authapp.models import HHUser
 from companyapp.models import Vacancy
 from candidateapp.models import Candidate, Resume
-from candidateapp.forms import CandidateForm
+# from candidateapp.forms import CandidateForm
 
 
 class ShowProfilePageView(TemplateView):
