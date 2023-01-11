@@ -1,9 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+
 from companyapp.models import Vacancy
-
-from mainapp.models import News
-
 from mainapp.models import News
 
 

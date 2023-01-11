@@ -11,4 +11,3 @@ class CompanyK(TemplateView):
 
 class VacancySearch(TemplateView):
     template_name = 'companyapp/vacancy_search.html'
-

@@ -1,14 +1,8 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render,HttpResponseRedirect
-from django.views.generic import UpdateView, DetailView
-from django.shortcuts import get_object_or_404, render
-from django.views import View
-from django.views.generic import TemplateView, ListView
-from django.views.generic.detail import DetailView
+from django.shortcuts import get_object_or_404
+from django.views.generic import DetailView, TemplateView, UpdateView
 
-from authapp.models import HHUser
-from companyapp.models import Vacancy
 from candidateapp.models import Candidate, Resume
+
 # from candidateapp.forms import CandidateForm
 
 
@@ -33,6 +27,7 @@ class ShowProfileUpdateView(UpdateView):
         "phone_number",
         "search_area",
     ]
+
 
 class ShowResumePageView(DetailView):
     model = Resume
