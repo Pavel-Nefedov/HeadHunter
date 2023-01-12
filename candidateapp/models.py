@@ -48,7 +48,8 @@ class ContactInfo(models.Model):
     )
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, verbose_name='Гендер')
     moving = models.CharField(max_length=1, choices=MOVING_CHOICES, blank=True, verbose_name='Возможен ли переезд')
-    business_trips = models.CharField(max_length=1, choices=BUSINESS_TRIPS_CHOICES, blank=True, verbose_name='Командировки')
+    business_trips = models.CharField(max_length=1, choices=BUSINESS_TRIPS_CHOICES, blank=True,
+                                      verbose_name='Командировки')
 
     def __str__(self):
         return f'{self.name} {self.surname}'
@@ -134,7 +135,6 @@ class AdvancedTraining(models.Model):
     year_graduation = models.DateField(auto_now=False, auto_now_add=False, verbose_name='Год окончания')
 
 
-
 class Resume(models.Model):
     contact_info = models.ForeignKey(ContactInfo,
                                      on_delete=models.SET_NULL,
@@ -148,14 +148,11 @@ class Resume(models.Model):
                                         on_delete=models.SET_NULL,
                                         null=True, blank=True,
                                         verbose_name='Опыт работы')
-    education =models.ForeignKey(Education,
-                                 on_delete=models.SET_NULL,
-                                 null=True, blank=True,
-                                 verbose_name='Образованеие')
-    advanced_training = models.ForeignKey(AdvancedTraining,
+    education = models.ForeignKey(Education,
                                   on_delete=models.SET_NULL,
                                   null=True, blank=True,
-                                  verbose_name='Повышение квалификации, курсы')
-
-
-
+                                  verbose_name='Образованеие')
+    advanced_training = models.ForeignKey(AdvancedTraining,
+                                          on_delete=models.SET_NULL,
+                                          null=True, blank=True,
+                                          verbose_name='Повышение квалификации, курсы')

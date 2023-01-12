@@ -1,5 +1,8 @@
 from django.urls import path
-from .views import ShowProfilePageView, ShowProfileUpdateView, ShowResumePageView, CandidateLK
+
+from .views import (CandidateLK, ShowProfilePageView, ShowProfileUpdateView,
+                    ShowResumePageView)
+
 # from .views import candidate
 
 
