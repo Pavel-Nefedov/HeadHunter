@@ -73,6 +73,8 @@ collectstatic:
 parse_news:
 	python manage.py parse_news
 
+test:
+	python manage.py test
 
 #flush:
 #	docker-compose -f docker-compose.yml exec python_container python manage.py flush --no-input
