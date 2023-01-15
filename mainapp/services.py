@@ -173,4 +173,4 @@ class HHVacancyParser:
 if __name__ == "__main__":
     print("This is service file. You must include her as module.")
 
-    print(HHVacancyParser(count_of_vacansy=2, search_text='python').get_vacancy_data())
+    print(HHVacancyParser(count_of_vacansy=1, search_text='python').get_vacancy_data())

@@ -34,7 +34,8 @@ class Command(BaseCommand):
                 is_company=is_company,
                 is_candidate=is_candidate,
             )
-            print(f"\tUser {temp_first_name} :: ({is_company=}, {is_candidate=}) created [login: {temp_username} password: {fake_password}]")
+            print(
+                f"\tUser {temp_first_name} :: ({is_company=}, {is_candidate=}) created [login: {temp_username} password: {fake_password}]")
 
     def handle(self, *args, **options):
         print(" Start adding fake user data ".center(79, '-'))
