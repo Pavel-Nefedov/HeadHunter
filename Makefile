@@ -14,7 +14,8 @@ rm-migrations-dirs:
 clean-start-for-development:rm-migrations-dirs docker-down-remove-volumes docker-build-up \
 some-sleep makemigrations migrate createsuperuser runserver
 
-start-for-development: poetry-shell docker-down docker-build-up makemigrations migrate check-code runserver
+# Сначала запусти виртуальную среду
+start-for-development: docker-down docker-build-up makemigrations migrate check-code runserver
 
 # --------------------------------------------
 
@@ -45,7 +46,7 @@ docker-logs:
 flush:
 	python manage.py flush --no-input
 
-runserver: poetry-shell
+runserver:
 	python manage.py runserver
 
 makemigrations:
@@ -65,6 +66,10 @@ collectstatic:
 
 parse_news:
 	python manage.py parse_news
+
+add_fake_users:
+	python manage.py add_fake_users 10
+
 # --------------------------------------------
 
 # --- Code section ----------------------

@@ -155,16 +155,22 @@ class HHVacancyParser:
         with HTTPResponse.get_response(self.BASE_URL, headers=self.headers, params=self.params) as get_request:
             # Получим список с id вакансий
             vacancy_ids = [vacancy_id['id'] for vacancy_id in get_request.json()['items']]
-            print(vacancy_ids)
 
         self.vacancy_data = []
-        for vacancy_id in vacancy_ids:
-            self.vacancy_data.append(self.__get_vacancy_data_for_id(vacancy_id=vacancy_id))
+        for vacancy_id in tqdm(vacancy_ids):
+            vacancy_data = self.__get_vacancy_data_for_id(vacancy_id=vacancy_id)
+            vacancy_data['raw_employer_description'] = self.__get_employer_description(
+                url=vacancy_data['employer']['url'])
+            self.vacancy_data.append(vacancy_data)
 
     # Пройдемся по списку id и получим полные данные по каждой вакансии
     def __get_vacancy_data_for_id(self, vacancy_id: str) -> list:
         with HTTPResponse.get_response(f"{self.BASE_URL}/{vacancy_id}", headers=self.headers) as get_request:
             return get_request.json()
+
+    def __get_employer_description(self, url: str) -> str:
+        with HTTPResponse.get_response(url, headers=self.headers) as get_request:
+            return get_request.json()['description']
 
     def get_vacancy_data(self):
         return self.vacancy_data
