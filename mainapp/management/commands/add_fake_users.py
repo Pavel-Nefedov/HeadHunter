@@ -47,6 +47,6 @@ class Command(BaseCommand):
         print("-".center(79, '-'))
 
         # Generate candidate profiles
-        self.generate_fake_users(number_of_fake_users, is_company=True)
+        self.generate_fake_users(number_of_fake_users, is_company=False)
 
         print(" End adding fake user data ".center(79, '-'))
