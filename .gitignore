@@ -27,3 +27,5 @@ companyapp/migrations
 
 ### Other ###
 *.DS_Store
+
+.coverage

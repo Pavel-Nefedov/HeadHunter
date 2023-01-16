@@ -67,8 +67,12 @@ collectstatic:
 parse_news:
 	python manage.py parse_news
 
+test:
+	python manage.py test
+
 add_fake_users:
 	python manage.py add_fake_users 10
+
 
 # --------------------------------------------
 
