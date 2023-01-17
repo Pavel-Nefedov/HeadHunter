@@ -72,6 +72,18 @@ collectstatic:
 
 parse_news:
 	python manage.py parse_news
+# --------------------------------------------
+
+# --- QA(testing) section ----------------------
+smoke_test:
+	python manage.py test mainapp.tests.TestMainappSmoke
+
+test_user_management:
+	python manage.py test authapp.tests.TestUserManagement
+
+all_tests:
+	python manage.py test mainapp.tests.TestMainappSmoke
+	python manage.py test authapp.tests.TestUserManagement
 
 
 #flush:
