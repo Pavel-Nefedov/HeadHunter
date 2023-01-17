@@ -2,14 +2,7 @@
 {% load static %}
 
 {% block header %}
-    <div id="main">
-        <div id="header">
-            <div id="logo">
-                <h1>Рекрутинговое агенство @Agile-HH@</h1>
-            </div>
-            {% include 'mainapp/includes/main_menu.html' %}
-        </div>
-    </div>
+    {% include 'mainapp/includes/inc_header.html' %}
 {% endblock %}
 
 {% block site_content %}

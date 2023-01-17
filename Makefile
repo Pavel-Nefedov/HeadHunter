@@ -2,6 +2,11 @@ include .env
 export
 
 # --- Common section ----------------------
+
+start: docker-down docker-up runserver
+
+stop: docker-down
+
 some-sleep:
 	sleep 3
 
@@ -13,9 +18,6 @@ rm-migrations-dirs:
 
 clean-start-for-development:rm-migrations-dirs docker-down-remove-volumes docker-build-up \
 some-sleep makemigrations migrate createsuperuser runserver
-
-# Сначала запусти виртуальную среду
-start-for-development: docker-down docker-build-up makemigrations migrate check-code runserver
 
 # --------------------------------------------
 
