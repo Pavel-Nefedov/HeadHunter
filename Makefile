@@ -40,12 +40,6 @@ docker-build-up:
 docker-logs:
 	docker-compose -f docker-compose.yml logs -f
 
-#python-cli:
-#	docker exec -ti hh-agile-python-cli sh
-#
-#python-cli-log:
-#	docker-compose -f docker-compose.yml logs -f python_container
-
 # --------------------------------------------
 
 # --- Django section ----------------------
@@ -85,27 +79,13 @@ all_tests:
 	python manage.py test mainapp.tests.TestMainappSmoke
 	python manage.py test authapp.tests.TestUserManagement
 
+test:
+	python manage.py test
 
-#flush:
-#	docker-compose -f docker-compose.yml exec python_container python manage.py flush --no-input
-#
-#runserver:
-#	docker-compose -f docker-compose.yml exec python_container python manage.py runserver
-#
-#makemigrations:
-#	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations mainapp
-#	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations authapp
-#	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations candidateapp
-#	docker-compose -f docker-compose.yml exec python_container python manage.py makemigrations companyapp
-#
-#migrate:
-#	docker-compose -f docker-compose.yml exec python_container python manage.py migrate
-#
-#createsuperuser:
-#	docker-compose -f docker-compose.yml exec python_container python manage.py createsuperuser --no-input
-#
-#collectstatic:
-#	docker-compose -f docker-compose.yml exec python_container python manage.py collectstatic --no-input
+add_fake_users:
+	python manage.py add_fake_users 10
+
+
 # --------------------------------------------
 
 # --- Code section ----------------------

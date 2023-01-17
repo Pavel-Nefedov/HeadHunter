@@ -2,7 +2,7 @@
 .idea
 
 ### ENV ###
-.env
+#.env
 
 ### VENV ###
 venv
@@ -27,3 +27,5 @@ companyapp/migrations
 
 ### Other ###
 *.DS_Store
+
+.coverage
