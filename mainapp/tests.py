@@ -1,19 +1,7 @@
-# Create your tests here.
+import subprocess
+# import tests.mainapp.tests_main_smoke
 
-from django.test import TestCase
-from django.test.client import Client
+# print('Hello')
+# subprocess.Popen(tests_main_smoke)
 
-class TestMainappSmoke(TestCase):
-    
-    def setUp(self):
-        self.client = Client()
-
-    def test_urls(self):
-        response = self.client.get('')
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.get('/auth/register/')
-        self.assertEqual(response.status_code, 200)
-
-        response = self.client.get('/auth/login/')
-        self.assertEqual(response.status_code, 200)
+subprocess.Popen(['python3', 'tests/mainapp/tests_main_smoke.py'], stdout=subprocess.PIPE)
