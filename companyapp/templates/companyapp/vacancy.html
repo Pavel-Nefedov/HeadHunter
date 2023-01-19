@@ -6,30 +6,30 @@
 {% endblock %}
 
 {% block site_content %}
-    <div class="container col-xxl-8 px-4 py-5">
-        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-            <div class="col-10 col-sm-8 col-lg-6">
-                <img src="{% static 'img/personal.png' %}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes"
-                     width="700"
-                     height="500" loading="lazy">
-            </div>
-            <div class="col-lg-6">
-                <h1 class="display-5 fw-bold lh-1 mb-3">Построй карьеру вместе с профессионалами!</h1>
-                <p class="lead">Мы лучшее гибкое кадровое агентство* на этой планете. Обладаем большим набором
-                    квалифицированных кандидатов, а также лучшими методами подбора персонала, основанными на машинном
-                    обучении.</p>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Посмотреть что мы можем</button>
-                </div>
-            </div>
-        </div>
-    </div>
-{% if user.is_candidate %}
     <div class="b-example-divider"></div>
     <div class="container px-4 py-5" id="icon-grid">
-    {% include 'mainapp/includes/vacancies_cards.html' %}
+                <div class="card-body">
+                    <h3 class="card-title" style="padding: 0"><a href="{% url 'company:vacancy' pk=vacancy.pk %}">
+                        {{ vacancy.vacancy_name }} </a></h3>
+                    {% if vacancy.salary_min and vacancy.salary_max %}
+                        <h3 class="subtitle-title"> {{ vacancy.salary_min }} - {{ vacancy.salary_max }}
+                            руб. </h3>
+
+                    {% elif vacancy.salary_min %}
+                        <h3 class="subtitle-title"> от {{ vacancy.salary_min }} руб. </h3>
+
+                    {% elif vacancy.salary_max %}
+                        <h3 class="subtitle-title"> до {{ vacancy.salary_max }} руб. </h3>
+                    {% endif %}
+                    <h4 class="card-subtitle mb-2 text-muted">{{ vacancy.company.company_name }}</h4>
+                    <p class="card-text">{{ vacancy.duties_description }}</p>
+                    <p class="card-text">{{ vacancy.work_conditions }}</p>
+                    <p class="card-text">{{ vacancy.requirements_description }}</p>
+                    <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
+
+
+                </div>
     </div>
-{% endif %}
 
     <div class="b-example-divider"></div>
 

@@ -1,4 +1,6 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
+
+from companyapp.models import Vacancy
 
 
 class CompanyLK(TemplateView):
@@ -11,3 +13,7 @@ class CompanyK(TemplateView):
 
 class VacancySearch(TemplateView):
     template_name = 'companyapp/vacancy_search.html'
+
+class Vacancy(DetailView):
+    template_name = 'companyapp/vacancy.html'
+    model = Vacancy

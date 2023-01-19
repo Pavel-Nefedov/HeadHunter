@@ -2,7 +2,7 @@
         {% for vacancy in vacancies %}
             <div class="card" style="margin-bottom: 10px">
                 <div class="card-body">
-                    <h3 class="card-title" style="padding: 0"><a href="{% url 'company:vacancy_search' %}">
+                    <h3 class="card-title" style="padding: 0"><a href="{% url 'company:vacancy' pk=vacancy.pk %}">
                         {{ vacancy.vacancy_name }} </a></h3>
                     {% if vacancy.salary_min and vacancy.salary_max %}
                         <h3 class="subtitle-title"> {{ vacancy.salary_min }} - {{ vacancy.salary_max }}
