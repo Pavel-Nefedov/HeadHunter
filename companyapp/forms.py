@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserChangeForm
-from models import CompanyProfile
+from companyapp.models import CompanyProfile
 
 
 class CompanyProfileForm(UserChangeForm):
@@ -13,7 +13,7 @@ class CompanyProfileForm(UserChangeForm):
     def __init__(self, *args, **kwargs):
         super(CompanyProfileForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control py-4'
+            field.widget.attrs['class'] = 'form-input'
         self.fields['user'].widget.attrs['readonly'] = True
-        self.fields['company_logo'].widget.attrs['class'] = 'custom-file-input'
+        self.fields['company_logo'].widget.attrs['class'] = 'form-input'
 
