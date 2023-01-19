@@ -1,13 +1,13 @@
-from django.contrib.auth.decorators import login_required
-from django.db.models import Q
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.views.generic import DetailView, ListView, TemplateView, UpdateView
+from django.shortcuts import get_object_or_404, render
+from django.views.generic import DetailView, TemplateView, UpdateView, ListView
 
 from candidateapp.models import Candidate, Resume
+from django.contrib.auth.decorators import login_required
 from companyapp.models import Vacancy
 
+
+class CandidateLK(TemplateView):
+    template_name = 'candidateapp/candidate_lk.html'
 
 class Candidate_Main(TemplateView):
     template_name = 'candidateapp/candidate.html'

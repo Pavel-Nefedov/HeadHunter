@@ -1,9 +1,31 @@
+<<<<<<< HEAD
 {% extends 'candidateapp/index.html' %}
 {% load static %}
 
 {% block site_content %}
 <div class="container col-xxl-8 px-4 py-5">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+=======
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block header %}
+<div id="main">
+    <div id="header">
+        <div id="logo">
+            <h1>Рекрутинговое агенство @Agile-HH@</h1>
+            {% include 'mainapp/includes/main_menu.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block site_content %}
+<div id="site_content">
+    <div id="content">
+>>>>>>> a70dd0a (Обновление модели изменение вьюс для резюме добавление страниц резюме)
         <h1>Резюме кандидата</h1>
         <div class="resume_card">
             {% for item in resume_items %}
@@ -14,9 +36,19 @@
             {% endfor %}
         </div>
 
+
+
+
+
         <div class="basket_list">
             {% include 'candidateapp/includes/inc_resume_list.html' %}
         </div>
+
     </div>
 </div>
+{% endblock %}
+
+
+{% block footer %}
+{% include 'mainapp/includes/inc_footer.html' %}
 {% endblock %}
