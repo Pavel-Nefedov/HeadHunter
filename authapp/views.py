@@ -24,8 +24,6 @@ class LoginUser(LoginView):
         if user.is_superuser:
             return redirect('/admin', pk=user.pk)
 
-# Тут будет перенаправление в ЛК кандидата или в ЛК работодателя
-
 
 class RegisterUser(CreateView):
     form_class = RegisterUserForm

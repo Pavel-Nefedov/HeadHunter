@@ -140,12 +140,21 @@ class Command(BaseCommand):
         for fake_user in range(number_of_fake_users):
             self.__generate_fake_user(is_candidate=True)
 
+        # Safe user fake data to file
+        fake_user_data_dir = settings.BASE_DIR / 'mainapp' / 'management' / 'data'
+        if not fake_user_data_dir.is_dir():
+            fake_user_data_dir.mkdir()
+
+        fake_user_data_file = fake_user_data_dir / f'{time.time()}_fake_users_data.txt'
+
         with open(
-                settings.BASE_DIR / 'mainapp' / 'management' / 'data' / f'{time.time()}_fake_users_data.txt',
+                fake_user_data_file,
                 mode=FileMode.WRITE.value,
                 encoding=settings.PROJECT_ENCODING
         ) as info_file:
             for item in self.user_info:
                 info_file.write(f"{item}\n")
+
+        print(f"Fake user data store in file {fake_user_data_file}")
 
         print(" End adding fake user data ".center(79, '-'))
