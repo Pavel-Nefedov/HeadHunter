@@ -33,12 +33,8 @@ class VacancyView(DetailView):
     model = Vacancy
 
     def get_context_data(self, pk=None, **kwargs):
-        # context = super().get_context_data(**kwargs)
-        # context['vacancies'] = Vacancy.objects.filter(id=id)
-        # context = Vacancy.objects.filter(id=vacancy_id)
         context = super(DetailView, self).get_context_data(**kwargs)
         context['vacancies'] = Vacancy.objects.filter(pk=pk)
-        print(context)
         return context
 
 
