@@ -4,7 +4,6 @@ from companyapp.views import CompanyK, CompanyLK, VacancySearch, VacancyView
 
 
 
-
 app_name = 'companyapp'
 
 urlpatterns = [

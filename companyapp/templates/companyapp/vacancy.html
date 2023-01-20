@@ -47,7 +47,7 @@
     <p class="card-text"> Подходит людям с ограниченными возможностями </p>
     {% endif %}
     {% if vacancy.is_full_day %}
-    <p class="card-text"> Полный рабочиый день </p>
+    <p class="card-text"> Полный рабочий день </p>
     {% endif %}
     {% if vacancy.is_intern %}
     <p class="card-text"> Можно новичкам и стажерам </p>
@@ -114,5 +114,5 @@
 {% endblock %}
 
 {% block footer %}
-{% include 'mainapp/includes/inc_footer.html' %}
+  {% include 'mainapp/includes/inc_footer.html' %}
 {% endblock %}
