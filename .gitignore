@@ -29,3 +29,6 @@ companyapp/migrations
 *.DS_Store
 
 .coverage
+
+# папка с результатами выполнения команды coverage html ###
+/htmlcov
