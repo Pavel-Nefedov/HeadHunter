@@ -8,25 +8,21 @@
 {% block site_content %}
     <div id="site_content">
         <div id="content">
-            <h1>Регистрация</h1>
+            <h1>Создание Вакансии {{ company.company_name }}</h1>
             <form method="post">
                 {% csrf_token %}
-                {% csrf_token %}
-
                 {% for f in form %}
                     <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
                     <div class="form-error">{{ f.errors }}</div>
                 {% endfor %}
-
-                <button type="submit">Регистрация</button>
+                <button type="submit" class="btn btn-primary btn-lg px-4 me-md-2">Обновить вакансию</button>
             </form>
         </div>
     </div>
+
+
 {% endblock %}
 
 {% block footer %}
     {% include 'mainapp/includes/inc_footer.html' %}
 {% endblock %}
-
-
-
