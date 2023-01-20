@@ -1,6 +1,7 @@
 import datetime
 import json
 import random
+import time
 
 from django.conf import settings
 from django.core.management import BaseCommand
@@ -9,11 +10,13 @@ from faker import Faker
 
 from authapp.models import HHUser
 from companyapp.models import CompanyProfile, Vacancy
-from mainapp.services import HHVacancyParser
+from mainapp.services import HHVacancyParser, FileMode
 
 
 class Command(BaseCommand):
     faker = Faker()
+
+    user_info = []
 
     def add_arguments(self, app):
         app.add_argument(
@@ -41,8 +44,10 @@ class Command(BaseCommand):
             is_candidate=is_candidate,
         )
 
-        print(
-            f"\t{'Company' if is_company is True else 'Candidate'} user '{temp_first_name}' created [login: {temp_username} password: {fake_password}]")
+        information = f"{'Company' if is_company is True else 'Candidate'} user {temp_first_name} created [login: {temp_username} password: {fake_password}]"
+
+        print(information)
+        self.user_info.append(information)
 
         return some_user
 
@@ -135,4 +140,12 @@ class Command(BaseCommand):
         for fake_user in range(number_of_fake_users):
             self.__generate_fake_user(is_candidate=True)
 
-            print(" End adding fake user data ".center(79, '-'))
+        with open(
+                settings.BASE_DIR / 'mainapp' / 'management' / 'data' / f'{time.time()}_fake_users_data.txt',
+                mode=FileMode.WRITE.value,
+                encoding=settings.PROJECT_ENCODING
+        ) as info_file:
+            for item in self.user_info:
+                info_file.write(f"{item}\n")
+
+        print(" End adding fake user data ".center(79, '-'))
