@@ -2,97 +2,108 @@
 {% load static %}
 
 {% block header %}
-    {% include 'mainapp/includes/inc_header.html' %}
+{% include 'mainapp/includes/inc_header.html' %}
 {% endblock %}
 
 {% block site_content %}
-    <div class="b-example-divider"></div>
-    <div class="container px-4 py-5" id="icon-grid">
-                <div class="card-body">
-                    <h3 class="card-title" style="padding: 0"><a href="{% url 'company:vacancy' pk=vacancy.pk %}">
-                        {{ vacancy.vacancy_name }} </a></h3>
-                    {% if vacancy.salary_min and vacancy.salary_max %}
-                        <h3 class="subtitle-title"> {{ vacancy.salary_min }} - {{ vacancy.salary_max }}
-                            руб. </h3>
+<div class="b-example-divider"></div>
+<div class="container px-4 py-5" id="icon-grid">
+  <h3 class="card-title" style="padding: 0"><a href="{% url 'company:vacancy' pk=vacancy.pk %}">
+      {{ vacancy.vacancy_name }} </a></h3>
+  <h4 class="subtitle-title"> {{ vacancy.city }} </h4>
+  {% if vacancy.salary_min and vacancy.salary_max %}
+  <h3 class="subtitle-title"> {{ vacancy.salary_min }} - {{ vacancy.salary_max }}
+    {{ vacancy.currency }}
+  </h3>
 
-                    {% elif vacancy.salary_min %}
-                        <h3 class="subtitle-title"> от {{ vacancy.salary_min }} руб. </h3>
+  {% elif vacancy.salary_min %}
+  <h3 class="subtitle-title"> от {{ vacancy.salary_min }} {{ vacancy.currency }} </h3>
 
-                    {% elif vacancy.salary_max %}
-                        <h3 class="subtitle-title"> до {{ vacancy.salary_max }} руб. </h3>
-                    {% endif %}
-                    <h4 class="card-subtitle mb-2 text-muted">{{ vacancy.company.company_name }}</h4>
-                    <p class="card-text">{{ vacancy.duties_description }}</p>
-                    <p class="card-text">{{ vacancy.work_conditions }}</p>
-                    <p class="card-text">{{ vacancy.requirements_description }}</p>
-                    <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
+  {% elif vacancy.salary_max %}
+  <h3 class="subtitle-title"> до {{ vacancy.salary_max }} {{ vacancy.currency }} </h3>
 
+  <h4 class="card-subtitle mb-2 text-muted">{{ vacancy.company.company_name }}</h4>
 
-                </div>
+  <p class="card-text">{{ vacancy.duties_description }}</p>
+  <br>
+  <p class="card-text">{{ vacancy.work_conditions }}</p>
+  <br>
+  <p class="card-text">{{ vacancy.requirements_description }}</p>
+  <br>
+  <p class="card-text">{{ vacancy.created }}</p>
+  <br>
+  <p class="card-text">{{ vacancy.requirements_description }}</p>
+
+  {% elif vacancy.is_active %}
+  <p class="card-text"> Активна </p>
+  {% elif vacancy.is_for_disabled %}
+  <p class="card-text"> Подходит людям с ограниченными возможностями </p>
+  {% elif vacancy.is_full_day %}
+  <p class="card-text"> Полный рабочиый день </p>
+  {% elif vacancy.is_intern %}
+  <p class="card-text"> Можно новичкам и стажерам </p>
+  {% endif %}
+  <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
+</div>
+
+<div class="b-example-divider"></div>
+
+<div class="container px-4 py-5" id="icon-grid_2">
+  <h2 class="pb-2 border-bottom">Наши партнеры</h2>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+    <div class="col d-flex align-items-start">
+      <div>
+        <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
+        <p>Лидер рынка</p>
+      </div>
+    </div>
+    <div class="col d-flex align-items-start">
+      <div>
+        <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
+        <p>Лидер рынка</p>
+      </div>
+    </div>
+    <div class="col d-flex align-items-start">
+      <div>
+        <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
+        <p>Лидер рынка</p>
+      </div>
+    </div>
+    <div class="col d-flex align-items-start">
+      <div>
+        <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
+        <p>Лидер рынка</p>
+      </div>
     </div>
 
-    <div class="b-example-divider"></div>
+  </div>
+</div>
 
+<div class="b-example-divider"></div>
 
-    <div class="container px-4 py-5" id="icon-grid">
-        <h2 class="pb-2 border-bottom">Наши партнеры</h2>
+<div class="container px-4 py-5" id="hanging-icons">
+  <h2 class="pb-2 border-bottom">Главные новости</h2>
+  <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
 
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
-            <div class="col d-flex align-items-start">
-                <div>
-                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
-                    <p>Лидер рынка</p>
-                </div>
-            </div>
-            <div class="col d-flex align-items-start">
-                <div>
-                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
-                    <p>Лидер рынка</p>
-                </div>
-            </div>
-            <div class="col d-flex align-items-start">
-                <div>
-                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
-                    <p>Лидер рынка</p>
-                </div>
-            </div>
-            <div class="col d-flex align-items-start">
-                <div>
-                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
-                    <p>Лидер рынка</p>
-                </div>
-            </div>
+    {% for item in news %}
+    <div class="col d-flex align-items-start">
 
-        </div>
+      <div>
+        <h3 class="fs-2">{{ item.title }}</h3>
+        <p>{{ item.description }}</p>
+        <a href="{{ item.link }}" class="btn btn-primary">
+          Читать далее
+        </a>
+      </div>
     </div>
-
-    <div class="b-example-divider"></div>
-
-    <div class="container px-4 py-5" id="hanging-icons">
-        <h2 class="pb-2 border-bottom">Главные новости</h2>
-        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-
-            {% for item in news %}
-                <div class="col d-flex align-items-start">
-
-                    <div>
-                        <h3 class="fs-2">{{ item.title }}</h3>
-                        <p>{{ item.description }}</p>
-                        <a href="{{ item.link }}" class="btn btn-primary">
-                            Читать далее
-                        </a>
-                    </div>
-                </div>
-            {% empty %}
-                <p class="lead mb-4">Новостей пока нет</p>
-            {% endfor %}
-
-        </div>
-
-
-    </div>
+    {% empty %}
+    <p class="lead mb-4">Новостей пока нет</p>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
 
 {% block footer %}
-    {% include 'mainapp/includes/inc_footer.html' %}
+{% include 'mainapp/includes/inc_footer.html' %}
 {% endblock %}

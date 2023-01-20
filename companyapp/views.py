@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
-from django.views.generic import TemplateView, CreateView,View
+from django.views.generic import TemplateView, CreateView, View
 from companyapp.forms import CompanyProfileForm
 from companyapp.models import CompanyProfile, Vacancy
 
@@ -19,10 +19,26 @@ class CompanyLK(TemplateView):
 
 class VacancySearch(TemplateView):
     template_name = 'companyapp/vacancy_search.html'
+    model = Vacancy
 
-class Vacancy(DetailView):
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['vacancies'] = Vacancy.objects.filter(is_active=True).order_by('-created')[:10]
+        return data
+
+
+### уже есть class Vacancy. Это название модели поэтому переименовал контроллер class Vacancy в class VacancyView
+class VacancyView(DetailView):
     template_name = 'companyapp/vacancy.html'
     model = Vacancy
+
+    def get_context_data(self, **kwargs):
+        # context = super().get_context_data(**kwargs)
+        # context['vacancies'] = Vacancy.objects.filter(id=id)
+        # context = Vacancy.objects.filter(id=vacancy_id)
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context['vacancies'] = Vacancy.objects.filter(is_active=True).order_by('-created')
+        return context
 
 
 class CompanyK(View):
@@ -41,8 +57,6 @@ class CompanyK(View):
             'form': form,
         }
         return render(request, 'companyapp/company_lk.html', context)
-
-
 
 # def CompanyK(request):
 #     if request.method == 'POST':
