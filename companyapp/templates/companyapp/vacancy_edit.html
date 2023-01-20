@@ -8,7 +8,7 @@
 {% block site_content %}
     <div id="site_content">
         <div id="content">
-            <h1>Создание Вакансии {{ company.company_name }}</h1>
+            <h1>Редактирование вакансии компании {{ company.company_name }}</h1>
             <form method="post">
                 {% csrf_token %}
                 {% for f in form %}
