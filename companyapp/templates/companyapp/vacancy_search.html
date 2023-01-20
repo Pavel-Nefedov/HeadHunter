@@ -3,29 +3,45 @@
 
 
 {% block header %}
-    <div id="main">
-        <div id="header">
-            <div id="logo">
-                <h1>Рекрутинговое агенство @Agile-HH@</h1>
-            </div>
-            {% include 'mainapp/includes/main_menu.html' %}
+<div id="main">
+    <div id="header">
+        <div id="logo">
+            <h1>Рекрутинговое агенство @Agile-HH@</h1>
         </div>
     </div>
+</div>
 {% endblock %}
 
 
-
 {% block site_content %}
+    <div class="vacancy-cards">
+        {% for vacancy in vacancies %}
+            <div class="card" style="margin-bottom: 10px">
+                <div class="card-body">
+                    <h3 class="card-title" style="padding: 0"><a href="{% url 'company:vacancy' pk=vacancy.pk %}">
+                        {{ vacancy.vacancy_name }} </a></h3>
+                    {% if vacancy.salary_min and vacancy.salary_max %}
+                    <h3 class="subtitle-title"> {{ vacancy.salary_min }} - {{ vacancy.salary_max }}
+                        руб. </h3>
 
-    <div id="site_content">
-        <div id="content">
-            <h1>Код для вакансий</h1>
-        </div>
+                    {% elif vacancy.salary_min %}
+                    <h3 class="subtitle-title"> от {{ vacancy.salary_min }} руб. </h3>
+
+                    {% elif vacancy.salary_max %}
+                    <h3 class="subtitle-title"> до {{ vacancy.salary_max }} руб. </h3>
+                    {% endif %}
+                    <h4 class="card-subtitle mb-2 text-muted">{{ vacancy.company.company_name }}</h4>
+                    <p class="card-text">{{ vacancy.work_conditions }}</p>
+                    <p class="card-text">{{ vacancy.requirements_description }}</p>
+                    <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
 
 
 {% block footer %}
-    {% include 'mainapp/includes/inc_footer.html' %}
+{% include 'mainapp/includes/inc_footer.html' %}
 {% endblock %}
 

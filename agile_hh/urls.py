@@ -17,12 +17,17 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 
+from companyapp.views import VacancySearch, VacancyView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainapp.urls', namespace='mainapp')),
     path('auth/', include('authapp.urls', namespace='authapp')),
     path('candidate/', include('candidateapp.urls', namespace='candidate')),
     path('company/', include('companyapp.urls', namespace='company')),
+    ### Без следующих двух строк, вакансии у меня не отображались, поэтому оставил их тут
+    path('vacancy_search/', VacancySearch.as_view(), name='vacancy_search'),
+    path('vacancy/<int:pk>/', VacancyView.as_view(), name='vacancy'),
 ]
 
 if settings.DEBUG:
