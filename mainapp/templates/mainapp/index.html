@@ -2,40 +2,94 @@
 {% load static %}
 
 {% block header %}
-    <div id="main">
-        <div id="header">
-            <div id="logo">
-                <h1>Рекрутинговое агенство @Agile-HH@</h1>
-            </div>
-            {% include 'mainapp/includes/main_menu.html' %}
-        </div>
-    </div>
+    {% include 'mainapp/includes/inc_header.html' %}
 {% endblock %}
 
 {% block site_content %}
-    <div id="site_content">
-        <div class="sidebar">
-            <h3>Новости</h3>
+    <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+            <div class="col-10 col-sm-8 col-lg-6">
+                <img src="{% static 'img/personal.png' %}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes"
+                     width="700"
+                     height="500" loading="lazy">
+            </div>
+            <div class="col-lg-6">
+                <h1 class="display-5 fw-bold lh-1 mb-3">Построй карьеру вместе с профессионалами!</h1>
+                <p class="lead">Мы лучшее гибкое кадровое агентство* на этой планете. Обладаем большим набором
+                    квалифицированных кандидатов, а также лучшими методами подбора персонала, основанными на машинном
+                    обучении.</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Посмотреть что мы можем</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% if user.is_candidate %}
+    <div class="b-example-divider"></div>
+    <div class="container px-4 py-5" id="icon-grid">
+    {% include 'mainapp/includes/vacancies_cards.html' %}
+    </div>
+{% endif %}
+
+    <div class="b-example-divider"></div>
+
+
+    <div class="container px-4 py-5" id="icon-grid">
+        <h2 class="pb-2 border-bottom">Наши партнеры</h2>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
+                    <p>Лидер рынка</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
+                    <p>Лидер рынка</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
+                    <p>Лидер рынка</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
+                    <p>Лидер рынка</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="b-example-divider"></div>
+
+    <div class="container px-4 py-5" id="hanging-icons">
+        <h2 class="pb-2 border-bottom">Главные новости</h2>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+
             {% for item in news %}
-                <p>{{ item.title }}<br/><a href="{{ item.link }}">Читай больше</a></p>
+                <div class="col d-flex align-items-start">
+
+                    <div>
+                        <h3 class="fs-2">{{ item.title }}</h3>
+                        <p>{{ item.description }}</p>
+                        <a href="{{ item.link }}" class="btn btn-primary">
+                            Читать далее
+                        </a>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="lead mb-4">Новостей пока нет</p>
             {% endfor %}
-            <p></p>
-            <h3>Список компаний партнеров</h3>
-            <ul>
-                <li><a href="#">Компания 1</a></li>
-                <li><a href="#">Компания 2</a></li>
-                <li><a href="#">Компания 3</a></li>
-                <li><a href="#">Компания 4</a></li>
-            </ul>
+
         </div>
 
-        <div id="content">
-            <h1>Правила портала</h1>
-            <p>описание правил</p>
-            {% if user.is_candidate %}
-                {% include 'mainapp/includes/vacancies_cards.html' %}
-            {% endif %}
-        </div>
+
     </div>
 {% endblock %}
 

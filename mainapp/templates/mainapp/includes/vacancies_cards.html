@@ -2,8 +2,8 @@
         {% for vacancy in vacancies %}
             <div class="card" style="margin-bottom: 10px">
                 <div class="card-body">
-                    <h3 class="card-title" style="padding: 0"><a href="{% url 'company:vacancy_search' %}">
-                        Название вакансии </a></h3>
+                    <h3 class="card-title" style="padding: 0"><a href="{% url 'company:vacancy' pk=vacancy.pk %}">
+                        {{ vacancy.vacancy_name }} </a></h3>
                     {% if vacancy.salary_min and vacancy.salary_max %}
                         <h3 class="subtitle-title"> {{ vacancy.salary_min }} - {{ vacancy.salary_max }}
                             руб. </h3>
@@ -18,8 +18,6 @@
                     <p class="card-text">{{ vacancy.work_conditions }}</p>
                     <p class="card-text">{{ vacancy.requirements_description }}</p>
                     <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
-
-
                 </div>
             </div>
 
