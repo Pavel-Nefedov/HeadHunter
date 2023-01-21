@@ -75,14 +75,17 @@ parse_news:
 
 # --- QA(testing) section ----------------------
 smoke_test:
-	python manage.py test mainapp.tests.TestMainappSmoke
+	python manage.py test tests.mainapp.tests_main_smoke
+
+test_mainapp_models:
+	python manage.py test tests.mainapp.tests_main_models
 
 test_user_management:
 	python manage.py test authapp.tests.TestUserManagement
 
 all_tests:
-	python manage.py test mainapp.tests.TestMainappSmoke
-	python manage.py test authapp.tests.TestUserManagement
+	python manage.py test tests.mainapp.tests_main_smoke
+	python manage.py test tests.mainapp.tests_main_model
 
 test:
 	python manage.py test
