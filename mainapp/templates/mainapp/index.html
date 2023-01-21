@@ -24,12 +24,12 @@
             </div>
         </div>
     </div>
-{% if user.is_candidate %}
-    <div class="b-example-divider"></div>
-    <div class="container px-4 py-5" id="icon-grid">
-    {% include 'mainapp/includes/vacancies_cards.html' %}
-    </div>
-{% endif %}
+    {% if user.is_candidate %}
+        <div class="b-example-divider"></div>
+        <div class="container px-4 py-5" id="icon-grid">
+            {% include 'mainapp/includes/vacancies_cards.html' %}
+        </div>
+    {% endif %}
 
     <div class="b-example-divider"></div>
 
@@ -38,31 +38,16 @@
         <h2 class="pb-2 border-bottom">Наши партнеры</h2>
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
-            <div class="col d-flex align-items-start">
-                <div>
-                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
-                    <p>Лидер рынка</p>
+            {% for item in companys %}
+                <div class="col d-flex align-items-start">
+                    <div>
+                        <h3 class="fw-bold mb-0 fs-4">{{ item.company_name }}</h3>
+                        <p>{{ item.about_company }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col d-flex align-items-start">
-                <div>
-                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
-                    <p>Лидер рынка</p>
-                </div>
-            </div>
-            <div class="col d-flex align-items-start">
-                <div>
-                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
-                    <p>Лидер рынка</p>
-                </div>
-            </div>
-            <div class="col d-flex align-items-start">
-                <div>
-                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
-                    <p>Лидер рынка</p>
-                </div>
-            </div>
-
+            {% empty %}
+                <p class="lead">Только проверенные компании являются партнерами нашего агенства.</p>
+            {% endfor %}
         </div>
     </div>
 

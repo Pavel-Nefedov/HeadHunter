@@ -11,7 +11,7 @@ class HHUser(AbstractUser):
     last_name = models.CharField(_('last name'), max_length=150)
     password = models.CharField(_('password'), max_length=128)
 
-    email = models.EmailField(_("email address"), blank=True, unique=True)
+    email = models.EmailField(_("email address"), unique=True)
 
     # Отчество
     patronymic = models.CharField(
