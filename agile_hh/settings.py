@@ -187,8 +187,4 @@ if DEBUG:
         'template_profiler_panel.panels.template.TemplateProfilerPanel',
     ]
 
-<<<<<<< HEAD
 PROJECT_ENCODING = 'utf-8'
-=======
-PROJECT_ENCODING = 'utf-8'
->>>>>>> d998d5e3bf01dc42c37613b4038e39cf031f1e21
