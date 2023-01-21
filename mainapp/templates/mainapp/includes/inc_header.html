@@ -11,13 +11,6 @@
         <ul class="nav nav-pills">
             <li class="nav-item"><a href="{% url 'mainapp:index' %}" class="nav-link active"
                                     aria-current="page">Главная</a></li>
-            {% if user.is_company %}
-                <li class="nav-item"><a href="{% url 'company:vacancy_create' %}" class="nav-link">Разместить
-                    вакансию</a></li>
-            {% endif %}
-            {% if user.is_candidate %}
-                <li class="nav-item"><a href="company/vacancy_search/" class="nav-link">Вакансии</a></li>
-            {% endif %}
             <li class="nav-item"><a href="#" class="nav-link">Правила портала</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Новости</a></li>
             <li class="nav-item"><a href="#" class="nav-link">О нас</a></li>
@@ -32,6 +25,11 @@
                 <a href="{% url 'authapp:login' %}" class="btn btn-outline-primary me-2">Войти</a>
                 <a href="{% url 'authapp:register' %}" class="btn btn-primary">Зарегистрироваться</a>
             </div>
+        {% else %}
+            <div class="col-md-3 text-end">
+                <a href="{% url 'authapp:logout' %}" class="btn btn-primary">Выход</a>
+            </div>
+
         {% endif %}
     </header>
 </div>

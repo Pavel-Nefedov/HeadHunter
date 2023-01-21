@@ -16,8 +16,11 @@ rm-migrations-dirs:
 	rm -rf candidateapp/migrations
 	rm -rf companyapp/migrations
 
-clean-start-for-development:rm-migrations-dirs docker-down-remove-volumes docker-build-up \
-some-sleep makemigrations migrate createsuperuser runserver
+rm-data-dirs:
+	rm -rf mainapp/management/data
+
+clean-start-for-development:rm-migrations-dirs rm-data-dirs docker-down-remove-volumes docker-build-up \
+some-sleep makemigrations migrate createsuperuser parse_news add_fake_users runserver
 
 # --------------------------------------------
 

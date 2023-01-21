@@ -2,7 +2,7 @@
 .idea
 
 ### ENV ###
-#.env
+.env
 
 ### VENV ###
 venv
@@ -16,7 +16,7 @@ __pycache__/
 ### Django ###
 *.pyc
 /media
-# Именно эту папку надо игнорить, не менять (Roman Sl)
+# Именно эту папку надо игнорить, не менять
 /static
 
 ### Django migration folder ###
@@ -27,6 +27,9 @@ companyapp/migrations
 
 ### Other ###
 *.DS_Store
+mainapp/management/data
+
+.coverage
 
 .coverage
 
