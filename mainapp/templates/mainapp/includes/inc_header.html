@@ -9,12 +9,16 @@
         </a>
 
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="{% url 'mainapp:index' %}" class="nav-link active" aria-current="page">Главная</a></li>
+            <li class="nav-item"><a href="{% url 'mainapp:index' %}" class="nav-link active"
+                                    aria-current="page">Главная</a></li>
             {% if user.is_company %}
-            <li class="nav-item"><a href="{% url 'company:vacancy_create' %}" class="nav-link">Разместить вакансию</a></li>
+                <li class="nav-item"><a href="{% url 'company:vacancy_create' %}" class="nav-link">Разместить
+                    вакансию</a></li>
+            {% endif %}
+            {% if user.is_candidate %}
+                <li class="nav-item"><a href="company/vacancy_search/" class="nav-link">Вакансии</a></li>
             {% endif %}
             <li class="nav-item"><a href="#" class="nav-link">Правила портала</a></li>
-            <li class="nav-item"><a href="company/vacancy_search/" class="nav-link">Вакансии</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Новости</a></li>
             <li class="nav-item"><a href="#" class="nav-link">О нас</a></li>
         </ul>

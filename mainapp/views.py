@@ -12,7 +12,6 @@ class Index(TemplateView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data['news'] = News.objects.all().order_by('-pk')[:3]
-        ### Перенес закоментированную строку в контроллеры companyapp
-        # data['vacancies'] = Vacancy.objects.filter(is_active=True).order_by('-created')[:5]
+        data['vacancies'] = Vacancy.objects.filter(is_active=True).order_by('-created')[:5]
         return data
 
