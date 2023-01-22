@@ -2,16 +2,21 @@ from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView, TemplateView, UpdateView, ListView
 
 from candidateapp.models import Candidate, Resume
+from authapp.models import HHUser
 from django.contrib.auth.decorators import login_required
 from companyapp.models import Vacancy
 
+# from candidateapp.forms import CandidateForm
 
+class Candidate_Main(TemplateView):
 class CandidateLK(TemplateView):
     template_name = 'candidateapp/candidate_lk.html'
 
 class Candidate_Main(TemplateView):
     template_name = 'candidateapp/candidate.html'
 
+# class ShowProfilePageView(TemplateView):
+#     template_name = 'candidateapp/candidate.html'
 
 @login_required
 def candidate_lk(request):
@@ -25,7 +30,6 @@ def candidate_lk(request):
     }
     return render(request, 'candidateapp/candidate_lk.html', context)
 
-
 class ShowProfileUpdateView(UpdateView):
     model = Candidate
     template_name = 'candidateapp/candidate_update.html'
@@ -38,16 +42,35 @@ class ShowProfileUpdateView(UpdateView):
     ]
 
 
+# class ShowResumePageView(DetailView):
+#     model = Resume
+#     template_name = 'candidateapp/resume.html'
+#
+#
 class ShowResumeDetailView(DetailView):
     model = Resume
     resume_items = Resume.objects.all()
     template_name = 'candidateapp/resume_detail.html'
 
 
+# @login_required
+# def resume_detail(request):
+#     title = 'развернутое резюме'
+#     resume_items = Resume.objects.all()
+#
+#     context = {
+#         'title': title,
+#         'resume_items': resume_items,
+#     }
+#     return render(request, 'candidateapp/resume_detail.html', context)
+
+
+
 @login_required
 def resume(request):
     title = 'резюме'
     resume_items = Resume.objects.select_related()
+
     context = {
         'title': title,
         'resume_items': resume_items,

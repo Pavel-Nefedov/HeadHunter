@@ -1,22 +1,13 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
-
 {% block header %}
-<div id="main">
-    <div id="header">
-        <div id="logo">
-            <h1>Рекрутинговое агенство @Agile-HH@</h1>
-            {% include 'mainapp/includes/main_menu.html' %}
-        </div>
-    </div>
-</div>
+    {% include 'mainapp/includes/inc_header.html' %}
 {% endblock %}
 
-
 {% block site_content %}
-<div id="site_content">
-    <div id="content">
+<div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
         <h1>Резюме кандидата</h1>
 
         <h3>База данных резюме</h3>
@@ -31,7 +22,6 @@
 </div>
 {% endblock %}
 
-
 {% block footer %}
-{% include 'mainapp/includes/inc_footer.html' %}
+    {% include 'mainapp/includes/inc_footer.html' %}
 {% endblock %}
