@@ -1,8 +1,16 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
+
 {% block header %}
-    {% include 'mainapp/includes/inc_header.html' %}
+<div id="main">
+    <div id="header">
+        <div id="logo">
+            <h1>Рекрутинговое агенство @Agile-HH@</h1>
+            {% include 'mainapp/includes/main_menu.html' %}
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 
