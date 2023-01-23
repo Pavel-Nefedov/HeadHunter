@@ -42,7 +42,7 @@ class RegisterUser(CreateView):
             user.is_candidate = True
             user.save()
             login(self.request, user)
-            return redirect('candidateapp:user_profile', pk=user.pk)
+            return redirect('candidateapp:user_profile')
         else:
             raise BadRequest
 

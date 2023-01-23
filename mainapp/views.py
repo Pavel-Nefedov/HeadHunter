@@ -1,6 +1,6 @@
-from django.views.generic import TemplateView, ListView
+from django.views.generic import ListView, TemplateView
 
-from companyapp.models import Vacancy, CompanyProfile
+from companyapp.models import CompanyProfile, Vacancy
 from mainapp.models import News
 
 
