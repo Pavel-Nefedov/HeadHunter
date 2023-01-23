@@ -1,10 +1,13 @@
 <<<<<<< HEAD
 # Create your tests here.
 from urllib import response
+
+from django.core.management import call_command
 from django.test import TestCase
 from django.test.client import Client
-from django.core.management import call_command
+
 from authapp.models import HHUser
+
 
 class TestUserManagement(TestCase):
     def setUp(self):

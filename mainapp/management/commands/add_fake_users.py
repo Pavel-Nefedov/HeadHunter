@@ -10,7 +10,7 @@ from faker import Faker
 
 from authapp.models import HHUser
 from companyapp.models import CompanyProfile, Vacancy
-from mainapp.services import HHVacancyParser, FileMode
+from mainapp.services import FileMode, HHVacancyParser
 
 
 class Command(BaseCommand):

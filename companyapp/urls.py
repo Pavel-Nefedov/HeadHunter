@@ -1,6 +1,7 @@
 from django.urls import path
 
-from companyapp.views import CompanyK, CompanyLK, VacancySearch, Vacancy, VacancyCreate, VacancyUpdate, VacancyView
+from companyapp.views import (CompanyK, CompanyLK, Vacancy, VacancyCreate,
+                              VacancySearch, VacancyUpdate, VacancyView)
 
 app_name = 'companyapp'
 
