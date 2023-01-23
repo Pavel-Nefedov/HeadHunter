@@ -11,6 +11,9 @@ class RegisterUserForm(UserCreationForm):
     ]
 
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    first_name = forms.CharField(label='Имя', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    last_name = forms.CharField(label='Фамилия', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    patronymic = forms.CharField(label='Отчество', widget=forms.TextInput(attrs={'class': 'form-input'}))
     email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class': 'form-input'}))
     user_role = forms.ChoiceField(
         label='Ваша роль',
