@@ -19,9 +19,9 @@ class HHUserAdmin(UserAdmin):
         'is_active')
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name', 'patronymic', 'office', 'email')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name', 'patronymic', 'email')}),
         (_('Permissions'), {
-            'fields': ('is_active', 'is_staff', 'is_superuser', 'is_own_people'),
+            'fields': ('is_active', 'is_staff', 'is_superuser', 'is_company', 'is_candidate', 'is_moderator'),
         }),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
