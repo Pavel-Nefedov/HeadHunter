@@ -69,6 +69,7 @@ class HTTPResponse:
     def __get_response(self):
         response = requests.get(self.url, headers=self.headers, params=self.params)
         if response.status_code != Status.OK_200:
+            print(f"{self.url=}\n{self.headers=}\n{self.params}")
             raise ConnectionError(
                 f"HTTP status not 200. Server return "
                 f"{response.status_code} status code for "
@@ -156,10 +157,16 @@ class HHVacancyParser:
             'per_page': count_of_vacansy,
             'text': search_text
         }
-        with HTTPResponse.get_response(self.BASE_URL, headers=self.headers, params=self.params) as get_request:
-            # Получим список с id вакансий
-            vacancy_ids = [vacancy_id['id'] for vacancy_id in get_request.json()['items']]
-
+        try:
+            with HTTPResponse.get_response(self.BASE_URL, headers=self.headers, params=self.params) as get_request:
+                # Получим список с id вакансий
+                vacancy_ids = [vacancy_id['id'] for vacancy_id in get_request.json()['items']]
+        except ConnectionError:
+            raise ValueError(
+                f'Too many vacancies count in param count_of_vacansy. '
+                f'Please specify a smaller number then {count_of_vacansy}. '
+                f'Maximum 100.'
+            )
         self.vacancy_data: list = []
         futeres_responce: List[Future] = []
         for vacancy_id in vacancy_ids:
