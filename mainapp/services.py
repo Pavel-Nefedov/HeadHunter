@@ -1,8 +1,10 @@
 import locale
 import time
 from abc import ABC, abstractmethod
+from concurrent.futures import Future, ThreadPoolExecutor
 from datetime import datetime
 from enum import Enum
+from typing import List
 
 import requests
 from lxml.html import fromstring
@@ -143,6 +145,8 @@ class HHNewsScrapper(AbstractScrapper):
 class HHVacancyParser:
     BASE_URL = "https://api.hh.ru/vacancies"
 
+    thread_pool_executor = ThreadPoolExecutor(max_workers=4)
+
     def __init__(self, count_of_vacansy: int = 10, search_text: str = ''):
         self.headers = {
             "Content-Type": "application/json",
@@ -156,23 +160,29 @@ class HHVacancyParser:
             # Получим список с id вакансий
             vacancy_ids = [vacancy_id['id'] for vacancy_id in get_request.json()['items']]
 
-        self.vacancy_data = []
-        for vacancy_id in tqdm(vacancy_ids):
-            vacancy_data = self.__get_vacancy_data_for_id(vacancy_id=vacancy_id)
-            vacancy_data['raw_employer_description'] = self.__get_employer_description(
-                url=vacancy_data['employer']['url'])
-            self.vacancy_data.append(vacancy_data)
+        self.vacancy_data: list = []
+        futeres_responce: List[Future] = []
+        for vacancy_id in vacancy_ids:
+            futeres_responce.append(
+                self.thread_pool_executor.submit(self.__get_vacancy_data_for_id, vacancy_id)
+            )
+
+        print(f"Starting {len(vacancy_ids)} asynchrone requests to HH API. Wait please")
+
+        flag: bool = True
+        while flag:
+            if all([futures.done() for futures in futeres_responce]):
+                flag = False
+
+        self.vacancy_data = [futures.result() for futures in futeres_responce]
 
     # Пройдемся по списку id и получим полные данные по каждой вакансии
     def __get_vacancy_data_for_id(self, vacancy_id: str) -> list:
         with HTTPResponse.get_response(f"{self.BASE_URL}/{vacancy_id}", headers=self.headers) as get_request:
             return get_request.json()
 
-    def __get_employer_description(self, url: str) -> str:
-        with HTTPResponse.get_response(url, headers=self.headers) as get_request:
-            return get_request.json()['description']
-
     def get_vacancy_data(self):
+        self.thread_pool_executor.shutdown()
         return self.vacancy_data
 
 
