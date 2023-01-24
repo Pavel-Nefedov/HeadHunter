@@ -4,32 +4,46 @@
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
             <img src="{% static 'img/logo.png' %}" alt="logo" height="45" width="45">
-            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;
             <span class="fs-4">Agile recruitment agency</span>
         </a>
 
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="{% url 'mainapp:index' %}" class="nav-link active"
-                                    aria-current="page">Главная</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Правила портала</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Новости</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">О нас</a></li>
+            <li class="nav-item"><a href="{% url 'mainapp:index' %}" class="nav-link"
+                                    aria-current="page"><i class="fa fa-home fa-fw" aria-hidden="true"></i>Главная</a></li>
+<!--            <li class="nav-item"><a href="#" class="nav-link">Правила портала</a></li>-->
+<!--            <li class="nav-item"><a href="#" class="nav-link">Новости</a></li>-->
+<!--            <li class="nav-item"><a href="#" class="nav-link">О нас</a></li>-->
+            {% if user.is_candidate %}
+                <li class="nav-item"><a href="{% url 'candidateapp:vacancy_search' %}" class="nav-link">
+                    <i class="fa fa-database" aria-hidden="true"></i>
+                    База данных вакансий</a></li>
+                <li class="nav-item"><a href="{% url 'candidate:user_profile' %}" class="nav-link">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    Личный кабинет</a></li>
+                <li class="nav-item"><a href="{% url 'candidate:resume' %}" class="nav-link">
+                    <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                    Мои резюме</a></li>
+            {% endif %}
+            {% if user.is_company %}
+                <li class="nav-item"><a href="{% url 'company:resume_search' %}" class="nav-link">
+                    <i class="fa fa-address-card" aria-hidden="true"></i>
+                    База данных резюме</a></li>
+                <li class="nav-item"><a href="{% url 'company:company_lk' %}" class="nav-link">
+                    <i class="fa fa-university" aria-hidden="true"></i>
+                    Личный кабинет</a></li>
+            {% endif %}
         </ul>
-        {% if user.is_authenticated %}
-            <div class="col-md-3 text-end">
-                <a href="{% url 'authapp:logout' %}" class="btn btn-outline-primary me-2">Выйти</a>
-            </div>
-        {% endif %}
+
         {% if not user.is_authenticated %}
             <div class="col-md-3 text-end">
                 <a href="{% url 'authapp:login' %}" class="btn btn-outline-primary me-2">Войти</a>
                 <a href="{% url 'authapp:register' %}" class="btn btn-primary">Зарегистрироваться</a>
             </div>
         {% else %}
-            <div class="col-md-3 text-end">
-                <a href="{% url 'authapp:logout' %}" class="btn btn-primary">Выход</a>
-            </div>
-
+             <div class="col-md-3 text-end">
+                <a href="{% url 'authapp:logout' %}" class="btn btn-outline-primary me-2">Выйти</a>
+             </div>
         {% endif %}
     </header>
 </div>

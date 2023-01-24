@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block header %}
+    {% include 'mainapp/includes/inc_header.html' %}
+{% endblock %}
+
+
+{% block site_content %}
+    <div class="b-example-divider"></div>
+    <div class="container px-4 py-5" id="icon-grid">
+        <h2> Список резюме <a class="btn btn-primary" href="#" role="button">Расширенный поиск</a></h2>
+        {% for resume in resumes %}
+            <div class="card" style="margin-bottom: 10px">
+                <div class="card-body">
+                    <h3 class="card-title" style="padding: 0"><a href="{% url 'candidate:resume' %}">
+                        {{ resume.candidate }} </a></h3>
+                    <h4 class="card-subtitle mb-2 text-muted">{{ resume.contact_info }}</h4>
+                    <p class="card-text">{{ resume.position_and_selery }}</p>
+                    <p class="card-text">{{ resume.work_experience }}</p>
+                    <p class="card-text">{{ resume.work_experience }}</p>
+                    <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+
+{% block footer %}
+    {% include 'mainapp/includes/inc_footer.html' %}
+{% endblock %}
+

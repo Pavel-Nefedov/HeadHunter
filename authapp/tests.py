@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Create your tests here.
 from urllib import response
 
@@ -37,7 +37,7 @@ class TestUserManagement(TestCase):
 
     # def tearDown(self):
     #     call_command('mainapp', 'authapp', 'candidateapp', 'companyapp')
-=======
+
 # from django.test import TestCase
 # from authapp.models import HHUser
 #
@@ -83,4 +83,3 @@ class TestUserManagement(TestCase):
 #     #     user = HHUser.objects.get(id=1)
 #     #     # This will also fail if the urlconf is not defined.
 #     #     self.assertEquals(user.get_absolute_url(), '/catalog/author/1')
->>>>>>> 39fbbef6ea3445995ee7058f7e7137a566596d52
