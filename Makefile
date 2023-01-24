@@ -74,11 +74,15 @@ parse_news:
 # --------------------------------------------
 
 # --- QA(testing) section ----------------------
+# !For successful testing enter DEBUG = False in settings.py!
 smoke_test:
-	python manage.py test tests.mainapp.tests_main_smoke
+	python manage.py test tests.mainapp.tests_main_smoke --debug-mode
 
 test_mainapp_models:
 	python manage.py test tests.mainapp.tests_main_models
+
+test_companyapp_models:
+	python manage.py test tests.companyapp.tests_company_models
 
 test_user_management:
 	python manage.py test authapp.tests.TestUserManagement
