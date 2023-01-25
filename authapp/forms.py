@@ -9,7 +9,6 @@ class RegisterUserForm(UserCreationForm):
         ('is_company', 'Работодатель'),
         ('is_candidate', 'Соискатель'),
     ]
-
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
     first_name = forms.CharField(label='Имя', widget=forms.TextInput(attrs={'class': 'form-input'}))
     last_name = forms.CharField(label='Фамилия', widget=forms.TextInput(attrs={'class': 'form-input'}))
@@ -18,8 +17,7 @@ class RegisterUserForm(UserCreationForm):
     user_role = forms.ChoiceField(
         label='Ваша роль',
         widget=forms.RadioSelect,
-        choices=USER_ROLE,
-    )
+        choices=USER_ROLE,)
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     password2 = forms.CharField(label='Повтор пароля', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 

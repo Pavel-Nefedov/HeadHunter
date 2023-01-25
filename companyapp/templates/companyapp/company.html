@@ -3,31 +3,17 @@
 
 
 {% block header %}
-    <div id="main">
-        <div id="header">
-            <div id="logo">
-                <h1>Рекрутинговое агенство @Agile-HH@</h1>
-            </div>
-        </div>
-    </div>
-    </div>
+    {% include 'mainapp/includes/inc_header.html' %}
 {% endblock %}
-
 
 
 {% block site_content %}
-
-    <div id="site_content">
-        <div id="content">
-            <h1>Личный кабинет компании</h1>
-            <h3>База данных резюме</h3>
-            <p>Добавить базу</a></p>
-
-            <h3>Для заполнения карточки компании и предлагаемых вакансий перейдите на вкладку "Заполнить карточку"</h3>
-        </div>
+<div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <h1>База данных резюме</h1>
     </div>
+</div>
 {% endblock %}
-
 
 {% block footer %}
     {% include 'mainapp/includes/inc_footer.html' %}

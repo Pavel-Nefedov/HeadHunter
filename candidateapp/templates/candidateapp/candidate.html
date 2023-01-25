@@ -3,23 +3,15 @@
 
 
 {% block header %}
-<div id="main">
-    <div id="header">
-        <div id="logo">
-            <h1>Рекрутинговое агенство @Agile-HH@</h1>
-            {% include 'mainapp/includes/main_menu.html' %}
-        </div>
-    </div>
-</div>
+    {% include 'mainapp/includes/inc_header.html' %}
 {% endblock %}
 
 
 
 {% block site_content %}
-<div id="site_content">
-    <div id="content">
-        <h1>Личный кабинет кандидата</h1>
-        <h3>База данных резюме</h3>
+<div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+             <h3>База данных резюме</h3>
         <p>Добавить базусделать расширенный поиск вакансий, выбрав одну из них пытается откликнуться на вакансию,
             сайт сообщает что нет таких и предлагает создать резюме в личном кабинете
             Пользователь добавляет выбранную вакансию в избранное и переходит в личный кабинет ...</a></p>

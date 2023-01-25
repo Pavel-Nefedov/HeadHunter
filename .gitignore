@@ -32,7 +32,6 @@ mainapp/management/data
 
 .coverage
 
-.coverage
 
 # папка с результатами выполнения команды coverage html ###
 /htmlcov
