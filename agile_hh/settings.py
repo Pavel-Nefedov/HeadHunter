@@ -148,9 +148,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "static"
 STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'mainapp/static'),
-        # os.path.join(BASE_DIR, 'authapp/static'),
-    ]
+    os.path.join(BASE_DIR, 'mainapp/static'),
+    # os.path.join(BASE_DIR, 'authapp/static'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -165,6 +165,7 @@ LOGIN_URL = '/auth/login/'
 if DEBUG:
     def show_toolbar(request):
         return True
+
 
     DEBUG_TOOLBAR_CONFIG = {
         'SHOW_TOOLBAR_CALLBACK': show_toolbar,

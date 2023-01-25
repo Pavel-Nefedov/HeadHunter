@@ -1,0 +1,15 @@
+{% load static %}
+
+{% for item in resume_items %}
+<div class="basket_record">
+    <li><span class="category_name">{{ item.contact_info.name }}</span></li>
+    <li><span class="product_name">{{ item.contact_info.surname }}</span></li>
+    <li><span class="product_price">{{ item.contact_info.city }}</span></li>
+    <li><span class="product_price">{{ item.education.educational_institution }}</span></li>
+    <li><span class="product_price">{{ item.work_experience.organization }}</span></li>
+    <li><span class="product_price">{{ item.work_experience.post }}</span></li>
+    <li><span class="product_price">{{ item.position_and_selery.work_schedule }}</span></li>
+    <li><span class="product_price">{{ item.position_and_selery.salary }}</span></li>
+    <li><span class="product_price">{{ item.position_and_selery.desired_position }}</span></li>
+</div>
+{% endfor %}

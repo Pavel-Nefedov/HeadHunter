@@ -18,6 +18,7 @@ __pycache__/
 /media
 # Именно эту папку надо игнорить, не менять
 /static
+/staticfiles
 
 ### Django migration folder ###
 mainapp/migrations
@@ -31,7 +32,6 @@ mainapp/management/data
 
 .coverage
 
-.coverage
 
 # папка с результатами выполнения команды coverage html ###
 /htmlcov

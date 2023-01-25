@@ -1,20 +1,26 @@
-from django.shortcuts import get_object_or_404
-from django.views.generic import DetailView, TemplateView, UpdateView
+from django.shortcuts import get_object_or_404, render
+from django.views.generic import DetailView, TemplateView, UpdateView, ListView
 
 from candidateapp.models import Candidate, Resume
+from companyapp.models import Vacancy
+from authapp.models import HHUser
+from django.contrib.auth.decorators import login_required
 
-# from candidateapp.forms import CandidateForm
 
-
-class ShowProfilePageView(TemplateView):
+class Candidate_Main(TemplateView):
     template_name = 'candidateapp/candidate.html'
 
-    def get_context_data(self, *args, **kwargs):
-        # users = Candidate.objects.all()
-        context = super(ShowProfilePageView, self).get_context_data(*args, **kwargs)
-        page_user = get_object_or_404(Candidate, id=self.kwargs['pk'])
-        context['page_user'] = page_user
-        return context
+@login_required
+def candidate_lk(request):
+    title = 'candidate'
+    candidate_items = Candidate.objects.filter(user=request.user).select_related()
+
+    context = {
+        'title': title,
+        'candidate_items': candidate_items,
+
+    }
+    return render(request, 'candidateapp/candidate_lk.html', context)
 
 
 class ShowProfileUpdateView(UpdateView):
@@ -29,17 +35,29 @@ class ShowProfileUpdateView(UpdateView):
     ]
 
 
-class ShowResumePageView(DetailView):
+class ShowResumeDetailView(DetailView):
     model = Resume
-    template_name = 'candidateapp/resume.html'
-
-    def get_context_data(self, *args, **kwargs):
-        # users = Candidate.objects.all()
-        context = super(ShowResumePageView, self).get_context_data(*args, **kwargs)
-        page_user = get_object_or_404(Resume, id=self.kwargs['pk'])
-        context['page_user'] = page_user
-        return context
+    resume_items = Resume.objects.all()
+    template_name = 'candidateapp/resume_detail.html'
 
 
-class CandidateLK(TemplateView):
-    template_name = 'candidateapp/candidate_lk.html'
+@login_required
+def resume(request):
+    title = 'резюме'
+    resume_items = Resume.objects.select_related()
+    context = {
+        'title': title,
+        'resume_items': resume_items,
+    }
+    return render(request, 'candidateapp/resume.html', context)
+
+
+class VacancySearch(TemplateView):
+    template_name = 'candidateapp/vacancy_search.html'
+    model = Vacancy
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['vacancies'] = Vacancy.objects.filter(is_active=True).order_by('-created')[:10]
+        return data
+

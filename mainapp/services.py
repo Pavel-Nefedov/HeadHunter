@@ -1,8 +1,10 @@
 import locale
 import time
 from abc import ABC, abstractmethod
+from concurrent.futures import Future, ThreadPoolExecutor
 from datetime import datetime
 from enum import Enum
+from typing import List
 
 import requests
 from lxml.html import fromstring
@@ -67,6 +69,7 @@ class HTTPResponse:
     def __get_response(self):
         response = requests.get(self.url, headers=self.headers, params=self.params)
         if response.status_code != Status.OK_200:
+            print(f"{self.url=}\n{self.headers=}\n{self.params}")
             raise ConnectionError(
                 f"HTTP status not 200. Server return "
                 f"{response.status_code} status code for "
@@ -143,6 +146,8 @@ class HHNewsScrapper(AbstractScrapper):
 class HHVacancyParser:
     BASE_URL = "https://api.hh.ru/vacancies"
 
+    thread_pool_executor = ThreadPoolExecutor(max_workers=4)
+
     def __init__(self, count_of_vacansy: int = 10, search_text: str = ''):
         self.headers = {
             "Content-Type": "application/json",
@@ -152,27 +157,39 @@ class HHVacancyParser:
             'per_page': count_of_vacansy,
             'text': search_text
         }
-        with HTTPResponse.get_response(self.BASE_URL, headers=self.headers, params=self.params) as get_request:
-            # Получим список с id вакансий
-            vacancy_ids = [vacancy_id['id'] for vacancy_id in get_request.json()['items']]
+        try:
+            with HTTPResponse.get_response(self.BASE_URL, headers=self.headers, params=self.params) as get_request:
+                # Получим список с id вакансий
+                vacancy_ids = [vacancy_id['id'] for vacancy_id in get_request.json()['items']]
+        except ConnectionError:
+            raise ValueError(
+                f'Too many vacancies count in param count_of_vacansy. '
+                f'Please specify a smaller number then {count_of_vacansy}. '
+                f'Maximum 100.'
+            )
+        self.vacancy_data: list = []
+        futeres_responce: List[Future] = []
+        for vacancy_id in vacancy_ids:
+            futeres_responce.append(
+                self.thread_pool_executor.submit(self.__get_vacancy_data_for_id, vacancy_id)
+            )
 
-        self.vacancy_data = []
-        for vacancy_id in tqdm(vacancy_ids):
-            vacancy_data = self.__get_vacancy_data_for_id(vacancy_id=vacancy_id)
-            vacancy_data['raw_employer_description'] = self.__get_employer_description(
-                url=vacancy_data['employer']['url'])
-            self.vacancy_data.append(vacancy_data)
+        print(f"Starting {len(vacancy_ids)} asynchrone requests to HH API. Wait please")
+
+        flag: bool = True
+        while flag:
+            if all([futures.done() for futures in futeres_responce]):
+                flag = False
+
+        self.vacancy_data = [futures.result() for futures in futeres_responce]
 
     # Пройдемся по списку id и получим полные данные по каждой вакансии
     def __get_vacancy_data_for_id(self, vacancy_id: str) -> list:
         with HTTPResponse.get_response(f"{self.BASE_URL}/{vacancy_id}", headers=self.headers) as get_request:
             return get_request.json()
 
-    def __get_employer_description(self, url: str) -> str:
-        with HTTPResponse.get_response(url, headers=self.headers) as get_request:
-            return get_request.json()['description']
-
     def get_vacancy_data(self):
+        self.thread_pool_executor.shutdown()
         return self.vacancy_data
 
 
