@@ -2,7 +2,7 @@ from django.urls import path
 
 from companyapp.views import (CompanyProfileUpdateView, CompanyProfileCreateView,
                               CompanyProfileView, VacancyCreate,
-                              VacancyUpdate, VacancyView, ResumeSearch)
+                              VacancyUpdate, VacancyView, ResumeSearch, PartnerCompanyView)
 
 app_name = 'companyapp'
 
