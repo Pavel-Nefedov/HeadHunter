@@ -37,24 +37,21 @@
 
     <div class="b-example-divider"></div>
 
-
     <div class="container px-4 py-5" id="icon-grid">
         <h2 class="pb-2 border-bottom">Наши партнеры</h2>
-
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+        <div class="row">
             {% for item in companys %}
-                <div class="col d-flex align-items-start">
-                    <div>
-                        <h3 class="fw-bold mb-0 fs-4">{{ item.company_name }}</h3>
-                        <p>{{ item.about_company }}</p>
-                    </div>
+              <div class="col-sm-6 mb-3 mb-sm-0">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ item.company_name }}</h5>
+                    <p class="card-text">{{ item.about_company }}</p>
+                    <a href="{% url 'companyapp:partner' item.id %}" class="btn btn-primary">Check it out</a>
+                  </div>
                 </div>
-            {% empty %}
-                <p class="lead">Только проверенные компании являются партнерами нашего агенства.</p>
+              </div>
             {% endfor %}
         </div>
-    </div>
-
     <div class="b-example-divider"></div>
 
     <div class="container px-4 py-5" id="hanging-icons">

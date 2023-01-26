@@ -113,3 +113,27 @@ class ResumeSearch(TemplateView):
         # data['resume'] = Resume.objects.filter().order_by('-created')[:10]
         return data
 
+
+# def CompanyK(request):
+#     if request.method == 'POST':
+#         form = CompanyProfileForm(data=request.POST, files=request.FILES, instance=request.user)
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponseRedirect(reverse('company_lk'))
+#     else:
+#         form = CompanyProfileForm(instance=request.user)
+#
+#     context = {
+#         'title': 'Профиль',
+#         'form': form,
+#     }
+#     return render(request, 'companyapp/company_lk.html', context)
+
+class PartnerCompanyView(DetailView):
+    template_name = 'companyapp/partner_company.html'
+    model = CompanyProfile
+
+    def get_context_data(self, pk=None, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context['company'] = CompanyProfile.objects.filter(pk=pk)
+        return context
