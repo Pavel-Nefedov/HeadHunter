@@ -93,6 +93,7 @@ class CompanyK(View):
         }
         return render(request, 'companyapp/company_lk.html', context)
 
+
 # def CompanyK(request):
 #     if request.method == 'POST':
 #         form = CompanyProfileForm(data=request.POST, files=request.FILES, instance=request.user)
@@ -107,4 +108,14 @@ class CompanyK(View):
 #         'form': form,
 #     }
 #     return render(request, 'companyapp/company_lk.html', context)
+
+class PartnerCompanyView(DetailView):
+    template_name = 'companyapp/partner_company.html'
+    model = CompanyProfile
+
+    def get_context_data(self, pk=None, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context['company'] = CompanyProfile.objects.filter(pk=pk)
+        return context
+
 
