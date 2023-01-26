@@ -2,12 +2,14 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.core.exceptions import BadRequest, PermissionDenied
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, TemplateView
 
 from authapp.forms import RegisterUserForm
 from authapp.models import HHUser
+
 
 
 class LoginUser(LoginView):
@@ -18,9 +20,9 @@ class LoginUser(LoginView):
         user = form.get_user()
         login(self.request, user)
         if user.is_candidate:
-            return redirect('candidateapp:user_profile', pk=user.pk)
+            return redirect('candidateapp:user_profile')
         if user.is_company:
-            return redirect('companyapp:company_profile', pk=user.pk)
+            return redirect('companyapp:company_lk')
         if user.is_superuser:
             return redirect('/admin', pk=user.pk)
 
@@ -37,12 +39,12 @@ class RegisterUser(CreateView):
             user.is_company = True
             user.save()
             login(self.request, user)
-            return redirect('companyapp:company_profile', pk=user.pk)
+            return redirect('companyapp:resume_search')
         elif form.cleaned_data['user_role'] == 'is_candidate':
             user.is_candidate = True
             user.save()
             login(self.request, user)
-            return redirect('candidateapp:user_profile')
+            return redirect('candidateapp:vacancy_search')
         else:
             raise BadRequest
 
@@ -53,3 +55,4 @@ class SuccessLogin(TemplateView):
 
 class LogoutUser(LogoutView):
     next_page = '/auth/login'
+

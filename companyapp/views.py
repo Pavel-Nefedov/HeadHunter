@@ -8,6 +8,7 @@ from django.views.generic import (CreateView, DetailView, TemplateView,
 
 from companyapp.forms import CompanyProfileForm, VacancyForm
 from companyapp.models import CompanyProfile, Vacancy
+from candidateapp.models import Resume
 
 
 class CompanyLK(TemplateView):
@@ -18,14 +19,14 @@ class CompanyLK(TemplateView):
 #     template_name = 'companyapp/company_lk.html'
 
 
-class VacancySearch(TemplateView):
-    template_name = 'companyapp/vacancy_search.html'
-    model = Vacancy
-
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        data['vacancies'] = Vacancy.objects.filter(is_active=True).order_by('-created')[:10]
-        return data
+# class VacancySearch(TemplateView):
+#     template_name = 'companyapp/vacancy_search.html'
+#     model = Vacancy
+#
+#     def get_context_data(self, **kwargs):
+#         data = super().get_context_data(**kwargs)
+#         data['vacancies'] = Vacancy.objects.filter(is_active=True).order_by('-created')[:10]
+#         return data
 
 
 ### уже есть class Vacancy. Это название модели поэтому переименовал контроллер class Vacancy в class VacancyView
@@ -93,6 +94,15 @@ class CompanyK(View):
         }
         return render(request, 'companyapp/company_lk.html', context)
 
+
+class ResumeSearch(TemplateView):
+    template_name = 'companyapp/resume_search.html'
+    model = Resume
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        # data['resume'] = Resume.objects.filter().order_by('-created')[:10]
+        return data
 
 # def CompanyK(request):
 #     if request.method == 'POST':

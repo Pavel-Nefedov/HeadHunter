@@ -3,24 +3,29 @@
 
 
 {% block header %}
-    <div id="main">
-        <div id="header">
-            <div id="logo">
-                <h1>Рекрутинговое агенство @Agile-HH@</h1>
-            </div>
-            {% include 'mainapp/includes/main_menu.html' %}
-        </div>
-    </div>
+    {% include 'mainapp/includes/inc_header.html' %}
 {% endblock %}
 
 
 
 {% block site_content %}
-    <div id="site_content">
-        <div id="content">
-            <h1>Код заполнения резюме</h1>
+<div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <h1>Резюме кандидата</h1>
+        <div class="resume_card">
+            {% for item in resume_items %}
+                <a class="desired_position"
+                    href="{% url 'candidate:resume_detail' item.id %}">
+                    {{ item.position_and_selery.desired_position }}</a>
+                <h2 class="salary">{{ item.position_and_selery.salary }}</h2>
+            {% endfor %}
+        </div>
+
+        <div class="basket_list">
+            {% include 'candidateapp/includes/inc_resume_list.html' %}
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block footer %}
