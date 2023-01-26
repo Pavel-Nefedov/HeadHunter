@@ -119,3 +119,13 @@ class ResumeSearch(TemplateView):
 #     }
 #     return render(request, 'companyapp/company_lk.html', context)
 
+class PartnerCompanyView(DetailView):
+    template_name = 'companyapp/partner_company.html'
+    model = CompanyProfile
+
+    def get_context_data(self, pk=None, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context['company'] = CompanyProfile.objects.filter(pk=pk)
+        return context
+
+
