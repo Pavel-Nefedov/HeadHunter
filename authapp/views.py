@@ -4,12 +4,11 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.core.exceptions import BadRequest, PermissionDenied
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, TemplateView
 
 from authapp.forms import RegisterUserForm
 from authapp.models import HHUser
-
 
 
 class LoginUser(LoginView):
@@ -55,4 +54,3 @@ class SuccessLogin(TemplateView):
 
 class LogoutUser(LogoutView):
     next_page = '/auth/login'
-

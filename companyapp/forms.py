@@ -24,5 +24,5 @@ class VacancyForm(forms.ModelForm):
     class Meta:
         model = Vacancy
         fields = (
-        'vacancy_name', 'city', 'duties_description', 'requirements_description', 'work_conditions', 'salary_min',
-        'salary_max', 'currency', 'is_for_disabled', 'is_full_day', 'is_intern',)
+            'vacancy_name', 'city', 'duties_description', 'requirements_description', 'work_conditions', 'salary_min',
+            'salary_max', 'currency', 'is_for_disabled', 'is_full_day', 'is_intern',)
