@@ -1,27 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'candidateapp/index.html' %}
 {% load static %}
 
-
-{% block header %}
-    {% include 'mainapp/includes/inc_header.html' %}
-{% endblock %}
-
-
-
 {% block site_content %}
-<div class="container col-xxl-8 px-4 py-5">
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-             <h3>База данных резюме</h3>
-        <p>Добавить базусделать расширенный поиск вакансий, выбрав одну из них пытается откликнуться на вакансию,
-            сайт сообщает что нет таких и предлагает создать резюме в личном кабинете
-            Пользователь добавляет выбранную вакансию в избранное и переходит в личный кабинет ...</a></p>
+    <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+            <h3>База данных резюме</h3>
+            <p>Добавить базусделать расширенный поиск вакансий, выбрав одну из них пытается откликнуться на вакансию,
+                сайт сообщает что нет таких и предлагает создать резюме в личном кабинете
+                Пользователь добавляет выбранную вакансию в избранное и переходит в личный кабинет ...</a></p>
 
-        <h3>Для заполнения заполнения резюме перейдите на вкладку "Личный кабинет"</h3>
+            <h3>Для заполнения заполнения резюме перейдите на вкладку "Личный кабинет"</h3>
+        </div>
     </div>
-</div>
 {% endblock %}
 
-
-{% block footer %}
-    {% include 'mainapp/includes/inc_footer.html' %}
-{% endblock %}

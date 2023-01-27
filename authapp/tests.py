@@ -14,7 +14,7 @@ class TestUserManagement(TestCase):
         self.user = HHUser.objects.create_user('Tarantino', password='12345')
         # self.user = HHUser.objects.create_user(first_name='Quentin', last_name='Tarantino', \
         #     password='12345', is_candidate=True)
-    
+
     def test_user_login(self):
         # главная страница без логина
         response = self.client.get('')

@@ -1,14 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse, reverse_lazy
-from django.views import View
+from django.urls import reverse
 from django.views.generic import (CreateView, DetailView, TemplateView,
                                   UpdateView, View)
 
+from candidateapp.models import Resume
 from companyapp.forms import CompanyProfileForm, VacancyForm
 from companyapp.models import CompanyProfile, Vacancy
-from candidateapp.models import Resume
 
 
 class CompanyLK(TemplateView):
@@ -29,7 +28,7 @@ class CompanyLK(TemplateView):
 #         return data
 
 
-### уже есть class Vacancy. Это название модели поэтому переименовал контроллер class Vacancy в class VacancyView
+# уже есть class Vacancy. Это название модели поэтому переименовал контроллер class Vacancy в class VacancyView
 class VacancyView(DetailView):
     template_name = 'companyapp/vacancy.html'
     model = Vacancy
@@ -104,6 +103,7 @@ class ResumeSearch(TemplateView):
         # data['resume'] = Resume.objects.filter().order_by('-created')[:10]
         return data
 
+
 # def CompanyK(request):
 #     if request.method == 'POST':
 #         form = CompanyProfileForm(data=request.POST, files=request.FILES, instance=request.user)
@@ -119,6 +119,7 @@ class ResumeSearch(TemplateView):
 #     }
 #     return render(request, 'companyapp/company_lk.html', context)
 
+
 class PartnerCompanyView(DetailView):
     template_name = 'companyapp/partner_company.html'
     model = CompanyProfile
@@ -127,5 +128,3 @@ class PartnerCompanyView(DetailView):
         context = super(DetailView, self).get_context_data(**kwargs)
         context['company'] = CompanyProfile.objects.filter(pk=pk)
         return context
-
-
