@@ -11,13 +11,21 @@ from companyapp.models import CompanyProfile, Vacancy
 from candidateapp.models import Resume
 
 
+
+
+
+class EmptyCompanyProfile(TemplateView):
+    template_name = 'companyapp/empty_profile.html'
+
+
+
 class CompanyProfileView(DetailView):
     template_name = 'companyapp/company_profile_view.html'
     model = CompanyProfile
 
     def get_context_data(self, pk=None, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
-        context['companyprofile'] = CompanyProfile
+        context['profile'] = CompanyProfile.objects.filter(pk=pk)
         context['user'] = self.request.user
         return context
 
