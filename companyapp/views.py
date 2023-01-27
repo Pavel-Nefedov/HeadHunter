@@ -3,12 +3,12 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import (CreateView, DetailView, TemplateView,
-                                  UpdateView, View, DeleteView)
+from django.views.generic import (CreateView, DeleteView, DetailView,
+                                  TemplateView, UpdateView, View)
 
+from candidateapp.models import Resume
 from companyapp.forms import CompanyProfileForm, VacancyForm
 from companyapp.models import CompanyProfile, Vacancy
-from candidateapp.models import Resume
 
 
 class CompanyProfileView(DetailView):

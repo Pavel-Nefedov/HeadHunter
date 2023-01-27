@@ -71,3 +71,12 @@
     padding-top: 35px;
 
 }
+
+.justify {
+    text-align: justify;
+  }
+
+li {
+    text-align: justify;
+    margin-left: 20px;
+}

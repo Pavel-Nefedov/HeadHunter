@@ -1,10 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
-from django.views.generic import DetailView, TemplateView, UpdateView, ListView
+from django.views.generic import DetailView, ListView, TemplateView, UpdateView
 
+from authapp.models import HHUser
 from candidateapp.models import Candidate, Resume
 from companyapp.models import Vacancy
-from authapp.models import HHUser
-from django.contrib.auth.decorators import login_required
 
 
 class Candidate_Main(TemplateView):
