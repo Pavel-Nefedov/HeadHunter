@@ -11,5 +11,6 @@ urlpatterns = [
     path('vacancy/create/', VacancyCreate.as_view(), name='vacancy_create'),
     path('vacancy/edit/<int:pk>/', VacancyUpdate.as_view(), name='vacancy_edit'),
     path('vacancy/<int:pk>/', VacancyView.as_view(), name='vacancy'),
-    path('resume_search/',  ResumeSearch.as_view(), name='resume_search')
+    path('resume_search/',  ResumeSearch.as_view(), name='resume_search'),
+    path('favorites/',  VacancyView.as_view(), name='favorites'),
 ]

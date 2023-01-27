@@ -104,6 +104,17 @@ class ResumeSearch(TemplateView):
         # data['resume'] = Resume.objects.filter().order_by('-created')[:10]
         return data
 
+
+class Favorites(TemplateView):
+    template_name = 'companyapp/favorites.html'
+    model = Resume
+
+    def favorites_list(request):
+        context = {
+            "favorites_list": request.session.get('favorites'),
+        }
+        return render(request, 'favorites', context=context)
+
 # def CompanyK(request):
 #     if request.method == 'POST':
 #         form = CompanyProfileForm(data=request.POST, files=request.FILES, instance=request.user)
