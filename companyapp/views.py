@@ -2,13 +2,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views import View
 from django.views.generic import (CreateView, DetailView, TemplateView,
                                   UpdateView, View, DeleteView)
 
+from candidateapp.models import Resume
 from companyapp.forms import CompanyProfileForm, VacancyForm
 from companyapp.models import CompanyProfile, Vacancy
-from candidateapp.models import Resume
 
 
 class CompanyProfileView(DetailView):
@@ -56,7 +55,7 @@ class CompanyProfileUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
 
-### уже есть class Vacancy. Это название модели поэтому переименовал контроллер class Vacancy в class VacancyView
+# уже есть class Vacancy. Это название модели поэтому переименовал контроллер class Vacancy в class VacancyView
 class VacancyView(DetailView):
     template_name = 'companyapp/vacancy.html'
     model = Vacancy
@@ -138,6 +137,7 @@ class Favorites(TemplateView):
 #         'form': form,
 #     }
 #     return render(request, 'companyapp/company_lk.html', context)
+
 
 class PartnerCompanyView(DetailView):
     template_name = 'companyapp/partner_company.html'
