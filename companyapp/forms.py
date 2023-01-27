@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserChangeForm
 from companyapp.models import CompanyProfile, Vacancy
 
 
-class CompanyProfileForm(UserChangeForm):
+class CompanyProfileForm(forms.ModelForm):
     company_logo = forms.ImageField(widget=forms.FileInput())
 
     class Meta:
