@@ -1,12 +1,12 @@
 from django.urls import path
 
-from companyapp.views import (CompanyK, CompanyLK, Vacancy, VacancyCreate,
-                              VacancySearch, VacancyUpdate, VacancyView, PartnerCompanyView)
+from companyapp.views import (CompanyK, CompanyLK, Vacancy, VacancyCreate, VacancyUpdate, VacancyView,
+                              PartnerCompanyView)
 
 app_name = 'companyapp'
 
 urlpatterns = [
-    path('company_profile/<int:pk>/',  CompanyLK.as_view(), name='company_profile'),
+    path('company_profile/<int:pk>/', CompanyLK.as_view(), name='company_profile'),
     path('company_lk/', CompanyK.as_view(), name='company_lk'),
     path('vacancy/create/', VacancyCreate.as_view(), name='vacancy_create'),
     path('vacancy/edit/<int:pk>/', VacancyUpdate.as_view(), name='vacancy_edit'),
