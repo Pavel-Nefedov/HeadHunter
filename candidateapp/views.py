@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.generic import DetailView, ListView, TemplateView, UpdateView
 
-from authapp.models import HHUser
 from candidateapp.models import Candidate, Resume
 from companyapp.models import Vacancy
 
@@ -78,5 +78,6 @@ class FormVacancySearch(ListView):
                 Q(company__company_name__contains=search_text) | Q(vacancy_name__contains=search_text)).select_related()
         else:
             search_queryset = Vacancy.objects.all().select_related()
+
 
         return search_queryset
