@@ -70,19 +70,13 @@ class FormVacancySearch(ListView):
     paginate_by = 10
     model = Vacancy
 
-    def get(self, request: WSGIRequest, *args, **kwargs):
-        search_text = request.GET.get('search_text')
-        print(f"{search_text=}")
+    def get_queryset(self):
+        search_text = self.request.GET.get('search_text')
 
         if search_text:
-            search_queryset = Vacancy.objects.filter(Q(company__company_name__contains=search_text) | Q(vacancy_name__contains=search_text)).select_related()
+            search_queryset = Vacancy.objects.filter(
+                Q(company__company_name__contains=search_text) | Q(vacancy_name__contains=search_text)).select_related()
         else:
             search_queryset = Vacancy.objects.all().select_related()
 
-        return render(
-            request,
-            self.template_name,
-            context={
-                'vacancys': search_queryset,
-            }
-        )
+        return search_queryset
