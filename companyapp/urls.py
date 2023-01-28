@@ -1,7 +1,7 @@
 from django.urls import path
 
 from companyapp.views import (CompanyProfileUpdateView, CompanyProfileCreateView,
-                              CompanyProfileView, VacancyCreate,
+                              CompanyProfileView, VacancyCreate,EmptyCompanyProfile,
                               VacancyUpdate, VacancyView, ResumeSearch, PartnerCompanyView)
 
 app_name = 'companyapp'
@@ -9,6 +9,7 @@ app_name = 'companyapp'
 urlpatterns = [
 
     path('company_profile/<int:pk>/', CompanyProfileView.as_view(), name='company_profile'),
+    path('company_profile/empty/', EmptyCompanyProfile.as_view(), name='empty_profile'),
     path('company_profile/create/', CompanyProfileCreateView.as_view(), name='company_create'),
     path('company_profile/update/<int:pk>/', CompanyProfileUpdateView.as_view(), name='company_update'),
     path('vacancy/create/', VacancyCreate.as_view(), name='vacancy_create'),
