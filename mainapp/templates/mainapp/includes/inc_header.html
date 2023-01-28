@@ -4,7 +4,7 @@
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
             <img src="{% static 'img/logo.png' %}" alt="logo" height="45" width="45">
-            &nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
             <span class="fs-4">Agile recruitment agency</span>
         </a>
 
@@ -37,16 +37,21 @@
 
             {% endif %}
         </ul>
-
+        {% if user.is_authenticated %}
+            <div class="col-md-3 text-end">
+                <a href="{% url 'authapp:logout' %}" class="btn btn-outline-primary me-2">Выйти</a>
+            </div>
+        {% endif %}
         {% if not user.is_authenticated %}
             <div class="col-md-3 text-end">
                 <a href="{% url 'authapp:login' %}" class="btn btn-outline-primary me-2">Войти</a>
                 <a href="{% url 'authapp:register' %}" class="btn btn-primary">Зарегистрироваться</a>
             </div>
         {% else %}
-             <div class="col-md-3 text-end">
-                <a href="{% url 'authapp:logout' %}" class="btn btn-outline-primary me-2">Выйти</a>
-             </div>
+            <div class="col-md-3 text-end">
+                <a href="{% url 'authapp:logout' %}" class="btn btn-primary">Выход</a>
+            </div>
+
         {% endif %}
     </header>
 </div>

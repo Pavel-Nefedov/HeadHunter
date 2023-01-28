@@ -1,0 +1,22 @@
+
+{% for resume_obj in resume %}
+<div class="card-title">
+    <h3 class="card-title" style="padding: 0"> {{ resume_obj.contact_info.name|title }} {{ resume_obj.contact_info.surname|title }} {{ resume.contact_info.patronymic|title }}</h3>
+    <br>
+    {% if resume_obj.contact_info.gender == "M" %}
+    <h6>{{ resume_obj.contact_info.get_gender_display|title }}, родился {{ resume_obj.contact_info.birthday }}</h6>
+    {% else %}
+    <h6>{{ resume_obj.contact_info.get_gender_display|title }}, родилась {{ resume_obj.contact_info.birthday }}</h6>
+    {% endif %}
+    <br>
+    <h6>Контакты</h6>
+    <h6 class="card-title" style="padding: 0"> {{ resume_obj.candidate.phone_number }} </h6>
+    <h6 class="card-title" style="padding: 0"> {{ resume_obj.candidate.email }} </h6>
+    <br>
+    <h6 class="card-title">
+    {{ resume_obj.contact_info.city }}, переезд {{ resume_obj.contact_info.get_moving_display }}, к командировкам {{ resume_obj.contact_info.get_business_trips_display|title }}
+    </h6>
+
+</div>
+{% endfor %}
+

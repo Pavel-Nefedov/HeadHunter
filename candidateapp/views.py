@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-from django.views.generic import DetailView, TemplateView, UpdateView, ListView
+from django.views.generic import DetailView, TemplateView, UpdateView
 
 from candidateapp.models import Candidate, Resume
 from authapp.models import HHUser
@@ -23,6 +23,7 @@ def candidate_lk(request):
     title = 'candidate'
     candidate_items = Candidate.objects.filter(user=request.user).select_related()
 
+
     context = {
         'title': title,
         'candidate_items': candidate_items,
@@ -42,15 +43,15 @@ class ShowProfileUpdateView(UpdateView):
     ]
 
 
-# class ShowResumePageView(DetailView):
-#     model = Resume
-#     template_name = 'candidateapp/resume.html'
-#
-#
 class ShowResumeDetailView(DetailView):
     model = Resume
-    resume_items = Resume.objects.all()
     template_name = 'candidateapp/resume_detail.html'
+
+    def get_context_data(self, pk=None, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context['resume'] = Resume.objects.all()
+        context['user'] = self.request.user
+        return context
 
 
 # @login_required
@@ -65,15 +66,17 @@ class ShowResumeDetailView(DetailView):
 #     return render(request, 'candidateapp/resume_detail.html', context)
 
 
-
 @login_required
 def resume(request):
     title = 'резюме'
-    resume_items = Resume.objects.select_related()
+    # resume_items = Resume.objects.all()
+    resume_items = Resume.objects.all()
+    candidate_items = Candidate.objects.filter(user=request.user).select_related()
 
     context = {
         'title': title,
         'resume_items': resume_items,
+        'candidate_items': candidate_items,
     }
     return render(request, 'candidateapp/resume.html', context)
 

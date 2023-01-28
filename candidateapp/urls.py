@@ -14,6 +14,7 @@ urlpatterns = [
     # path('candidate_lk/', CandidateLK.as_view(), name='candidate_lk'),
     # path('update/<int:pk>/', ShowProfileUpdateView.as_view(), name='update_profile'),
     path('user_profile/', candidateapp.candidate_lk, name='user_profile'),
+    # path('resume/<int:pk>/', VacancyView.as_view(), name='resume'),
     path('resume/', candidateapp.resume, name='resume'),
     # path('resume_detail/', candidateapp.resume_detail, name='resume_detail'),
     # path('resume/<int:pk>/', ShowResumePageView.as_view(), name='resume'),
