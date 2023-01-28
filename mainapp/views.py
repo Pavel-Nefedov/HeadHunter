@@ -16,3 +16,8 @@ class Index(TemplateView):
         data['companys'] = CompanyProfile.objects.all().order_by('-pk')[:4]
         data['vacancies'] = Vacancy.objects.filter(is_active=True).order_by('-created')[:5]
         return data
+
+
+class PortalRules(TemplateView):
+    paginate_by = 5
+    template_name = 'mainapp/portal_rules.html'

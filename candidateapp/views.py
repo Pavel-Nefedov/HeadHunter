@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import DetailView, ListView, TemplateView, UpdateView
 
+from authapp.models import HHUser
 from candidateapp.models import Candidate, Resume
 from companyapp.models import Vacancy
 
