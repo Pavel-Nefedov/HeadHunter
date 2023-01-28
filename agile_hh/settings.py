@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'mainapp.apps.MainappConfig',
     'candidateapp.apps.CandidateappConfig',
     'companyapp.apps.CompanyappConfig',
+    'favorites',
 
     # Third-party apps
     'debug_toolbar',
