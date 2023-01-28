@@ -54,4 +54,3 @@ class SuccessLogin(TemplateView):
 
 class LogoutUser(LogoutView):
     next_page = '/auth/login'
-

@@ -17,7 +17,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 
-#from companyapp.views import VacancySearch, VacancyView
+# from companyapp.views import VacancySearch, VacancyView
 
 urlpatterns = [
     path('admin/', admin.site.urls),

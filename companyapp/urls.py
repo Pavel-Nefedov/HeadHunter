@@ -8,6 +8,7 @@ from companyapp.views import (CompanyProfileCreateView,
 app_name = 'companyapp'
 
 urlpatterns = [
+
     path('company_profile/<int:pk>/', CompanyProfileView.as_view(), name='company_profile'),
     path('company_profile/create/', CompanyProfileCreateView.as_view(), name='company_create'),
     path('company_profile/update/<int:pk>/', CompanyProfileUpdateView.as_view(), name='company_update'),

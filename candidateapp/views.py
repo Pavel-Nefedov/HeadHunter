@@ -1,5 +1,8 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render
+from django.db.models import Q
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.generic import DetailView, ListView, TemplateView, UpdateView
 
 from authapp.models import HHUser
@@ -9,6 +12,7 @@ from companyapp.models import Vacancy
 
 class Candidate_Main(TemplateView):
     template_name = 'candidateapp/candidate.html'
+
 
 @login_required
 def candidate_lk(request):
@@ -61,3 +65,20 @@ class VacancySearch(TemplateView):
         data['vacancies'] = Vacancy.objects.filter(is_active=True).order_by('-created')[:10]
         return data
 
+
+class FormVacancySearch(ListView):
+    template_name = 'candidateapp/form_vacancy_search.html'
+    paginate_by = 10
+    model = Vacancy
+
+    def get_queryset(self):
+        search_text = self.request.GET.get('search_text')
+
+        if search_text:
+            search_queryset = Vacancy.objects.filter(
+                Q(company__company_name__contains=search_text) | Q(vacancy_name__contains=search_text)).select_related()
+        else:
+            search_queryset = Vacancy.objects.all().select_related()
+
+
+        return search_queryset

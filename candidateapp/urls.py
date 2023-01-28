@@ -2,7 +2,7 @@ from django.urls import path
 
 import candidateapp.views as candidateapp
 
-from .views import (Candidate_Main, ShowProfileUpdateView,
+from .views import (Candidate_Main, FormVacancySearch, ShowProfileUpdateView,
                     ShowResumeDetailView, VacancySearch)
 
 app_name = 'candidateapp'
@@ -21,4 +21,5 @@ urlpatterns = [
     path('candidate/', Candidate_Main.as_view(), name='candidate_lk'),
     path('update/<int:pk>/', ShowProfileUpdateView.as_view(), name='update_profile'),
     path('vacancy_search/',  VacancySearch.as_view(), name='vacancy_search'),
+    path('search/',  FormVacancySearch.as_view(), name='form_vacancy_search'),
 ]
