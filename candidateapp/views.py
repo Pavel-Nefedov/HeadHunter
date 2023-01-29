@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
 from django.views.generic import DetailView, TemplateView, UpdateView, ListView
 
+from authapp.models import HHUser
 from candidateapp.models import Candidate, Resume
 from authapp.models import HHUser
 from django.contrib.auth.decorators import login_required

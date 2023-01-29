@@ -10,14 +10,19 @@
 
 {% block site_content %}
 
-{% block site_content %}
-        <div class="b-example-divider"></div>
+            <h1>Профиль компании отсутствует, просим его <a href="{% url 'company:company_create'   %}">создать </a> </h1>
+
+
 
 
     <div class="b-example-divider"></div>
 
+
+
+
 {% endblock %}
-{% endblock %}
+
+
 
 {% block footer %}
     {% include 'mainapp/includes/inc_footer.html' %}

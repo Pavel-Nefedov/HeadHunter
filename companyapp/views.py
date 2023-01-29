@@ -10,13 +10,21 @@ from companyapp.forms import CompanyProfileForm, VacancyForm
 from companyapp.models import CompanyProfile, Vacancy
 
 
+
+
+
+class EmptyCompanyProfile(TemplateView):
+    template_name = 'companyapp/empty_profile.html'
+
+
+
 class CompanyProfileView(DetailView):
     template_name = 'companyapp/company_profile_view.html'
     model = CompanyProfile
 
     def get_context_data(self, pk=None, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
-        context['companyprofile'] = CompanyProfile
+        context['profile'] = CompanyProfile.objects.filter(pk=pk)
         context['user'] = self.request.user
         return context
 
@@ -112,6 +120,16 @@ class ResumeSearch(TemplateView):
         # data['resume'] = Resume.objects.filter().order_by('-created')[:10]
         return data
 
+
+class Favorites(TemplateView):
+    template_name = 'companyapp/favorites.html'
+    model = Resume
+
+    def favorites_list(request):
+        context = {
+            "favorites_list": request.session.get('favorites'),
+        }
+        return render(request, 'favorites', context=context)
 
 # def CompanyK(request):
 #     if request.method == 'POST':

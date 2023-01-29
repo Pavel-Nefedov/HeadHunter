@@ -31,9 +31,19 @@
                     База данных резюме</a></li>
 
 
-            <li class="nav-item"><a href="{% url 'company:company_create'  %}" class="nav-link">
+            {% if companyprofile %}
+
+
+            <li class="nav-item"><a href="{% url 'company:company_profile' companyprofile.pk   %}" class="nav-link">
                     <i class="fa fa-university" aria-hidden="true"></i>
                     Личный кабинет</a></li>
+
+            {% else %}
+
+            <li class="nav-item"><a href="{% url 'company:empty_profile'    %}" class="nav-link">
+                    <i class="fa fa-university" aria-hidden="true"></i>
+                    Личный кабинет</a></li>
+            {% endif %}
 
             {% endif %}
         </ul>
