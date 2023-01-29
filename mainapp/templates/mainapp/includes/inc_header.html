@@ -47,10 +47,6 @@
                 <a href="{% url 'authapp:login' %}" class="btn btn-outline-primary me-2">Войти</a>
                 <a href="{% url 'authapp:register' %}" class="btn btn-primary">Зарегистрироваться</a>
             </div>
-        {% else %}
-            <div class="col-md-3 text-end">
-                <a href="{% url 'authapp:logout' %}" class="btn btn-primary">Выход</a>
-            </div>
 
         {% endif %}
     </header>

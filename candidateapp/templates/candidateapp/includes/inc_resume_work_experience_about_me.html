@@ -1,0 +1,9 @@
+{% for resume_obj in resume %}
+<div class="card-title">
+    <h3 class="card-title" style="padding: 0">Ключевые навыки</h3>
+    <h6>{{ resume_obj.work_experience.skills }}</h6>
+    <br>
+    <h3 class="card-title" style="padding: 0">Обо мне</h3>
+    <h6>{{ resume_obj.work_experience.about_me }}</h6>
+</div>
+{% endfor %}

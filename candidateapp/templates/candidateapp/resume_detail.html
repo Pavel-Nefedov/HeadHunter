@@ -1,18 +1,34 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+{% endblock %}
+
 {% block header %}
     {% include 'mainapp/includes/inc_header.html' %}
+
 {% endblock %}
 
 {% block site_content %}
     <div class="b-example-divider"></div>
     <div class="container px-4 py-5" id="icon-grid">
+
+        <div class="card12">
         {% include 'candidateapp/includes/inc_resume_contact_info.html' %}
+        </div>
         <br>
         {% include 'candidateapp/includes/inc_resume_position_and_salary.html' %}
-    </div>
+        <br>
+        {% include 'candidateapp/includes/inc_resume_work_experience.html' %}
+        <br>
+        {% include 'candidateapp/includes/inc_resume_work_experience_about_me.html' %}
+        <br>
+        {% include 'candidateapp/includes/inc_resume_education.html' %}
+        <br>
+        {% include 'candidateapp/includes/inc_resume_advanced_training.html' %}
 
+    </div>
 {% endblock %}
 
 

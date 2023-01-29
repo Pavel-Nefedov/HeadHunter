@@ -1,0 +1,13 @@
+
+{% for resume_obj in resume %}
+<div class="card-title">
+    <h4>Повышение квалификации, курсы</h4>
+    <h5 class="card-title" style="padding: 0">{{ resume_obj.advanced_training.course_name }}</h5>
+    <br>
+    <h6>{{ resume_obj.advanced_training.year_graduation }}</h6>
+    <h5>{{ resume_obj.advanced_training.organization_conducted }}</h5>
+    <h5>{{ resume_obj.advanced_training.specialization }}</h5>
+
+
+</div>
+{% endfor %}

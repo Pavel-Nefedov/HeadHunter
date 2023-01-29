@@ -1,0 +1,11 @@
+{% for resume_obj in resume %}
+<div class="card-title">
+    <h3 class="card-title" style="padding: 0">Образование: {{ resume_obj.education.get_level_display }}</h3>
+    <br>
+    <h6>{{ resume_obj.education.year_graduation }}</h6>
+    <h5>{{ resume_obj.education.educational_institution }}</h5>
+    <h6>{{ resume_obj.education.faculty }}</h6>
+    <h6>{{ resume_obj.education.specialization }}</h6>
+
+</div>
+{% endfor %}

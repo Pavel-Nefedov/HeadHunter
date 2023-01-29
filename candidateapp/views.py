@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render
-from django.views.generic import DetailView, TemplateView, UpdateView
+from django.db.models import Q
+from django.views.generic import DetailView, TemplateView, UpdateView, ListView
 
 from candidateapp.models import Candidate, Resume
 from authapp.models import HHUser
@@ -9,7 +10,6 @@ from companyapp.models import Vacancy
 # from candidateapp.forms import CandidateForm
 
 class Candidate_Main(TemplateView):
-class CandidateLK(TemplateView):
     template_name = 'candidateapp/candidate_lk.html'
 
 class Candidate_Main(TemplateView):
