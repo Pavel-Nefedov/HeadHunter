@@ -1,29 +1,27 @@
-from django.shortcuts import get_object_or_404, render
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.views.generic import DetailView, TemplateView, UpdateView, ListView
+from django.shortcuts import get_object_or_404, render
+from django.views.generic import DetailView, ListView, TemplateView, UpdateView
 
 from authapp.models import HHUser
 from candidateapp.models import Candidate, Resume
-from authapp.models import HHUser
-from django.contrib.auth.decorators import login_required
 from companyapp.models import Vacancy
 
 # from candidateapp.forms import CandidateForm
 
-class Candidate_Main(TemplateView):
+
+class CandidateMain(TemplateView):
     template_name = 'candidateapp/candidate_lk.html'
 
-class Candidate_Main(TemplateView):
-    template_name = 'candidateapp/candidate.html'
 
 # class ShowProfilePageView(TemplateView):
 #     template_name = 'candidateapp/candidate.html'
+
 
 @login_required
 def candidate_lk(request):
     title = 'candidate'
     candidate_items = Candidate.objects.filter(user=request.user).select_related()
-
 
     context = {
         'title': title,
@@ -31,6 +29,7 @@ def candidate_lk(request):
 
     }
     return render(request, 'candidateapp/candidate_lk.html', context)
+
 
 class ShowProfileUpdateView(UpdateView):
     model = Candidate
@@ -105,6 +104,5 @@ class FormVacancySearch(ListView):
                 Q(company__company_name__contains=search_text) | Q(vacancy_name__contains=search_text)).select_related()
         else:
             search_queryset = Vacancy.objects.all().select_related()
-
 
         return search_queryset
