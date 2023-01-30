@@ -1,22 +1,22 @@
 version: "3.7"
 services:
 
-#  python_container:
-#    container_name: ${PYTHON_CONTAINER_NAME}
-#    restart: always
-#    build:
-#      context: ./
-#      dockerfile: ./docker/development/python-cli.docker
-#    #    command: gunicorn agile_hh.wsgi:application --bind 0.0.0.0:8000
-#    command: python manage.py runserver 0.0.0.0:8000
-#    volumes:
-#      - ./:/usr/src/app/
-#    ports:
-#      - "8000:8000"
-#    env_file:
-#      - ./.env
-#    depends_on:
-#      - postgres_container
+  web-app:
+    container_name: ${PYTHON_CONTAINER_NAME}
+    build:
+      context: ./
+      dockerfile: ./docker/development/web-app.dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/web-app/scrumlab
+    env_file:
+      - .env
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - postgres_container
 
   postgres_container:
     container_name: ${POSTGRES_CONTAINER_NAME}
