@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header %}
+    {% include 'mainapp/includes/inc_header.html' %}
+{% endblock %}
+
+{% block site_content %}
+<div class="b-example-divider"></div>
+    <div class="container px-4 py-5" id="icon-grid">
+         <a class="btn btn-primary" href="{% url 'candidate:resume' %}" role="button">Назад в мои резюме</a>
+            <h1>Редактирование резюме {{ resume.resume_update }}</h1>
+                    <form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
+                    {{ form.as_p }}
+                        <input class="form-control" type="submit" value="сохранить">
+                    </form>
+    </div>
+
+
+
+{% endblock %}
+
+{% block footer %}
+    {% include 'mainapp/includes/inc_footer.html' %}
+{% endblock %}

@@ -8,10 +8,10 @@
 
 
 {% block site_content %}
-    <div class="b-example-divider"></div>
+<div class="b-example-divider"></div>
     <div class="container px-4 py-5" id="icon-grid">
         <h2>Мои резюме</h2>
-        <a href="#">Создать новое</a>
+        <a class="btn btn-primary" href="{% url 'candidate:resume_create' %}">Создать новое</a>
 
         {% for candidate in candidate_items %}
         {% for resume in resume_items %}
@@ -28,9 +28,29 @@
                     <p class="card-text">Вариант занятости: {{ resume.position_and_salary.get_busyness_display }}</p>
                     <p class="card-text">График работы: {{ resume.position_and_salary.get_work_schedule_display }}</p>
                     <p class="card-text">Образование: {{ resume.education.get_level_display|title }}</p>
-                    <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
+<!--                    <a class="btn btn-primary" href="#" role="button">Откликнуться</a>-->
                 </div>
             </div>
+
+            <div class="resume_actions">
+            <button>
+                <a class="btn btn-primary" href="{% url 'candidate:resume_detail' resume.id %}">
+                    подробнее
+                </a>
+            </button>
+            <button>
+                <a class="btn btn-primary" href="{% url 'candidate:resume_update' resume.pk %}">
+                    редактировать
+                </a>
+            </button>
+            <button>
+                <a class="btn btn-primary"  href="{% url 'candidate:resume_delete' resume.pk %}">
+                    удалить
+                </a>
+            </button>
+        </div>
+
+
         {% else %}
         <h3 class="subtitle-title"> У вас нету ни одного резюме </h3>
         {% endif %}

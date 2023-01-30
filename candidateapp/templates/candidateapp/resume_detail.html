@@ -13,7 +13,7 @@
 {% block site_content %}
     <div class="b-example-divider"></div>
     <div class="container px-4 py-5" id="icon-grid">
-
+        <a class="btn btn-primary" href="{% url 'candidate:resume' %}" role="button">Назад в мои резюме</a>
         <div class="card12">
         {% include 'candidateapp/includes/inc_resume_contact_info.html' %}
         </div>
@@ -29,6 +29,7 @@
         {% include 'candidateapp/includes/inc_resume_advanced_training.html' %}
 
     </div>
+    <a class="btn btn-primary" href="{% url 'candidate:resume' %}" role="button">Назад в мои резюме</a>
 {% endblock %}
 
 
