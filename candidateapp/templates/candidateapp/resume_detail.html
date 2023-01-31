@@ -1,16 +1,38 @@
-{% extends 'candidateapp/index.html' %}
+{% extends "base.html" %}
 {% load static %}
 
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block header %}
+    {% include 'mainapp/includes/inc_header.html' %}
+
+{% endblock %}
+
 {% block site_content %}
-<div class="container col-xxl-8 px-4 py-5">
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-        <h1>Резюме кандидата</h1>
-
-        <h3>База данных резюме</h3>
-
-        <div class="basket_list">
-            {% include 'candidateapp/includes/inc_resume_list.html' %}
+    <div class="b-example-divider"></div>
+    <div class="container px-4 py-5" id="icon-grid">
+        <a class="btn btn-primary" href="{% url 'candidate:resume' %}" role="button">Назад в мои резюме</a>
+        <div class="card12">
+        {% include 'candidateapp/includes/inc_resume_contact_info.html' %}
         </div>
+        <br>
+        {% include 'candidateapp/includes/inc_resume_position_and_salary.html' %}
+        <br>
+        {% include 'candidateapp/includes/inc_resume_work_experience.html' %}
+        <br>
+        {% include 'candidateapp/includes/inc_resume_work_experience_about_me.html' %}
+        <br>
+        {% include 'candidateapp/includes/inc_resume_education.html' %}
+        <br>
+        {% include 'candidateapp/includes/inc_resume_advanced_training.html' %}
+
     </div>
-</div>
+    <a class="btn btn-primary" href="{% url 'candidate:resume' %}" role="button">Назад в мои резюме</a>
+{% endblock %}
+
+
+{% block footer %}
+    {% include 'mainapp/includes/inc_footer.html' %}
 {% endblock %}

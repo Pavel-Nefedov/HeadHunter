@@ -2,20 +2,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import (CreateView, DetailView, TemplateView,
-                                  UpdateView, View, DeleteView)
+from django.views.generic import (CreateView, DeleteView, DetailView,
+                                  TemplateView, UpdateView, View)
 
 from candidateapp.models import Resume
 from companyapp.forms import CompanyProfileForm, VacancyForm
 from companyapp.models import CompanyProfile, Vacancy
 
 
-
-
-
 class EmptyCompanyProfile(TemplateView):
     template_name = 'companyapp/empty_profile.html'
-
 
 
 class CompanyProfileView(DetailView):
@@ -29,7 +25,7 @@ class CompanyProfileView(DetailView):
         return context
 
 
-class CompanyProfileCreateView(LoginRequiredMixin,CreateView):
+class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
     model = CompanyProfile
     template_name = 'companyapp/company_lk.html'
     # success_url = reverse_lazy('companyapp:company_profile')
@@ -37,7 +33,6 @@ class CompanyProfileCreateView(LoginRequiredMixin,CreateView):
 
     def get_success_url(self):
         return reverse('companyapp:company_profile', kwargs={'pk': self.object.id})
-
 
 
 # class CompanyProfileDeleteView(LoginRequiredMixin,DeleteView):
@@ -58,7 +53,7 @@ class CompanyProfileUpdateView(LoginRequiredMixin, UpdateView):
     form_class = CompanyProfileForm
 
     def get_context_data(self, **kwargs):
-        context= super(CompanyProfileUpdateView, self).get_context_data(**kwargs)
+        context = super(CompanyProfileUpdateView, self).get_context_data(**kwargs)
         context['title'] = 'Company profile update'
         return context
 

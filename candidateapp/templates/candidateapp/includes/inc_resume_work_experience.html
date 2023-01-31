@@ -1,0 +1,19 @@
+
+{% for resume_obj in resume %}
+<div class="card-title">
+    <h3 class="card-title" style="padding: 0">Прошлый опыт работы</h3>
+    <br>
+    <h5 class="card-title" style="padding: 0">Место работы {{ resume_obj.work_experience.organization }} </h5>
+    <h5>Должность: {{ resume_obj.work_experience.post }} </h5>
+    <br>
+    {% if resume_obj.work_experience.working == "True" %}
+    <h4>Работал с {{ resume_obj.work_experience.getting_started }} по {{ resume_obj.work_experience.end_work }}</h4>
+    {% else %}
+    <h4>Работаю с {{ resume_obj.work_experience.getting_started }} по настоящее время</h4>
+    {% endif %}
+    <button>работаю по настоящее время {{ resume_obj.work_experience.working }}</button>
+    <br>
+    <h6>Обязанности на рабочем месте: {{ resume_obj.work_experience.responsibilities }}</h6>
+
+</div>
+{% endfor %}

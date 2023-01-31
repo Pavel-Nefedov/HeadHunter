@@ -1,17 +1,26 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.views.generic import DetailView, ListView, TemplateView, UpdateView
-
+from django.shortcuts import get_object_or_404, render
+from django.views.generic import DetailView, ListView, TemplateView, UpdateView, CreateView, DeleteView
+from django.urls import reverse, reverse_lazy
 from authapp.models import HHUser
 from candidateapp.models import Candidate, Resume
 from companyapp.models import Vacancy
 
+from candidateapp.forms import ResumeForm
 
-class Candidate_Main(TemplateView):
-    template_name = 'candidateapp/candidate.html'
+
+# from candidateapp.forms import CandidateForm
+
+
+class CandidateMain(TemplateView):
+    template_name = 'candidateapp/candidate_lk.html'
+
+
+# class ShowProfilePageView(TemplateView):
+#     template_name = 'candidateapp/candidate.html'
 
 
 @login_required
@@ -41,19 +50,89 @@ class ShowProfileUpdateView(UpdateView):
 
 class ShowResumeDetailView(DetailView):
     model = Resume
-    resume_items = Resume.objects.all()
     template_name = 'candidateapp/resume_detail.html'
+
+    def get_context_data(self, pk=None, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context['resume'] = Resume.objects.all()
+        context['user'] = self.request.user
+        return context
+
+
+# @login_required
+# def resume_detail(request):
+#     title = 'развернутое резюме'
+#     resume_items = Resume.objects.all()
+#
+#     context = {
+#         'title': title,
+#         'resume_items': resume_items,
+#     }
+#     return render(request, 'candidateapp/resume_detail.html', context)
 
 
 @login_required
 def resume(request):
     title = 'резюме'
-    resume_items = Resume.objects.select_related()
+    # resume_items = Resume.objects.all()
+    resume_items = Resume.objects.all()
+    candidate_items = Candidate.objects.filter(user=request.user).select_related()
+
     context = {
         'title': title,
         'resume_items': resume_items,
+        'candidate_items': candidate_items,
     }
     return render(request, 'candidateapp/resume.html', context)
+
+
+class ResumeCreateView(CreateView):
+    model = Resume
+    template_name = 'candidateapp/resume_create.html'
+    fields = '__all__'
+
+    def get_success_url(self):
+        return reverse('candidate:resume', kwargs=self.kwargs)
+
+# @login_required()
+# def resume_read(request, pk):
+#     pass
+
+
+@login_required()
+def resume_update(request, pk):
+    resume = get_object_or_404(Resume, pk=pk)
+
+    if request.method == 'POST':
+        form = ResumeForm(request.POST, instance=resume)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('candidate:resume'))
+    else:
+        form = ResumeForm(instance=resume)
+
+    return render(request, 'candidateapp/resume_update.html', context={
+        'title': 'Создание резюме',
+        'form': form,
+    })
+
+
+class ResumeDeleteView(DeleteView):
+    model = Resume
+    template_name = 'candidateapp/resume_delete.html'
+    success_url = reverse_lazy('candidate:resume')
+
+    def delete(self, request, *arg, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        self.object.is_active = False
+        self.object.save()
+        return HttpResponseRedirect(success_url)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Удаление резюме"
+        return context
 
 
 class VacancySearch(TemplateView):
@@ -82,3 +161,55 @@ class FormVacancySearch(ListView):
 
 
         return search_queryset
+
+
+
+
+
+# class ResumeView(DetailView):
+#     template_name = 'candidateapp/resume.html'
+#     model = Resume
+#
+#     def get_context_data(self, request, pk=None, **kwargs):
+#         context = super(DetailView, self).get_context_data(**kwargs)
+#         context['title'] = Vacancy.objects.filter(pk=pk)
+#         context['resume_items'] = Resume.objects.all()
+#         context['candidate_items'] = Candidate.objects.filter(user=request.user).select_related()
+#         return context
+
+
+
+# class ResumeCreateView(LoginRequiredMixin, CreateView):
+#     template_name = 'candidateapp/resume_create.html'
+#     model = Resume
+#     fields = ['contact_info', 'position_and_salary',
+#               'work_experience', 'education', 'advanced_training']
+#     form_model = ResumeForm
+#
+#     def get_success_url(self):
+#         return reverse('candidateapp:resume')
+#
+#     # def form_valid(self, form):
+#     #     form.instance.company = CompanyProfile.objects.get(user=self.request.user)
+#     #     return super().form_valid(form)
+#     #
+#     # def get_context_data(self, **kwargs):
+#     #     data = super().get_context_data(**kwargs)
+#     #     data['company'] = CompanyProfile.objects.get(user=self.request.user)
+#     #     return data
+#
+#
+# class ResumeUpdate(LoginRequiredMixin, UpdateView):
+#     template_name = 'candidateapp/resume_update.html'
+#     model = Resume
+#     fields = ['contact_info', 'position_and_salary',
+#               'work_experience', 'education', 'advanced_training']
+#     form_model = ResumeForm
+#
+#     # def get_context_data(self, **kwargs):
+#     #     data = super().get_context_data(**kwargs)
+#     #     data['company'] = CompanyProfile.objects.get(user=self.request.user)
+#     #     return data
+#
+#     def get_success_url(self):
+#         return reverse('candidateapp:resume')
