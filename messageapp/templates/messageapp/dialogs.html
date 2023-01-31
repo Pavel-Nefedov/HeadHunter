@@ -11,7 +11,7 @@
 
             {% load messageapp_tags %}
 
-            <div class="panel">
+            <div class="people-list">
                 {% load tz %}
                 {% if chats.count == 0 %}
                     <div class="panel panel-body">"Нет ни одного начатого диалога"</div>
@@ -20,27 +20,40 @@
                     {% if chat.message_set.count != 0 %}
                         {% with last_message=chat.message_set.last %}
                             {% get_companion user chat as companion %}
-                            <a class="list-group-item {% if companion == last_message.author and not last_message.is_readed %}unreaded{% endif %}"
-                               href="{{ chat.get_absolute_url }}">
-                                <img class="avatar-messages" src="{{ companion.userprofile.get_avatar }}">
-                                <div class="reply-body">
-                                    <ul class="list-inline">
-                                        <li class="drop-left-padding">
-                                            <strong class="list-group-item-heading">{{ companion.username }}</strong>
-                                        </li>
-                                        <li class="pull-right text-muted"><small>{{ last_message.pub_date|utc }}</small>
-                                        </li>
-                                    </ul>
-                                    {% if companion != last_message.author %}
-                                        <div>
-                                            <img class="avatar-rounded-sm" src="{{ last_message.author.name }}">
-                                            <div class="attached-reply-body {% if not last_message.is_readed %}unreaded{% endif %}">{{ last_message.message|truncatechars_html:"200"|safe|striptags }}</div>
+                            <ul class="list-unstyled chat-list mt-2 mb-0">
+                                <a class="list-group-item {% if companion == last_message.author and not last_message.is_readed %}unreaded{% endif %}"
+                                   href="{{ chat.get_absolute_url }}">
+                                    <img class="avatar-messages" src="{{ companion.userprofile.get_avatar }}">
+                                    <li class="clearfix-left-padding">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                                        <div class="about">
+                                            <div class="name">{{ companion.username }}</div>
+                                            <div class="status"><i
+                                                    class="fa fa-circle offline"></i> {{ last_message.pub_date|utc }}
+                                            </div>
+                                            {% if companion != last_message.author %}
+                                                <div>
+                                                    <img class="status"
+                                                         src="{{ last_message.author.name }}">
+                                                    <div class="attached-reply-body {% if not last_message.is_readed %}unreaded{% endif %}">{{ last_message.message|truncatechars_html:"200"|safe|striptags }}</div>
+                                                </div>
+                                            {% else %}
+                                                <div>{{ last_message.message|truncatechars_html:"200"|safe|striptags }}</div>
+                                            {% endif %}
+
                                         </div>
-                                    {% else %}
-                                        <div>{{ last_message.message|truncatechars_html:"200"|safe|striptags }}</div>
-                                    {% endif %}
+                                    </li>
+                                </a>
+                            </ul>
+                            {% if companion != last_message.author %}
+                                <div>
+                                    <img class="avatar-rounded-sm" src="{{ last_message.author.name }}">
+                                    <div class="attached-reply-body {% if not last_message.is_readed %}unreaded{% endif %}">{{ last_message.message|truncatechars_html:"200"|safe|striptags }}</div>
                                 </div>
-                            </a>
+                            {% else %}
+                                <div>{{ last_message.message|truncatechars_html:"200"|safe|striptags }}</div>
+                            {% endif %}
+
                         {% endwith %}
                     {% endif %}
                 {% endfor %}

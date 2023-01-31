@@ -20,12 +20,18 @@ class MessagesView(View):
     def get(self, request, chat_id):
         try:
             chat = Chat.objects.get(id=chat_id)
+            user_chats = Chat.objects.filter(members__in=[request.user.id])
+            interlocutor = chat.members.exclude(id=request.user.id)[0]
             if request.user in chat.members.all():
                 chat.message_set.filter(is_readed=False).exclude(author=request.user).update(is_readed=True)
             else:
                 chat = None
+                interlocutor = None
+                user_chats = None
         except Chat.DoesNotExist:
             chat = None
+            interlocutor = None
+            user_chats = None
 
         return render(
             request,
@@ -33,6 +39,8 @@ class MessagesView(View):
             {
                 'user_profile': request.user,
                 'chat': chat,
+                'user_chats': user_chats,
+                'interlocutor': interlocutor,
                 'form': MessageForm()
             }
         )
