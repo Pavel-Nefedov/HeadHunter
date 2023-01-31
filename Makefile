@@ -51,6 +51,8 @@ docker-build-up:
 docker-logs:
 	docker-compose -f docker-compose.yml logs -f
 
+web-app-logs:
+	docker-compose -f docker-compose.yml logs -f web-app
 # --------------------------------------------
 
 # --- Django section ----------------------

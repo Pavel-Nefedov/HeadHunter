@@ -1,14 +1,11 @@
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView, LogoutView
-from django.core.exceptions import BadRequest, PermissionDenied
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render
-from django.urls import reverse, reverse_lazy
+from django.core.exceptions import BadRequest
+from django.shortcuts import redirect
 from django.views.generic import CreateView, TemplateView
 
 from authapp.forms import RegisterUserForm
-from authapp.models import HHUser
 
 
 class LoginUser(LoginView):
@@ -18,10 +15,12 @@ class LoginUser(LoginView):
     def form_valid(self, form):
         user = form.get_user()
         login(self.request, user)
+        if user.is_moderator:
+            return redirect('moderatorapp:moderator_lk')
         if user.is_candidate:
             return redirect('candidateapp:user_profile')
         if user.is_company:
-            return redirect('companyapp:company_lk')
+            return redirect('companyapp:company_profile', pk=user.pk)
         if user.is_superuser:
             return redirect('/admin', pk=user.pk)
 

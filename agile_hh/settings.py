@@ -151,7 +151,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "static"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'mainapp/static'),
-    # os.path.join(BASE_DIR, 'authapp/static'),
+    os.path.join(BASE_DIR, 'candidateapp/static'),
+    os.path.join(BASE_DIR, 'companyapp/static'),
+    os.path.join(BASE_DIR, 'moderatorapp/static'),
 ]
 
 # Default primary key field type

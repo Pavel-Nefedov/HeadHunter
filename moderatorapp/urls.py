@@ -1,7 +1,9 @@
 from django.urls import path
 
+from moderatorapp.views import ModeratorLkIndex
+
 app_name = 'moderatorapp'
 
 urlpatterns = [
-    # path('user_profile/<int:pk>/', ShowProfilePageView.as_view(), name='user_profile'),
+    path('lk/', ModeratorLkIndex.as_view(), name='moderator_lk'),
 ]
