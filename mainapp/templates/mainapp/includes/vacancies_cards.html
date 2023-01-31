@@ -18,6 +18,7 @@
                     <p class="card-text">{{ vacancy.work_conditions }}</p>
                     <p class="card-text">{{ vacancy.requirements_description }}</p>
                     <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
+                    <a class="btn btn-primary" href="{% url 'message:create_dialog' user_id=vacancy.company.user.id %}" role="button">Написать работодателю</a>
                 </div>
             </div>
 
