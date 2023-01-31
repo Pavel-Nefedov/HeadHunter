@@ -22,7 +22,8 @@ clean-start-for-non-docker-development:rm-migrations-dirs rm-data-dirs docker-do
 some-sleep makemigrations migrate createsuperuser parse_news add_fake_users runserver
 
 clean-start-for-docker-development:rm-migrations-dirs rm-data-dirs docker-down-remove-volumes docker-build-up \
-some-sleep docker-makemigrations docker-migrate docker-createsuperuser docker-parse_news docker-add_fake_users
+some-sleep docker-makemigrations docker-migrate docker-createsuperuser add_moderator_user docker-parse_news \
+docker-add_fake_users
 
 # --------------------------------------------
 
@@ -97,6 +98,9 @@ add_fake_users:
 
 docker-add_fake_users:
 	docker-compose run --rm web-app sh -c "python manage.py add_fake_users 15"
+
+add_moderator_user:
+	docker-compose run --rm web-app sh -c "python manage.py add_moderator_user"
 
 # --------------------------------------------
 
