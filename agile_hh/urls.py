@@ -25,6 +25,7 @@ urlpatterns = [
     path('auth/', include('authapp.urls', namespace='authapp')),
     path('candidate/', include('candidateapp.urls', namespace='candidate')),
     path('company/', include('companyapp.urls', namespace='company')),
+    path('moderator/', include('moderatorapp.urls', namespace='moderator')),
 ]
 
 if settings.DEBUG:
