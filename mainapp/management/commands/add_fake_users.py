@@ -39,6 +39,7 @@ class Command(BaseCommand):
             password=fake_password,
             first_name=temp_first_name,
             last_name=self.faker.last_name(),
+            patronymic=self.faker.last_name(),
             is_company=is_company,
             is_candidate=is_candidate,
         )
@@ -153,7 +154,7 @@ class Command(BaseCommand):
         ) as info_file:
             for item in self.user_info:
                 info_file.write(f"{item}\n")
-
+        print("-".center(79, '-'))
         print(f"Fake user data store in file {fake_user_data_file}")
 
         print(" End adding fake user data ".center(79, '-'))

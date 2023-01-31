@@ -25,6 +25,9 @@ class RegisterUserForm(UserCreationForm):
         model = HHUser
         fields = (
             'username',
+            'first_name',
+            'last_name',
+            'patronymic',
             'email',
             'user_role',
             'password1',
