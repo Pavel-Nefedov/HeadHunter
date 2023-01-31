@@ -2,7 +2,6 @@ include .env
 export
 
 # --- Common section ----------------------
-
 start: docker-down docker-up runserver
 
 stop: docker-down
@@ -19,8 +18,11 @@ rm-migrations-dirs:
 rm-data-dirs:
 	rm -rf mainapp/management/data
 
-clean-start-for-development:rm-migrations-dirs rm-data-dirs docker-down-remove-volumes docker-build-up \
+clean-start-for-non-docker-development:rm-migrations-dirs rm-data-dirs docker-down-remove-volumes docker-build-up \
 some-sleep makemigrations migrate createsuperuser parse_news add_fake_users runserver
+
+clean-start-for-docker-development:rm-migrations-dirs rm-data-dirs docker-down-remove-volumes docker-build-up \
+some-sleep docker-makemigrations docker-migrate docker-createsuperuser docker-parse_news docker-add_fake_users
 
 # --------------------------------------------
 
@@ -38,6 +40,9 @@ docker-down-remove-volumes:
 
 docker-up:
 	docker-compose -f docker-compose.yml up -d
+
+docker-build:
+	docker-compose build
 
 docker-build-up:
 	docker-compose -f docker-compose.yml up -d --build
@@ -60,17 +65,39 @@ makemigrations:
 	python manage.py makemigrations candidateapp
 	python manage.py makemigrations companyapp
 
+docker-makemigrations:
+	docker-compose run --rm web-app sh -c "python manage.py makemigrations mainapp"
+	docker-compose run --rm web-app sh -c "python manage.py makemigrations authapp"
+	docker-compose run --rm web-app sh -c "python manage.py makemigrations candidateapp"
+	docker-compose run --rm web-app sh -c "python manage.py makemigrations companyapp"
+
 migrate:
 	python manage.py migrate
 
+docker-migrate:
+	docker-compose run --rm web-app sh -c "python manage.py migrate"
+
 createsuperuser:
 	 python manage.py createsuperuser --no-input
+
+docker-createsuperuser:
+	docker-compose run --rm web-app sh -c "python manage.py createsuperuser --no-input"
 
 collectstatic:
 	python manage.py collectstatic --no-input
 
 parse_news:
 	python manage.py parse_news
+
+docker-parse_news:
+	docker-compose run --rm web-app sh -c "python manage.py parse_news"
+
+add_fake_users:
+	python manage.py add_fake_users 15
+
+docker-add_fake_users:
+	docker-compose run --rm web-app sh -c "python manage.py add_fake_users 15"
+
 # --------------------------------------------
 
 # --- QA(testing) section ----------------------
@@ -93,11 +120,6 @@ all_tests:
 
 test:
 	python manage.py test
-
-add_fake_users:
-	python manage.py add_fake_users 10
-
-
 # --------------------------------------------
 
 # --- Code section ----------------------

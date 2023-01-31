@@ -3,5 +3,5 @@
 *.md
 venv/
 staticfiles/
+static/
 .env.example
-.gitlab-ci.yml

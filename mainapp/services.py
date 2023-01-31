@@ -125,6 +125,9 @@ class HHNewsScrapper(AbstractScrapper):
                 )
             )
 
+    def __replace_month_words(self, date_string: str) -> str:
+        return date_string.replace('Января', 'Январь')
+
     def __get_news_date_description_and_content(self, link_to_news: str, request_headers):
         """Get news source from news site by news link"""
         description_xpath = "//div[contains(@class, 'cms-lead cms-lead_alt')]//text()"
@@ -135,7 +138,11 @@ class HHNewsScrapper(AbstractScrapper):
         dom = fromstring(HTTPResponse.get_response(link_to_news, headers=request_headers).text)
 
         return (
-            datetime.strptime(dom.xpath(datetime_xpath)[0].title(), "%d %B %Y"),
+            datetime.strptime(
+                self.__replace_month_words(
+                    dom.xpath(datetime_xpath)[0].title()
+                ), "%d %B %Y"
+            ),
             dom.xpath(description_xpath)[0],
         )
 
