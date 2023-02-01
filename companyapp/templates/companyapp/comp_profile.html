@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block header %}
+    {% include 'mainapp/includes/inc_header.html' %}
+{% endblock %}
+
+
+
+{% block site_content %}
+{% for companyprofile in object_list %}
+{% if companyprofile.user_id == user.id%}
+        <h3 class="card-title" style="padding: 0"><a href="#">{{ companyprofile.company_logo }} </a></h3>
+        <h4 class="subtitle-title"> {{ companyprofile.company_name }} </h4>
+        <h3 class="subtitle-title">   {{ companyprofile.legal_entity }} </h3>
+        <h3 class="subtitle-title">   {{ companyprofile.company_address }} </h3>
+        <h3 class="subtitle-title">  {{ companyprofile.email }} </h3>
+        <h3 class="subtitle-title">   {{ companyprofile.phone_number }} </h3>
+        <h3 class="subtitle-title"> {{ companyprofile.about_company }} </h3>
+
+
+{% endif%}
+
+{% endfor%}
+
+
+
+{% endblock %}
+
+
+
+{% block footer %}
+    {% include 'mainapp/includes/inc_footer.html' %}
+{% endblock %}
