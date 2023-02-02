@@ -32,20 +32,9 @@
                     База данных резюме</a></li>
 
 
-                {% if companyprofile %}
-
-
-                    <li class="nav-item"><a href="{% url 'company:company_profile' companyprofile.pk %}"
-                                            class="nav-link">
-                        <i class="fa fa-university" aria-hidden="true"></i>
-                        Личный кабинет</a></li>
-
-                {% else %}
-
-                    <li class="nav-item"><a href="{% url 'company:empty_profile' %}" class="nav-link">
-                        <i class="fa fa-university" aria-hidden="true"></i>
-                        Личный кабинет</a></li>
-                {% endif %}
+            <li class="nav-item"><a href="{% url 'company:company_profile'    %}" class="nav-link">
+                    <i class="fa fa-university" aria-hidden="true"></i>
+                    Личный кабинет</a></li>
             {% endif %}
             {% if user.is_authenticated %}
                 <li class="nav-item"><a href="{% url 'messageapp:dialogs' %}" class="nav-link">

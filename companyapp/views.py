@@ -1,28 +1,41 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView,
-                                  TemplateView, UpdateView, View)
+                                  TemplateView, UpdateView, View, ListView)
 
 from candidateapp.models import Resume
 from companyapp.forms import CompanyProfileForm, VacancyForm
 from companyapp.models import CompanyProfile, Vacancy
 
 
-class EmptyCompanyProfile(TemplateView):
-    template_name = 'companyapp/empty_profile.html'
 
-
-class CompanyProfileView(DetailView):
-    template_name = 'companyapp/company_profile_view.html'
+class CompProfile(ListView):
+    template_name = 'companyapp/comp_profile.html'
     model = CompanyProfile
+    def dispatch(self, request, *args, **kwargs):
+        return super(EmptyCompanyProfile, self).dispatch(request, *args, **kwargs)
 
-    def get_context_data(self, pk=None, **kwargs):
-        context = super(DetailView, self).get_context_data(**kwargs)
-        context['profile'] = CompanyProfile.objects.filter(pk=pk)
-        context['user'] = self.request.user
-        return context
+
+
+# class CompanyProfileView(DetailView):
+#     template_name = 'companyapp/company_profile_view.html'
+#     model = CompanyProfile
+#
+#     def get(self, request, *args, **kwargs):
+#         try:
+#             return super().get(request, *args, **kwargs)
+#         except Http404:
+#             return redirect(reverse('company:empty_profile'))
+#
+#     def get_context_data(self, pk=None, **kwargs):
+#
+#         context = super(DetailView, self).get_context_data(**kwargs)
+#         context['profile'] = CompanyProfile.objects.filter(user_id= self.request.user)
+#         context['user'] = self.request.user
+#         return context
+
 
 
 class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
