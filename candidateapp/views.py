@@ -3,14 +3,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.views.generic import DetailView, ListView, TemplateView, UpdateView, CreateView, DeleteView
 from django.urls import reverse, reverse_lazy
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  TemplateView, UpdateView)
+
 from authapp.models import HHUser
+from candidateapp.forms import ResumeForm
 from candidateapp.models import Candidate, Resume
 from companyapp.models import Vacancy
-
-from candidateapp.forms import ResumeForm
-
 
 # from candidateapp.forms import CandidateForm
 

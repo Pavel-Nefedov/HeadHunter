@@ -9,6 +9,9 @@
         </a>
 
         <ul class="nav nav-pills">
+            <li class="nav-item"><a href="{% url 'mainapp:index' %}" class="nav-link"
+                                    aria-current="page"><i class="fa fa-home fa-fw" aria-hidden="true"></i>Главная</a>
+            </li>
             <!--            <li class="nav-item"><a href="#" class="nav-link">Правила портала</a></li>-->
             <!--            <li class="nav-item"><a href="#" class="nav-link">О нас</a></li>-->
             {% if user.is_candidate %}
@@ -43,7 +46,11 @@
                         <i class="fa fa-university" aria-hidden="true"></i>
                         Личный кабинет</a></li>
                 {% endif %}
-
+            {% endif %}
+            {% if user.is_authenticated %}
+                <li class="nav-item"><a href="{% url 'messageapp:dialogs' %}" class="nav-link">
+                    <i class="fa fa-university" aria-hidden="true"></i>
+                    Личные сообщения </a></li>
             {% endif %}
         </ul>
         {% if user.is_authenticated %}

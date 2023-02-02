@@ -2,8 +2,9 @@ from django.urls import path
 
 import candidateapp.views as candidateapp
 
-from .views import (CandidateMain, FormVacancySearch, ShowProfileUpdateView,
-                    ShowResumeDetailView, VacancySearch, ResumeCreateView, ResumeDeleteView)
+from .views import (CandidateMain, FormVacancySearch, ResumeCreateView,
+                    ResumeDeleteView, ShowProfileUpdateView,
+                    ShowResumeDetailView, VacancySearch)
 
 app_name = 'candidateapp'
 

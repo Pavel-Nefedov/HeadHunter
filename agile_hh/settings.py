@@ -40,11 +40,13 @@ INSTALLED_APPS = [
     'candidateapp.apps.CandidateappConfig',
     'companyapp.apps.CompanyappConfig',
     'favorites',
+    'messageapp',
     'moderatorapp.apps.ModeratorappConfig',
 
     # Third-party apps
     'debug_toolbar',
     'template_profiler_panel',
+    'bootstrap5',
 
     # Django apps
     'django.contrib.admin',
@@ -169,6 +171,7 @@ LOGIN_URL = '/auth/login/'
 if DEBUG:
     def show_toolbar(request):
         return True
+
 
     DEBUG_TOOLBAR_CONFIG = {
         'SHOW_TOOLBAR_CALLBACK': show_toolbar,
