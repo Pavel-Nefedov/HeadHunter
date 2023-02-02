@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sidebars.css' %}">
+{% endblock %}
+
+
+{% block header %}
+    {% include 'mainapp/includes/inc_header.html' %}
+{% endblock %}
+
+{% block site_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+                    <a href="#"
+                       class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                        <span class="fs-4">Панель модерации</span>
+                    </a>
+                    <hr>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li>
+                            <a href="#" class="nav-link link-dark">
+                                <i class="fa fa-id-card" aria-hidden="true"></i>
+                                Компании
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active" aria-current="page">
+                                <i class="fa fa-id-card" aria-hidden="true"></i>
+                                Вакансии
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link link-dark">
+                                <i class="fa fa-id-card" aria-hidden="true"></i>
+                                Резюме
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="list-group list-group-flush border-bottom">
+                    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">List group item heading</strong>
+                            <small>Wed</small>
+                        </div>
+                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and
+                            date.
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">List group item heading</strong>
+                            <small class="text-muted">Tues</small>
+                        </div>
+                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and
+                            date.
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">List group item heading</strong>
+                            <small class="text-muted">Mon</small>
+                        </div>
+                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and
+                            date.
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">List group item heading</strong>
+                            <small class="text-muted">Wed</small>
+                        </div>
+                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and
+                            date.
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">List group item heading</strong>
+                            <small class="text-muted">Tues</small>
+                        </div>
+                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and
+                            date.
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">List group item heading</strong>
+                            <small class="text-muted">Mon</small>
+                        </div>
+                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and
+                            date.
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">List group item heading</strong>
+                            <small class="text-muted">Wed</small>
+                        </div>
+                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and
+                            date.
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">List group item heading</strong>
+                            <small class="text-muted">Tues</small>
+                        </div>
+                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and
+                            date.
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">List group item heading</strong>
+                            <small class="text-muted">Mon</small>
+                        </div>
+                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and
+                            date.
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">List group item heading</strong>
+                            <small class="text-muted">Wed</small>
+                        </div>
+                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and
+                            date.
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">List group item heading</strong>
+                            <small class="text-muted">Tues</small>
+                        </div>
+                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and
+                            date.
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">List group item heading</strong>
+                            <small class="text-muted">Mon</small>
+                        </div>
+                        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and
+                            date.
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block footer %}
+    {% include 'mainapp/includes/inc_footer.html' %}
+{% endblock %}
