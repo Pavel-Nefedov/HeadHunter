@@ -10,13 +10,18 @@ from companyapp.forms import CompanyProfileForm, VacancyForm
 from companyapp.models import CompanyProfile, Vacancy
 
 
-
 class CompProfile(ListView):
     template_name = 'companyapp/comp_profile.html'
     model = CompanyProfile
-    def dispatch(self, request, *args, **kwargs):
-        return super(EmptyCompanyProfile, self).dispatch(request, *args, **kwargs)
+    #
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(CompProfile, self).dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, pk=None, **kwargs):
+        context = super(CompProfile, self).get_context_data(**kwargs)
+        context['profile'] = CompanyProfile.objects.filter(user_id=self.request.user.id)
+        context['user'] = self.request.user
+        return context
 
 
 # class CompanyProfileView(DetailView):
@@ -37,7 +42,6 @@ class CompProfile(ListView):
 #         return context
 
 
-
 class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
     model = CompanyProfile
     template_name = 'companyapp/company_lk.html'
@@ -45,7 +49,7 @@ class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
     form_class = CompanyProfileForm
 
     def get_success_url(self):
-        return reverse('companyapp:company_profile', kwargs={'pk': self.object.id})
+        return reverse('companyapp:company_profile')
 
 
 # class CompanyProfileDeleteView(LoginRequiredMixin,DeleteView):
@@ -61,13 +65,29 @@ class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
 
 class CompanyProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = CompanyProfile
-    template_name = 'companyapp/company_lk.html'
+    template_name = 'companyapp/company_profile_upd_del.html'
     success_url = reverse_lazy('companyapp:company_profile')
     form_class = CompanyProfileForm
 
     def get_context_data(self, **kwargs):
         context = super(CompanyProfileUpdateView, self).get_context_data(**kwargs)
         context['title'] = 'Company profile update'
+        return context
+
+
+class VacanciesList(ListView):
+    template_name = 'companyapp/company_vacancies_list.html'
+    model = Vacancy
+
+    #
+    def dispatch(self, request, *args, **kwargs):
+        return super(VacanciesList, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, pk=None, **kwargs):
+        context = super(VacanciesList, self).get_context_data(**kwargs)
+        context['user'] = self.request.user
+        context['company'] = CompanyProfile.objects.get(user=self.request.user)
+        context['vacancies'] = Vacancy.objects.filter(company_id= pk)
         return context
 
 
@@ -138,6 +158,7 @@ class Favorites(TemplateView):
             "favorites_list": request.session.get('favorites'),
         }
         return render(request, 'favorites', context=context)
+
 
 # def CompanyK(request):
 #     if request.method == 'POST':
