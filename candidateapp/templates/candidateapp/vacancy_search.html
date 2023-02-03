@@ -26,6 +26,7 @@
                     <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
                     <a class="btn btn-primary" href="{% url 'message:create_dialog' user_id=vacancy.company.user.id %}"
                        role="button">Написать работодателю</a>
+                    <a class="btn btn-primary" href="{% url 'favorite:add' vacancy.pk %}" role="button">Добавить в избранное</a>
                 </div>
             </div>
         {% endfor %}

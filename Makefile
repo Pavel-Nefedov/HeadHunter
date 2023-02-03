@@ -14,6 +14,7 @@ rm-migrations-dirs:
 	rm -rf authapp/migrations
 	rm -rf candidateapp/migrations
 	rm -rf companyapp/migrations
+	rm -rf favoriteapp/migrations
 
 rm-data-dirs:
 	rm -rf mainapp/management/data
@@ -67,16 +68,24 @@ makemigrations:
 	python manage.py makemigrations authapp
 	python manage.py makemigrations candidateapp
 	python manage.py makemigrations companyapp
+<<<<<<< Makefile
+	python manage.py makemigrations favoriteapp
+=======
 	python manage.py makemigrations favorites
 	python manage.py makemigrations messageapp
+>>>>>>> Makefile
 
 docker-makemigrations:
 	docker-compose run --rm web-app sh -c "python manage.py makemigrations mainapp"
 	docker-compose run --rm web-app sh -c "python manage.py makemigrations authapp"
 	docker-compose run --rm web-app sh -c "python manage.py makemigrations candidateapp"
 	docker-compose run --rm web-app sh -c "python manage.py makemigrations companyapp"
+<<<<<<< Makefile
+	docker-compose run --rm web-app sh -c "python manage.py makemigrations favoriteapp"
+=======
 	docker-compose run --rm web-app sh -c "python manage.py makemigrations favorites"
 	docker-compose run --rm web-app sh -c "python manage.py makemigrations messageapp"
+>>>>>>> Makefile
 
 migrate:
 	python manage.py migrate
@@ -134,6 +143,6 @@ test:
 
 # --- Code section ----------------------
 check-code:
-	isort agile_hh/ candidateapp/ authapp/ companyapp/ mainapp/
-	flake8 --extend-ignore E501,F401 agile_hh/ candidateapp/ authapp/ companyapp/ mainapp/
+	isort agile_hh/ candidateapp/ authapp/ companyapp/ mainapp/ favoriteapp/
+	flake8 --extend-ignore E501,F401 agile_hh/ candidateapp/ authapp/ companyapp/ mainapp/ favoriteapp/
 # --------------------------------------------
