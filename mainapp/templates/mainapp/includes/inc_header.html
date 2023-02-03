@@ -24,6 +24,9 @@
                 <li class="nav-item"><a href="{% url 'candidate:resume' %}" class="nav-link">
                     <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                     Мои резюме</a></li>
+                <li class="nav-item"><a href="{% url 'favorite:view' %}" class="nav-link">
+                    <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                    Избранные вакансии</a></li>
             {% endif %}
             {% if user.is_company %}
 
@@ -32,20 +35,12 @@
                     База данных резюме</a></li>
 
 
-                {% if companyprofile %}
-
-
-                    <li class="nav-item"><a href="{% url 'company:company_profile' companyprofile.pk %}"
-                                            class="nav-link">
-                        <i class="fa fa-university" aria-hidden="true"></i>
-                        Личный кабинет</a></li>
-
-                {% else %}
-
-                    <li class="nav-item"><a href="{% url 'company:empty_profile' %}" class="nav-link">
-                        <i class="fa fa-university" aria-hidden="true"></i>
-                        Личный кабинет</a></li>
-                {% endif %}
+            <li class="nav-item"><a href="{% url 'company:company_profile'    %}" class="nav-link">
+                    <i class="fa fa-university" aria-hidden="true"></i>
+                    Личный кабинет</a></li>
+                        <li class="nav-item"><a href="{% url 'company:vac_list'    %}" class="nav-link">
+                    <i class="fa fa-university" aria-hidden="true"></i>
+                    Вакансии</a></li>
             {% endif %}
             {% if user.is_authenticated %}
                 <li class="nav-item"><a href="{% url 'messageapp:dialogs' %}" class="nav-link">

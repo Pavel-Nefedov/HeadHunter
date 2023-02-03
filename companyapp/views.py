@@ -1,28 +1,40 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import (CreateView, DeleteView, DetailView,
-                                  TemplateView, UpdateView, View, ListView)
-from django.db.models import Q
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  TemplateView, UpdateView, View)
+
 from candidateapp.models import Resume
 from companyapp.forms import CompanyProfileForm, VacancyForm
 from companyapp.models import CompanyProfile, Vacancy
 
 
-class EmptyCompanyProfile(TemplateView):
-    template_name = 'companyapp/empty_profile.html'
-
-
-class CompanyProfileView(DetailView):
-    template_name = 'companyapp/company_profile_view.html'
+class CompProfile(ListView):
+    template_name = 'companyapp/comp_profile.html'
     model = CompanyProfile
+    def dispatch(self, request, *args, **kwargs):
+        return super(CompProfile, self).dispatch(request, *args, **kwargs)
 
-    def get_context_data(self, pk=None, **kwargs):
-        context = super(DetailView, self).get_context_data(**kwargs)
-        context['profile'] = CompanyProfile.objects.filter(pk=pk)
-        context['user'] = self.request.user
-        return context
+
+
+# class CompanyProfileView(DetailView):
+#     template_name = 'companyapp/company_profile_view.html'
+#     model = CompanyProfile
+#
+#     def get(self, request, *args, **kwargs):
+#         try:
+#             return super().get(request, *args, **kwargs)
+#         except Http404:
+#             return redirect(reverse('company:empty_profile'))
+#
+#     def get_context_data(self, pk=None, **kwargs):
+#
+#         context = super(DetailView, self).get_context_data(**kwargs)
+#         context['profile'] = CompanyProfile.objects.filter(user_id= self.request.user)
+#         context['user'] = self.request.user
+#         return context
+
 
 
 class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
@@ -32,7 +44,7 @@ class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
     form_class = CompanyProfileForm
 
     def get_success_url(self):
-        return reverse('companyapp:company_profile', kwargs={'pk': self.object.id})
+        return reverse('companyapp:company_profile')
 
 
 # class CompanyProfileDeleteView(LoginRequiredMixin,DeleteView):
@@ -114,28 +126,6 @@ class ResumeSearch(TemplateView):
         #data['resumes'] = Resume.objects.filter().order_by('candidate_id')[:10] ### Вот так тоже ок
         data["resume"] = Resume.objects.all()
         return data
-
-
-# class CompanyProfileView(DetailView):
-#     template_name = 'companyapp/company_profile_view.html'
-#     model = CompanyProfile
-#
-#     def get_context_data(self, pk=None, **kwargs):
-#         context = super(DetailView, self).get_context_data(**kwargs)
-#         context['profile'] = CompanyProfile.objects.filter(pk=pk)
-#         context['user'] = self.request.user
-#         return context
-
-
-class Favorites(TemplateView):
-    template_name = 'companyapp/favorites.html'
-    model = Resume
-
-    def favorites_list(request):
-        context = {
-            "favorites_list": request.session.get('favorites'),
-        }
-        return render(request, 'favorites', context=context)
 
 
 # def CompanyK(request):

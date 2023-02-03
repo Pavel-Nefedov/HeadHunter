@@ -126,7 +126,19 @@ class HHNewsScrapper(AbstractScrapper):
             )
 
     def __replace_month_words(self, date_string: str) -> str:
-        return date_string.replace('Января', 'Январь')
+        date_string = date_string.replace('Января', 'Январь')
+        date_string = date_string.replace('Февраля', 'Февраль')
+        date_string = date_string.replace('Марта', 'Март')
+        date_string = date_string.replace('Апреля', 'Апрель')
+        date_string = date_string.replace('Мая', 'Май')
+        date_string = date_string.replace('Июня', 'Июнь')
+        date_string = date_string.replace('Июля', 'Июль')
+        date_string = date_string.replace('Августа', 'Август')
+        date_string = date_string.replace('Сентября', 'Сентябрь')
+        date_string = date_string.replace('Октября', 'Октябрь')
+        date_string = date_string.replace('Ноября', 'Ноябрь')
+        date_string = date_string.replace('Декабря', 'Декабрь')
+        return date_string
 
     def __get_news_date_description_and_content(self, link_to_news: str, request_headers):
         """Get news source from news site by news link"""
