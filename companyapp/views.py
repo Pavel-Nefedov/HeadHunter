@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView,
-                                  TemplateView, UpdateView, View)
-
+                                  TemplateView, UpdateView, View, ListView)
+from django.db.models import Q
 from candidateapp.models import Resume
 from companyapp.forms import CompanyProfileForm, VacancyForm
 from companyapp.models import CompanyProfile, Vacancy
@@ -58,7 +58,6 @@ class CompanyProfileUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
 
-# уже есть class Vacancy. Это название модели поэтому переименовал контроллер class Vacancy в class VacancyView
 class VacancyView(DetailView):
     template_name = 'companyapp/vacancy.html'
     model = Vacancy
@@ -112,8 +111,20 @@ class ResumeSearch(TemplateView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        # data['resume'] = Resume.objects.filter().order_by('-created')[:10]
+        #data['resumes'] = Resume.objects.filter().order_by('candidate_id')[:10] ### Вот так тоже ок
+        data["resume"] = Resume.objects.all()
         return data
+
+
+# class CompanyProfileView(DetailView):
+#     template_name = 'companyapp/company_profile_view.html'
+#     model = CompanyProfile
+#
+#     def get_context_data(self, pk=None, **kwargs):
+#         context = super(DetailView, self).get_context_data(**kwargs)
+#         context['profile'] = CompanyProfile.objects.filter(pk=pk)
+#         context['user'] = self.request.user
+#         return context
 
 
 class Favorites(TemplateView):
@@ -125,6 +136,7 @@ class Favorites(TemplateView):
             "favorites_list": request.session.get('favorites'),
         }
         return render(request, 'favorites', context=context)
+
 
 # def CompanyK(request):
 #     if request.method == 'POST':
