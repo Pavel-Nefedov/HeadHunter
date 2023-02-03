@@ -195,3 +195,4 @@ if DEBUG:
     ]
 
 PROJECT_ENCODING = 'utf-8'
+

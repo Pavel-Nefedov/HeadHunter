@@ -18,6 +18,7 @@ class CompanyProfileForm(forms.ModelForm):
             field.widget.attrs['class'] = 'form-input'
         self.fields['user'].widget.attrs['readonly'] = True
         self.fields['company_logo'].widget.attrs['class'] = 'form-input'
+        self.fields['company_logo'].required = False
 
 
 class VacancyForm(forms.ModelForm):

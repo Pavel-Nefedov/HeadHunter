@@ -35,6 +35,9 @@
             <li class="nav-item"><a href="{% url 'company:company_profile'    %}" class="nav-link">
                     <i class="fa fa-university" aria-hidden="true"></i>
                     Личный кабинет</a></li>
+                        <li class="nav-item"><a href="{% url 'company:vac_list'    %}" class="nav-link">
+                    <i class="fa fa-university" aria-hidden="true"></i>
+                    Вакансии</a></li>
             {% endif %}
             {% if user.is_authenticated %}
                 <li class="nav-item"><a href="{% url 'messageapp:dialogs' %}" class="nav-link">
