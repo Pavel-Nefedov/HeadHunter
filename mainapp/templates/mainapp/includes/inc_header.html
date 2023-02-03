@@ -24,6 +24,9 @@
                 <li class="nav-item"><a href="{% url 'candidate:resume' %}" class="nav-link">
                     <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                     Мои резюме</a></li>
+                <li class="nav-item"><a href="{% url 'favorite:view' %}" class="nav-link">
+                    <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                    Избранные вакансии</a></li>
             {% endif %}
             {% if user.is_company %}
 

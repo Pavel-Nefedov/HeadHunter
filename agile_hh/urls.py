@@ -27,6 +27,7 @@ urlpatterns = [
     path('company/', include('companyapp.urls', namespace='company')),
     path('dialogs/', include('messageapp.urls', namespace='message')),
     path('moderator/', include('moderatorapp.urls', namespace='moderator')),
+    path("favorites/", include("favoriteapp.urls", namespace="favorite")),
 ]
 
 if settings.DEBUG:

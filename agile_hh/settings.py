@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'mainapp.apps.MainappConfig',
     'candidateapp.apps.CandidateappConfig',
     'companyapp.apps.CompanyappConfig',
-    'favorites',
+    'favoriteapp',
     'messageapp',
     'moderatorapp.apps.ModeratorappConfig',
 
@@ -195,4 +195,6 @@ if DEBUG:
     ]
 
 PROJECT_ENCODING = 'utf-8'
+
+LOGIN_URL = "authnapp:login"
 
