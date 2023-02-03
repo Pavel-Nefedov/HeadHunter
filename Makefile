@@ -68,24 +68,18 @@ makemigrations:
 	python manage.py makemigrations authapp
 	python manage.py makemigrations candidateapp
 	python manage.py makemigrations companyapp
-<<<<<<< Makefile
-	python manage.py makemigrations favoriteapp
-=======
-	python manage.py makemigrations favorites
 	python manage.py makemigrations messageapp
->>>>>>> Makefile
+	python manage.py makemigrations favoriteapp
+
 
 docker-makemigrations:
 	docker-compose run --rm web-app sh -c "python manage.py makemigrations mainapp"
 	docker-compose run --rm web-app sh -c "python manage.py makemigrations authapp"
 	docker-compose run --rm web-app sh -c "python manage.py makemigrations candidateapp"
 	docker-compose run --rm web-app sh -c "python manage.py makemigrations companyapp"
-<<<<<<< Makefile
 	docker-compose run --rm web-app sh -c "python manage.py makemigrations favoriteapp"
-=======
-	docker-compose run --rm web-app sh -c "python manage.py makemigrations favorites"
 	docker-compose run --rm web-app sh -c "python manage.py makemigrations messageapp"
->>>>>>> Makefile
+
 
 migrate:
 	python manage.py migrate
