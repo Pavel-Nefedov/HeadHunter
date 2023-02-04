@@ -21,7 +21,7 @@
                                     {% get_companion user chat as companion %}
                                     <ul class="list-unstyled chat-list mt-2 mb-0">
                                         <li class="clearfix">
-                                            <a class="clearfix {% if companion == last_message.author and not last_message.is_readed %}unreaded{% endif %}"
+                                            <a class="clearfix {% if companion == last_message.author and not last_message.is_readed %} unread {% endif %}"
                                                href="{{ chat.get_absolute_url }}" style="text-decoration:none">
                                                 <div class="dialogs">
                                                 <div class="context">

@@ -320,6 +320,11 @@ li {
     height: 300px;
 }
 
+.unread {
+    font-weight: bold;
+    text-decoration: none;
+}
+
 /*@media only screen and (max-width: 767px) {*/
 /*    .chat-app .people-list {*/
 /*        height: 465px;*/

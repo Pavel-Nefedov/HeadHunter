@@ -7,6 +7,17 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
+class ChatManager(models.Manager):
+    use_for_related_fields = True
+
+    # Метод принимает пользователя, для которого должна производиться выборка
+    # Если пользователь не добавлен, то будет возвращены все диалоги,
+    # в которых хотя бы одно сообщение не прочитано
+    def unreaded(self, user):
+        qs = self.get_queryset().exclude(last_message__isnull=True).filter(last_message__is_readed=False)
+        return qs.exclude(last_message__author=user) if user else qs
+
+
 class Chat(models.Model):
     DIALOG = 'D'
     CHAT = 'C'
@@ -22,6 +33,10 @@ class Chat(models.Model):
         default=DIALOG
     )
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name=_("Участник"))
+    last_message = models.ForeignKey('Message', related_name='last_message', null=True, blank=True,
+                                     on_delete=models.SET_NULL)
+
+    objects = ChatManager()
 
     def get_absolute_url(self):
         return reverse('messageapp:messages', kwargs={'chat_id': self.pk})
