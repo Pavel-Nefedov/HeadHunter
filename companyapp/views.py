@@ -70,7 +70,6 @@ class CompanyProfileUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
 
-# уже есть class Vacancy. Это название модели поэтому переименовал контроллер class Vacancy в class VacancyView
 class VacancyView(DetailView):
     template_name = 'companyapp/vacancy.html'
     model = Vacancy
@@ -124,7 +123,8 @@ class ResumeSearch(TemplateView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        # data['resume'] = Resume.objects.filter().order_by('-created')[:10]
+        #data['resumes'] = Resume.objects.filter().order_by('candidate_id')[:10] ### Вот так тоже ок
+        data["resume"] = Resume.objects.all()
         return data
 
 
