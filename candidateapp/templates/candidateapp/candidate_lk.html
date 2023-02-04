@@ -10,7 +10,7 @@
     <!-- <div class="row flex-lg-row-reverse align-items-center g-5 py-5"> -->
 <!-- <div> -->
     <div>
-        <h2>Личные данные пользователя</h2>
+        <h2>Личные данные пользователя            <a class="btn btn-primary" style="float:inline-end" href="{% url 'candidate:resume_create' %}">Создать резюме</a></h2>
 
         <!-- <ul>{% if user.id %}
           <li>{{ user.id }}</li>
@@ -51,7 +51,7 @@
                       {% if user.id %}
                         {{ user.last_name }}
                       {% else %}
-                        Фамилия пользователя
+                        Не указана
                       {% endif %}
                     </div>
                   </div>
@@ -64,7 +64,7 @@
                       {% if user.id %}
                         {{ user.first_name }}
                       {% else %}
-                        Имя пользователя
+                        Не указано
                       {% endif %}
                     </div>
                   </div>
@@ -77,7 +77,7 @@
                       {% if user.id %}
                         {{ user.patronymic }}
                       {% else %}
-                        Отчество пользователя
+                        Не указано
                       {% endif %}
                     </div>
                   </div>
@@ -90,7 +90,7 @@
                       {% if user.id %}
                         {{ user.email }}
                       {% else %}
-                        Почта пользователя
+                        Не указана
                       {% endif %}
                     </div>
                   </div>
@@ -105,7 +105,7 @@
                           {{ candidate.phone_number }}
                         {% endfor %}  
                       {% else %}
-                        Телефон пользователя
+                        Не указан
                       {% endif %}
                     </div>
                   </div>
@@ -120,7 +120,7 @@
                           {{ candidate.city }}
                         {% endfor %}  
                       {% else %}
-                        Город пользователя
+                        Не указан
                       {% endif %}
                     </div>
                   </div>
@@ -135,7 +135,7 @@
                           {{ candidate.search_area }}
                         {% endfor %}  
                       {% else %}
-                        Район поиска работы
+                        Не указан
                       {% endif %}
                     </div>
                   </div>
