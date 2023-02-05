@@ -2,6 +2,7 @@ from django.views.generic import ListView, TemplateView
 
 from companyapp.models import CompanyProfile, Vacancy
 from mainapp.models import News
+from messageapp.models import Chat, ChatManager
 
 
 class Index(TemplateView):

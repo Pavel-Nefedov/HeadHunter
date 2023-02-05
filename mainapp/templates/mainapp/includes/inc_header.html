@@ -1,4 +1,5 @@
 {% load static %}
+{% load mainapp_tags %}
 
 <div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
@@ -35,17 +36,22 @@
                     База данных резюме</a></li>
 
 
-            <li class="nav-item"><a href="{% url 'company:company_profile'    %}" class="nav-link">
+                <li class="nav-item"><a href="{% url 'company:company_profile' %}" class="nav-link">
                     <i class="fa fa-university" aria-hidden="true"></i>
                     Личный кабинет</a></li>
-                        <li class="nav-item"><a href="{% url 'company:vac_list'    %}" class="nav-link">
+                <li class="nav-item"><a href="{% url 'company:vac_list' %}" class="nav-link">
                     <i class="fa fa-university" aria-hidden="true"></i>
                     Вакансии</a></li>
             {% endif %}
             {% if user.is_authenticated %}
+                {% get_unread_messages user as unread_messages %}
                 <li class="nav-item"><a href="{% url 'messageapp:dialogs' %}" class="nav-link">
                     <i class="fa fa-university" aria-hidden="true"></i>
-                    Личные сообщения </a></li>
+                    Личные сообщения
+                    <span class="badge bg-primary rounded-pill">{% if unread_messages %}
+                        {{ unread_messages }}{% endif %}</span></a>
+
+                </li>
             {% endif %}
         </ul>
         {% if user.is_authenticated %}
