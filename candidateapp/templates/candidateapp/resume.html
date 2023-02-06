@@ -19,15 +19,15 @@
                 <div class="card" style="margin-bottom: 10px">
                 <div class="card-body">
                     <h3 class="card-title" style="padding: 0"><a href="{% url 'candidate:resume_detail' resume.id %}">
-                        {{ resume.position_and_salary.desired_position|title }} </a></h3>
+                        {{ resume.desired_position|title }} </a></h3>
 
-                        <h3 class="subtitle-title"> {{ resume.position_and_salary.salary }} руб. </h3>
+                        <h3 class="subtitle-title"> {{ resume.salary }} руб. </h3>
 
                     <h4 class="card-subtitle mb-2 text-muted">
-                        {{ resume.contact_info.name }} {{ resume.contact_info.surname }}</h4>
-                    <p class="card-text">Вариант занятости: {{ resume.position_and_salary.get_busyness_display }}</p>
-                    <p class="card-text">График работы: {{ resume.position_and_salary.get_work_schedule_display }}</p>
-                    <p class="card-text">Образование: {{ resume.education.get_level_display|title }}</p>
+                        {{ resume.contact_info.name }} {{ resume.surname }}</h4>
+                    <p class="card-text">Вариант занятости: {{ resume.get_busyness_display }}</p>
+                    <p class="card-text">График работы: {{ resume.get_work_schedule_display }}</p>
+                    <p class="card-text">Образование: {{ resume.get_level_display|title }}</p>
 <!--                    <a class="btn btn-primary" href="#" role="button">Откликнуться</a>-->
                 </div>
                 </div>
@@ -46,13 +46,12 @@
                 <button>
                     <a class="btn btn-primary"  href="{% url 'candidate:resume_delete' resume.pk %}">
                     удалить
-                    </a>
-                </button>
-                </div>
-                {% else %}
-                    <h3 class="subtitle-title"> У вас нету ни одного резюме </h3>
-                {% endif %}
-            {% endfor %}
+                </a>
+            </button>
+        </div>
+
+        {% endif %}
+        {% endfor %}
         {% endfor %}
     </div>
 
