@@ -5,11 +5,11 @@
 {% block content %}
 <div class="resume_delete">
     <div class="container px-4 py-5" id="icon-grid">
-    <h3>Уверены, что хотите удалить {{ resume.contact_info.name }}</h3>
-        {% if resume.contact_info.name %}
-            ({{ resume.contact_info.name|title }}</b>
-        {% endif %}
-            ?
+        Уверены, что хотите удалить {{ object.name }}
+            {% if object.name %}
+            ({{object.name|title }}</b>
+            {% endif %}
+                ?
     <form action="{% url 'candidate:resume_delete' %}"
         method="post">
         {% csrf_token %}
