@@ -35,10 +35,16 @@ class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('companyapp:company_profile')
 
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        data['user'] = self.request.user
-        return data
+
+# class CompanyProfileDeleteView(LoginRequiredMixin,DeleteView):
+#     model = CompanyProfile
+#     template_name = 'companyapp/company_lk.html'
+#     success_url = reverse_lazy('companyapp:company_profile')
+#     def delete(self, request, *args, **kwargs):
+#         self.object = self.get_object()
+#         self.object.is_active = False
+#         self.object.save()
+#         return HttpResponseRedirect(self.get_success_url())
 
 
 
