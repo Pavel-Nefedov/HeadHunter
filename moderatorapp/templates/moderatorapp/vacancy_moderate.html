@@ -19,16 +19,16 @@
             <div class="col-8">
                 <div class="list-group list-group-flush border-bottom">
 
-                    {% for item in resume_for_moderation %}
+                    {% for item in vacancy_for_moderation %}
                         <a href="#" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
                             <div class="d-flex w-100 align-items-center justify-content-between">
                                 <strong class="mb-1">
-                                    Резюме {{ item.candidate.first_name }} {{ item.candidate.last_name }}
+                                    Вакансия <b>{{ item.vacancy_name }}</b> от компании {{ item.company.company_name }}
                                 </strong>
                                 <small>Wed</small>
                             </div>
                             <div class="col-10 mb-1 small">
-                                {{ item.desired_position }}
+                                {{ item.salary_min }} - {{ item.salary_max }} ({{ item.currency }})
                             </div>
                         </a>
                     {% endfor %}
