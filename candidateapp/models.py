@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from authapp.models import HHUser
 from mainapp.models import AppCanvasModel
@@ -98,6 +98,7 @@ class Resume(AppCanvasModel):
     organization_conducted = models.CharField(max_length=150, blank=True, verbose_name='Проводившая организация')
     specialization_course = models.CharField(max_length=150, blank=True, verbose_name='Специализация')
     year_graduation_course = models.DateField(auto_now=False, auto_now_add=False, verbose_name='Год окончания')
+
 
     def __str__(self):
         return f"Резюме {self.candidate.username}"

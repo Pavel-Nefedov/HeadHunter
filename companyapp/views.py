@@ -88,7 +88,7 @@ class VacanciesList(ListView):
         context = super(VacanciesList, self).get_context_data(**kwargs)
         context['user'] = self.request.user
         context['company'] = CompanyProfile.objects.get(user=self.request.user)
-        context['vacancies'] = Vacancy.objects.filter(company_id= pk)
+        context['vacancies'] = Vacancy.objects.filter(company_id=pk)
         return context
 
 

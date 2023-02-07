@@ -1,25 +1,26 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
 
-{% block content %}
-<div class="resume_delete">
+{% block header %}
+    {% include 'mainapp/includes/inc_header.html' %}
+{% endblock %}
+
+{% block site_content %}
+<div class="b-example-divider"></div>
     <div class="container px-4 py-5" id="icon-grid">
-        Уверены, что хотите удалить {{ object.name }}
-            {% if object.name %}
-            ({{object.name|title }}</b>
-            {% endif %}
-                ?
-    <form action="{% url 'candidate:resume_delete' %}"
-        method="post">
-        {% csrf_token %}
-            <input class="btn btn-danger" type="submit" value="удалить резюме">
-    </form>
-        <button class="btn btn-success">
-            <a href="{% url 'candidate:resume' %}">
-                Отмена
-            </a>
-        </button>
+         <a class="btn btn-primary" href="{% url 'candidate:resume' %}" role="button">Назад в мои резюме</a>
+            <h1>Создание резюме</h1>
+                <form method="post">
+                    {% csrf_token %}
+                            <h3>Вы уверены что хотите удалить резюме???</h3>
+                    <input class="btn btn-danger" type="submit" value="удалить резюме">
+                </form>
+                <button class="btn btn-success">
+                    <a href="{% url 'candidate:resume' %}">
+                            Отмена
+                    </a>
+                </button>
     </div>
 </div>
 {% endblock %}
