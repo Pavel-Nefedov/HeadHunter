@@ -18,7 +18,7 @@ class LoginUser(LoginView):
         if user.is_moderator:
             return redirect('moderatorapp:moderator_lk')
         if user.is_candidate:
-            return redirect('candidateapp:user_profile')
+            return redirect('candidateapp:candidate_lk')
         if user.is_company:
             return redirect('companyapp:company_profile')
         if user.is_superuser:
