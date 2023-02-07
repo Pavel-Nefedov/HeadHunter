@@ -2,6 +2,7 @@ from django.db import models
 
 from django.utils.translation import gettext_lazy as _
 from authapp.models import HHUser
+from mainapp.models import AppCanvasModel
 
 
 class MovingChoices(models.TextChoices):
@@ -31,7 +32,7 @@ class WorkScheduleChoices(models.TextChoices):
     REMOTE = 'DW', _('удаленная работа')
 
 
-class Resume(models.Model):
+class Resume(AppCanvasModel):
     is_moderated = models.BooleanField(default=False, verbose_name='Резюме прошло модерацию')
     candidate = models.ForeignKey(HHUser,
                                   unique=False, null=False, db_index=True, on_delete=models.CASCADE,

@@ -1,0 +1,37 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+    <a href="#"
+       class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+        <span class="fs-4">Панель модерации</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li>
+            <a href="{% url 'moderatorapp:moderator_lk_company_profile' %}" class="nav-link link-dark">
+                <i class="fa fa-id-card" aria-hidden="true"></i>
+                Компании
+                <span class="badge rounded-pill text-bg-primary">
+                    {{ company_profiles_for_moderation|length }}
+                </span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'moderatorapp:moderator_lk_vacancy' %}" class="nav-link link-dark" aria-current="page">
+                <i class="fa fa-id-card" aria-hidden="true"></i>
+                Вакансии
+                <span class="badge rounded-pill text-bg-primary">
+                    {{ vacancy_for_moderation|length }}
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'moderatorapp:moderator_lk_resume' %}" class="nav-link link-dark">
+                <i class="fa fa-id-card" aria-hidden="true"></i>
+                Резюме
+                <span class="badge rounded-pill text-bg-primary">
+                    {{ resume_for_moderation|length }}
+                </span>
+            </a>
+        </li>
+    </ul>
+    <hr>
+</div>
