@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+    {% include 'mainapp/includes/inc_header.html' %}
+{% endblock %}
+
+{% block site_content %}
+    <div class="b-example-divider"></div>
+    <div class="container px-4 py-5" id="icon-grid">
+        <a href="javascript: history.go(-1)" class="btn btn-outline-primary">Назад</a>
+
+        <h2> Результаты поиска: </h2>
+        {% for resume in page_obj %}
+            <div class="card" style="margin-bottom: 10px">
+                <div class="card-body">
+                    <h3 class="card-title" style="padding: 0"><a href="{% url 'candidate:resume_detail' pk=resume.pk %}">
+                        {{ resume.candidate }} </a></h3>
+                    <h4 class="card-subtitle mb-2 text-muted">{{ resume.contact_info.name }} {{ resume.contact_info.surname }}</h4>
+                    <p class="card-text">{{ resume.contact_info.city }}</p>
+                    <p class="card-text">{{ resume.position_and_salary.desired_position }}</p>
+                    <p class="card-text">{{ resume.position_and_salary.salary }}</p>
+                    <p class="card-text">{{ resume.education.level }}</p>
+                    <p class="card-text">{{ resume.education.educational_institution }}</p>
+                    <p class="card-text">{{ resume.education.faculty }}</p>
+                    <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
+                </div>
+            </div>
+        {% empty %}
+            <h3>Не найдено подходящих резуме...</h3>
+        {% endfor %}
+    </div>
+    <div class="container">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+{#                {% if page_obj.number %}#}
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page=1">&laquo; На начало</a></li>
+                        <li class="page-item"><a class="page-link"
+                                                 href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link">&laquo; На начало</a></li>
+                    {% endif %}
+
+
+                    <li class="page-item"><a class="page-link active"
+                                             href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>
+                    </li>
+
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link"
+                                                 href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Последняя
+                            &raquo;</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link disabled">Последняя
+                            &raquo;</a></li>
+                    {% endif %}
+{#                {% else %}#}
+{#                    <p>Найдено {{ resumes|length }} резуме</p>#}
+{#                {% endif %}#}
+            </ul>
+        </nav>
+    </div>
+{% endblock %}
+

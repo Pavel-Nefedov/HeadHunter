@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
@@ -146,7 +147,27 @@ class ResumeSearch(TemplateView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         # data['resume'] = Resume.objects.filter().order_by('-created')[:10]
+        data["resumes"] = Resume.objects.all()
         return data
+
+class FormResumeSearch(ListView):
+    template_name = 'companyapp/form_resume_search.html'
+    paginate_by = 10
+    model = Resume
+
+    def get_queryset(self):
+        search_text = self.request.GET.get('search_text')
+
+        if search_text:
+            search_queryset = Resume.objects.filter(
+                Q(level__contains=search_text) |
+                Q(specialization__contains=search_text) |
+                Q(skills__icontains=search_text) |
+                Q(responsibilities__icontains=search_text)).select_related()
+        else:
+            search_queryset = Resume.objects.all().select_related()
+
+        return search_queryset
 
 
 class Favorites(TemplateView):
