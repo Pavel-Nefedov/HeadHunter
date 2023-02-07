@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -5,13 +7,25 @@ from django.utils.translation import gettext_lazy as _
 NULLABLE = {'null': True, 'blank': True}
 
 
+class GenderChoices(models.TextChoices):
+    UNKNOWN = 'U', _('Не определен')
+    FEMALE = 'F', _('Мужчина')
+    MALE = 'M', _('Женщина')
+
+
 class HHUser(AbstractUser):
     # Переопределил, чтобы поля нельзя было оставить пустыми
     first_name = models.CharField(_('first name'), max_length=150)
     last_name = models.CharField(_('last name'), max_length=150)
     password = models.CharField(_('password'), max_length=128)
-
     email = models.EmailField(_("email address"), unique=True)
+
+    birthday = models.DateField(blank=True, max_length=30, default=date.today,
+                                verbose_name='Дата рождения')
+    city = models.CharField(blank=True, max_length=180, null=False, default='Unknown',
+                            verbose_name='Город')
+    gender = models.CharField(max_length=1, choices=GenderChoices.choices, default=GenderChoices.UNKNOWN,
+                              verbose_name='Пол')
 
     # Отчество
     patronymic = models.CharField(

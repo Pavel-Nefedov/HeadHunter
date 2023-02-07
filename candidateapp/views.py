@@ -9,7 +9,7 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
 
 from authapp.models import HHUser
 from candidateapp.forms import ResumeForm
-from candidateapp.models import Candidate, Resume
+from candidateapp.models import Resume
 from companyapp.models import Vacancy
 
 # from candidateapp.forms import CandidateForm
@@ -22,30 +22,30 @@ class CandidateMain(TemplateView):
 # class ShowProfilePageView(TemplateView):
 #     template_name = 'candidateapp/candidate.html'
 
-
-@login_required
-def candidate_lk(request):
-    title = 'candidate'
-    candidate_items = Candidate.objects.filter(user=request.user).select_related()
-
-    context = {
-        'title': title,
-        'candidate_items': candidate_items,
-
-    }
-    return render(request, 'candidateapp/candidate_lk.html', context)
-
-
-class ShowProfileUpdateView(UpdateView):
-    model = Candidate
-    template_name = 'candidateapp/candidate_update.html'
-    fields = [
-        "first_name",
-        "last_name",
-        "email",
-        "phone_number",
-        "search_area",
-    ]
+#
+# @login_required
+# def candidate_lk(request):
+#     title = 'candidate'
+#     candidate_items = Candidate.objects.filter(user=request.user).select_related()
+#
+#     context = {
+#         'title': title,
+#         'candidate_items': candidate_items,
+#
+#     }
+#     return render(request, 'candidateapp/candidate_lk.html', context)
+#
+#
+# class ShowProfileUpdateView(UpdateView):
+#     model = Candidate
+#     template_name = 'candidateapp/candidate_update.html'
+#     fields = [
+#         "first_name",
+#         "last_name",
+#         "email",
+#         "phone_number",
+#         "search_area",
+#     ]
 
 
 class ShowResumeDetailView(DetailView):
@@ -76,12 +76,12 @@ def resume(request):
     title = 'резюме'
     # resume_items = Resume.objects.all()
     resume_items = Resume.objects.all()
-    candidate_items = Candidate.objects.filter(user=request.user).select_related()
+    # candidate_items = Candidate.objects.filter(user=request.user).select_related()
 
     context = {
         'title': title,
         'resume_items': resume_items,
-        'candidate_items': candidate_items,
+        # 'candidate_items': candidate_items,
     }
     return render(request, 'candidateapp/resume.html', context)
 
