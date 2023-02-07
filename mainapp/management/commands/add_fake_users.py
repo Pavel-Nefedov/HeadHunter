@@ -71,6 +71,7 @@ class Command(BaseCommand):
 
     def __generate_fake_resume(self, user_object, verbose: bool = False):
         Resume.objects.create(
+            is_moderated=[True, False][random.randint(0, 1)],
             candidate=user_object,
             desired_position=self.faker.job(),
             salary=int(self.faker.bothify(text='#####')),

@@ -9,7 +9,7 @@ NULLABLE = {'null': True, 'blank': True}
 class CompanyProfile(models.Model):
     is_moderated = models.BooleanField(default=False, verbose_name='Профайл прошел модерацию')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
-    company_logo = models.ImageField(upload_to="company_logo", verbose_name="Логотип", **NULLABLE)
+    company_logo = models.ImageField(upload_to=settings.STATIC_ROOT / "company_logo", verbose_name="Логотип", **NULLABLE)
     company_name = models.CharField(max_length=100, default='No name', verbose_name="Наименование компании")
     legal_entity = models.CharField(max_length=100, blank=True, verbose_name="Юридическое лицо")
     company_address = models.CharField(max_length=255, default='Some address', verbose_name='Адрес компании')

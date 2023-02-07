@@ -46,6 +46,23 @@
             </div>
         </div>
     </form>
+    {% if debug_mode %}
+        <div class="container col-xxl-8 px-4 py-5">
+            <p>
+                <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                   aria-expanded="false" aria-controls="collapseExample">
+                    Смотреть фейковые данные
+                </a>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    {% for item in fake_users_data %}
+                        <p>{{ item }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block footer %}

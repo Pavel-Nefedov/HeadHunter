@@ -1,3 +1,6 @@
+import pathlib
+
+from django.conf import settings
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView, LogoutView
@@ -6,11 +9,29 @@ from django.shortcuts import redirect
 from django.views.generic import CreateView, TemplateView
 
 from authapp.forms import RegisterUserForm
+from mainapp.services import FileMode
 
 
 class LoginUser(LoginView):
     form_class = AuthenticationForm
     template_name = 'authapp/login.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if settings.DEBUG:
+            try:
+                context['debug_mode'] = True
+                some_file = list(pathlib.Path(settings.BASE_DIR / 'mainapp' / 'management' / 'data').glob('*.txt'))[0]
+                with open(
+                        file=some_file,
+                        mode=FileMode.READ.value,
+                        encoding='utf-8'
+                ) as fake_user_data_file:
+                    context['fake_users_data'] = fake_user_data_file.readlines()
+            except IndexError:
+                pass
+
+        return context
 
     def form_valid(self, form):
         user = form.get_user()
