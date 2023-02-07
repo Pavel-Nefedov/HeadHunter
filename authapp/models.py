@@ -8,9 +8,6 @@ NULLABLE = {'null': True, 'blank': True}
 
 
 class GenderChoices(models.TextChoices):
-    # COMMON_RECORD = 'COMMON', _('Общая запись')
-    # ------------------------- Реестры программы
-    # Реестр лиц лишенных родительских прав
     UNKNOWN = 'U', _('Не определен')
     FEMALE = 'F', _('Мужчина')
     MALE = 'M', _('Женщина')
