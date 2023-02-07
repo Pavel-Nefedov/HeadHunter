@@ -29,7 +29,14 @@
 
                     </a>
                     <ul class="dropdown-menu text-small shadow">
-                        <li><a class="dropdown-item" href="{% url 'candidate:candidate_lk' %}">Профиль пользователя</a></li>
+                        <li>
+                            <a class="dropdown-item" href="
+                                {% if user.is_candidate %}{% url 'candidate:candidate_lk' %}{% endif %}
+                                {% if user.is_company %}{% url 'company:company_profile' %}{% endif %}
+                            ">
+                                Профиль пользователя
+                            </a>
+                        </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -60,12 +67,12 @@
                             База данных вакансий
                         </a>
                     </li>
-{#                    <li>#}
-{#                        <a href="{% url 'candidate:candidate_lk' %}" class="nav-link px-2 link-secondary">#}
-{#                            <i class="fa fa-user" aria-hidden="true"></i>#}
-{#                            Личный кабинет#}
-{#                        </a>#}
-{#                    </li>#}
+                    {#                    <li>#}
+                    {#                        <a href="{% url 'candidate:candidate_lk' %}" class="nav-link px-2 link-secondary">#}
+                    {#                            <i class="fa fa-user" aria-hidden="true"></i>#}
+                    {#                            Личный кабинет#}
+                    {#                        </a>#}
+                    {#                    </li>#}
                     <li>
                         <a href="{% url 'candidate:resume' %}" class="nav-link px-2 link-secondary">
                             <i class="fa fa-newspaper-o" aria-hidden="true"></i>
@@ -84,13 +91,15 @@
                         <a href="{% url 'company:resume_search' %}" class="nav-link px-2 link-secondary">
                             <i class="fa fa-address-card" aria-hidden="true"></i>
                             База данных резюме</a></li>
-                    <li>
-                        <a href="{% url 'company:company_profile' %}" class="nav-link px-2 link-secondary">
-                            <i class="fa fa-university" aria-hidden="true"></i>
-                            Личный кабинет</a></li>
-                    <li class="nav-item"><a href="{% url 'company:vac_list' %}" class="nav-link">
+{#                    <li>#}
+{#                        <a href="{% url 'company:company_profile' %}" class="nav-link px-2 link-secondary">#}
+{#                            <i class="fa fa-university" aria-hidden="true"></i>#}
+{#                            Личный кабинет#}
+{#                        </a>#}
+{#                    </li>#}
+                    <li><a href="{% url 'company:vac_list' %}" class="nav-link px-2 link-secondary">
                         <i class="fa fa-university" aria-hidden="true"></i>
-                        Вакансии</a></li>#}
+                        Вакансии</a></li>
                 {% endif %}
                 {% get_unread_messages user as unread_messages %}
                 <li>

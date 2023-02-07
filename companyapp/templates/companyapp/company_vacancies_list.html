@@ -9,40 +9,41 @@
 
 
 {% block site_content %}
- {% for vacancy in object_list %}
-
-{% if vacancy.company_id == company.id%}
     <div class="container px-4 py-5" id="icon-grid">
+        {% for vacancy in object_list %}
 
-        <h3 class="card-title" style="padding: 0">{{ vacancy.vacancy_name }} </h3>
-        <h4 class="subtitle-title"> {{ vacancy.city }} </h4>
+            {% if vacancy.company_id == company.id %}
+
+                <h3 class="card-title" style="padding: 0">{{ vacancy.vacancy_name }} </h3>
+                <h4 class="subtitle-title"> {{ vacancy.city }} </h4>
 
 
-        {% if vacancy.is_active %}
-            <p class="card-text"> Активна </p>
-        {% endif %}
-        {% if vacancy.is_for_disabled %}
-            <p class="card-text"> Подходит людям с ограниченными возможностями </p>
-        {% endif %}
-        {% if vacancy.is_full_day %}
-            <p class="card-text"> Полный рабочий день </p>
-        {% endif %}
-        {% if vacancy.is_intern %}
-            <p class="card-text"> Можно новичкам и стажерам </p>
-        {% endif %}
-        {% if user.is_candidate %}
-            <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
-        {% endif %}
-        {% if user == company.user %}
-            <a class="btn btn-primary" href="{% url 'company:vacancy_edit' pk=vacancy.pk %}"
-               role="button">Редактировать</a>
-        {% endif %}
+                {% if vacancy.is_active %}
+                    <p class="card-text"> Активна </p>
+                {% endif %}
+                {% if vacancy.is_for_disabled %}
+                    <p class="card-text"> Подходит людям с ограниченными возможностями </p>
+                {% endif %}
+                {% if vacancy.is_full_day %}
+                    <p class="card-text"> Полный рабочий день </p>
+                {% endif %}
+                {% if vacancy.is_intern %}
+                    <p class="card-text"> Можно новичкам и стажерам </p>
+                {% endif %}
+                {% if user.is_candidate %}
+                    <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
+                {% endif %}
+                {% if user == company.user %}
+                    <a class="btn btn-primary" href="{% url 'company:vacancy_edit' pk=vacancy.pk %}"
+                       role="button">Редактировать</a>
+                {% endif %}
+
+
+            {% endif %}
+        {% endfor %}
+        <h3 class="subtitle-title"><a href="{% url 'company:vacancy_create' %}">
+            Создать вакансию</a></h3>
     </div>
-
-    {% endif %}
-{% endfor %}
-<h3 class="subtitle-title">  <a href="{% url 'company:vacancy_create'   %}" >
-Создать вакансию</a></h3>
 {% endblock %}
 
 {% block footer %}

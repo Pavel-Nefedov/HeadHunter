@@ -9,30 +9,31 @@
 
 
 {% block site_content %}
-<!--{% for companyprofile in object_list %}-->
-<!--{% if companyprofile.user_id == user.id%}-->
+    <div class="container px-4 py-5" id="icon-grid">
+        <!--{% for companyprofile in object_list %}-->
+            <!--{% if companyprofile.user_id == user.id%}-->
 
-        <h3 class="card-title" style="padding: 0"><a href="#">{{ companyprofile.company_logo }} </a></h3>
-        <h4 class="subtitle-title">Название : {{ companyprofile.company_name }} </h4>
-        <h3 class="subtitle-title">Юридическое лицо:  {{ companyprofile.legal_entity }} </h3>
-        <h3 class="subtitle-title">Адрес:   {{ companyprofile.company_address }} </h3>
-        <h3 class="subtitle-title">Email:  {{ companyprofile.email }} </h3>
-        <h3 class="subtitle-title">Телефон:   {{ companyprofile.phone_number }} </h3>
-        <h3 class="subtitle-title">О компании:  {{ companyprofile.about_company }} </h3>
+                <h3 class="card-title" style="padding: 0"><a href="#">{{ companyprofile.company_logo }} </a></h3>
+                <h4 class="subtitle-title">Название : {{ companyprofile.company_name }} </h4>
+                <h3 class="subtitle-title">Юридическое лицо: {{ companyprofile.legal_entity }} </h3>
+                <h3 class="subtitle-title">Адрес: {{ companyprofile.company_address }} </h3>
+                <h3 class="subtitle-title">Email: {{ companyprofile.email }} </h3>
+                <h3 class="subtitle-title">Телефон: {{ companyprofile.phone_number }} </h3>
+                <h3 class="subtitle-title">О компании: {{ companyprofile.about_company }} </h3>
 
-<h3 class="subtitle-title">  <a href="{% url 'company:company_update' companyprofile.id %}" >
-Редактировать профиль</a></h3>
+                <h3 class="subtitle-title"><a href="{% url 'company:company_update' companyprofile.id %}">
+                    Редактировать профиль</a></h3>
 
 
-<!--{% endif%}-->
+                <!--{% endif%}-->
 
-<!--{% endfor%}-->
-{% if not profile %}
+            <!--{% endfor%}-->
+        {% if not profile %}
 
-<h3 class="subtitle-title">  <a href="{% url 'company:company_create'   %}" >
-Создать профиль</a></h3>
-{% endif%}
-
+            <h3 class="subtitle-title"><a href="{% url 'company:company_create' %}">
+                Создать профиль</a></h3>
+        {% endif %}
+    </div>
 {% endblock %}
 
 
