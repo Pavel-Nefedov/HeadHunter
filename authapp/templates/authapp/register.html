@@ -26,6 +26,16 @@
                     <div class="modal-body p-5 pt-0">
                         <form class="">
                             <div class="form-floating mb-3">
+                                <b>Ваша роль: </b>
+                                {{ form.user_role }}
+                                <div style="color: red;">
+                                    {{ form.user_role.errors }}
+                                </div>
+                            </div>
+                            <hr>
+
+
+                            <div class="form-floating mb-3">
                                 <input type="text" class="form-control rounded-3" id="floatingInput"
                                        name="{{ form.username.name }}"
                                        placeholder="{{ form.username.label }}">
@@ -62,6 +72,15 @@
                                     {{ form.patronymic.errors }}
                                 </div>
                             </div>
+
+                            <div class="form-floating mb-3">
+                                <b>Ваш пол: </b>
+                                {{ form.gender }}
+                                <div style="color: red;">
+                                    {{ form.gender.errors }}
+                                </div>
+                            </div>
+
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control rounded-3" id="floatingInput"
                                        name="{{ form.email.name }}"
@@ -71,13 +90,26 @@
                                     {{ form.email.errors }}
                                 </div>
                             </div>
+
                             <div class="form-floating mb-3">
-                                <p>Ваша роль: </p>
-                                {{ form.user_role }}
+                                <input type="date" class="form-control rounded-3" id="floatingInput"
+                                       name="{{ form.birthday.name }}"
+                                       placeholder="{{ form.birthday.label }}">
+                                <label for="floatingInput">{{ form.birthday.label }}</label>
                                 <div style="color: red;">
-                                    {{ form.user_role.errors }}
+                                    {{ form.birthday.errors }}
                                 </div>
                             </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control rounded-3" id="floatingInput"
+                                       name="{{ form.city.name }}"
+                                       placeholder="{{ form.city.label }}">
+                                <label for="floatingInput">{{ form.city.label }}</label>
+                                <div style="color: red;">
+                                    {{ form.city.errors }}
+                                </div>
+                            </div>
+
                             <div class="form-floating mb-3">
                                 <input type="password" class="form-control rounded-3" id="floatingPassword"
                                        name="{{ form.password1.name }}"

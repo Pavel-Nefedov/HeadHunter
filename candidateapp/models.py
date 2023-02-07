@@ -145,18 +145,10 @@ class Candidate(models.Model):
 
 
 class Resume(models.Model):
+    is_moderated = models.BooleanField(default=False, verbose_name='Резюме прошло модерацию')
     candidate = models.ForeignKey(Candidate,
                                   unique=False, null=False, db_index=True, on_delete=models.CASCADE,
                                   verbose_name='Владелец резюме')
-    name = models.CharField(blank=True, max_length=30, null=False, verbose_name='Имя')
-    surname = models.CharField(blank=True, max_length=30, null=False, verbose_name='Фамилия')
-    patronymic = models.CharField(blank=True, max_length=30, null=False, verbose_name='Отчество')
-    birthday = models.DateField(blank=True, max_length=30, default=date.today, verbose_name='Дата рождения')
-    city = models.CharField(blank=True, max_length=180, null=False, verbose_name='Город')
-    GENDER_CHOICES = (
-        ('W', 'Женщина'),
-        ('M', 'Мужчина'),
-    )
     MOVING_CHOICES = (
         ('PO', 'возможен'),
         ('IM', 'невозможен'),
@@ -167,7 +159,6 @@ class Resume(models.Model):
         ('RE', 'готов'),
         ('SO', 'иногда'),
     )
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, verbose_name='Гендер')
     moving = models.CharField(max_length=2, choices=MOVING_CHOICES, blank=True, verbose_name='Возможен ли переезд')
     business_trips = models.CharField(max_length=2, choices=BUSINESS_TRIPS_CHOICES, blank=True,
                                       verbose_name='Командировки')
