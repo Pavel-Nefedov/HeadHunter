@@ -86,7 +86,13 @@ def resume(request):
     return render(request, 'candidateapp/resume.html', context)
 
 
+class ResumeCreateView(CreateView):
+    model = Resume
+    template_name = 'candidateapp/resume_create.html'
+    fields = '__all__'
 
+    def get_success_url(self):
+        return reverse('candidate:resume', kwargs=self.kwargs)
 
 # @login_required
 # def resume_create(request):
@@ -145,32 +151,35 @@ def resume_delete(request, pk):
     resume = get_object_or_404(Resume, pk=pk)
 
     if request.method == 'POST':
-        resume.is_active = False
-        resume.save()
-        return HttpResponseRedirect(reverse('candidate:resume'))
+        form = ResumeForm(request.POST, instance=resume)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('candidate:resume'))
+    else:
+        form = ResumeForm(instance=resume)
 
-    content = {'title': title, 'resume_to_delete': resume}
+    return render(request, 'candidateapp/resume_update.html', context={
+        'title': 'Создание резюме',
+        'form': form,
+    })
 
-    return render(request, 'candidateapp/resume_delete.html', content)
 
+class ResumeDeleteView(DeleteView):
+    model = Resume
+    template_name = 'candidateapp/resume_delete.html'
+    success_url = reverse_lazy('candidate:resume')
 
+    def delete(self, request, *arg, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        self.object.is_active = False
+        self.object.save()
+        return HttpResponseRedirect(success_url)
 
-# class ResumeDeleteView(LoginRequiredMixin, DeleteView):
-#     model = Resume
-#     template_name = 'candidateapp/resume_delete.html'
-#     success_url = reverse_lazy('candidate:resume')
-#
-#     def delete(self, request, *arg, **kwargs):
-#         self.object = self.get_object()
-#         success_url = self.get_success_url()
-#         self.object.is_active = False
-#         self.object.save()
-#         return HttpResponseRedirect(success_url)
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = "Удаление резюме"
-#         return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Удаление резюме"
+        return context
 
 
 class VacancySearch(TemplateView):
@@ -204,16 +213,16 @@ class FormVacancySearch(ListView):
 
 
 
-class ResumeView(DetailView):
-    template_name = 'candidateapp/resume.html'
-    model = Resume
-
-    def get_context_data(self, request, pk=None, **kwargs):
-        context = super(DetailView, self).get_context_data(**kwargs)
-        context['title'] = Resume.objects.filter(pk=pk)
-        context['resume_items'] = Resume.objects.all()
-        context['candidate_items'] = Candidate.objects.filter(user=request.user).select_related()
-        return context
+# class ResumeView(DetailView):
+#     template_name = 'candidateapp/resume.html'
+#     model = Resume
+#
+#     def get_context_data(self, request, pk=None, **kwargs):
+#         context = super(DetailView, self).get_context_data(**kwargs)
+#         context['title'] = Vacancy.objects.filter(pk=pk)
+#         context['resume_items'] = Resume.objects.all()
+#         context['candidate_items'] = Candidate.objects.filter(user=request.user).select_related()
+#         return context
 
 
 
