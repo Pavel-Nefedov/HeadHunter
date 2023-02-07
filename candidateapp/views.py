@@ -8,10 +8,8 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   TemplateView, UpdateView)
 
 from authapp.models import HHUser
-from candidateapp.forms import CandidateForm,  ContactInfoForm, PositionAndSalaryForm, WorkExperienceForm, \
-    EducationForm, AdvancedTrainingForm, ResumeForm
-from candidateapp.models import Candidate, ContactInfo, PositionAndSalary, WorkExperience, Education, \
-    AdvancedTraining, Resume
+from candidateapp.forms import ResumeForm
+from candidateapp.models import Candidate, Resume
 from companyapp.models import Vacancy
 
 # from candidateapp.forms import CandidateForm
@@ -77,7 +75,7 @@ class ShowResumeDetailView(DetailView):
 def resume(request):
     title = 'резюме'
     # resume_items = Resume.objects.all()
-    resume_items = Resume.objects.all(), ContactInfo.objects.all()
+    resume_items = Resume.objects.all()
     candidate_items = Candidate.objects.filter(user=request.user).select_related()
 
     context = {
@@ -112,32 +110,14 @@ def resume(request):
 
 @login_required()
 def resume_create(request):
-    form1 = ContactInfoForm()
-    form2 = PositionAndSalaryForm()
-    form3 = WorkExperienceForm()
-    form4 = EducationForm()
-    form5 = AdvancedTrainingForm()
-
+    form1 = Resume()
     if request.method == 'POST':
-        form1 = ContactInfoForm(request.POST)
-        form2 = PositionAndSalaryForm(request.POST)
-        form3 = WorkExperienceForm(request.POST)
-        form4 = EducationForm(request.POST)
-        form5 = AdvancedTrainingForm(request.POST)
-        if form1.is_valid() and form2.is_valid() and form3.is_valid() and form4.is_valid() and form5.is_valid():
+        if form1.is_valid():
             form1.save()
-            form2.save()
-            form3.save()
-            form4.save()
-            form5.save()
             return redirect('candidate:resume')
 
     context = {
         'form1': form1,
-        'form2': form2,
-        'form3': form3,
-        'form4': form4,
-        'form5': form5,
     }
     return render(request, 'candidateapp/resume_create.html', context)
 
@@ -145,30 +125,16 @@ def resume_create(request):
 @login_required()
 def resume_update(request, pk):
     if request.method == 'POST':
-        form1 = ContactInfoForm(request.POST, instance='form1')
-        form2 = PositionAndSalaryForm(request.POST, instance='form2')
-        form3 = WorkExperienceForm(request.POST, instance='form3')
-        form4 = EducationForm(request.POST, instance='form4')
-        form5 = AdvancedTrainingForm(request.POST, instance='form5')
-        if form1.is_valid() and form2.is_valid() and form3.is_valid() and form4.is_valid() and form5.is_valid():
+        form1 = Resume(request.POST, instance='form1')
+
+        if form1.is_valid():
             form1.save()
-            form2.save()
-            form3.save()
-            form4.save()
-            form5.save()
+
             return reverse('candidate:resume')
 
-    form1 = ContactInfoForm()
-    form2 = PositionAndSalaryForm()
-    form3 = WorkExperienceForm()
-    form4 = Education()
-    form5 = AdvancedTrainingForm()
+    form1 = Resume()
     data = {
         'form1': form1,
-        'form2': form2,
-        'form3': form3,
-        'form4': form4,
-        'form5': form5,
     }
     return render(request, 'candidateapp/resume_update.html', data)
 
