@@ -10,41 +10,15 @@
     <div class="container px-4 py-5" id="icon-grid">
          <a class="btn btn-primary" href="{% url 'candidate:resume' %}" role="button">Назад в мои резюме</a>
             <h1>Создание резюме</h1>
-                <form class="form-horizontal" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}<br>
-                    <h4>Контактная информация</h4>
-                        {% for f1 in form1 %}
-                            <p><label class="form-label" for="{{ f1.id_for_label }}">{{ f1.label }}: </label>
-                        {{ f1 }}</p>
-                            <div class="form-error">{{ f1.errors }}</div>
-                        {% endfor %}
-                    <h4>Желаемая должность и зарплата</h4>
-                    {% for f2 in form2 %}
-                    <p><label class="form-label" for="{{ f2.id_for_label }}">{{ f2.label }}: </label>
-                        {{ f2 }}</p>
-                    <div class="form-error">{{ f2.errors }}</div>
-                    {% endfor %}
-                    <h4>Опыт работы</h4>
-                    {% for f3 in form3 %}
-                    <p><label class="form-label" for="{{ f3.id_for_label }}">{{ f3.label }}: </label>
-                        {{ f3 }}</p>
-                    <div class="form-error">{{ f3.errors }}</div>
-                    {% endfor %}
-                    <h4>Образованеие</h4>
-                    {% for f4 in form4 %}
-                    <p><label class="form-label" for="{{ f4.id_for_label }}">{{ f4.label }}: </label>
-                        {{ f4 }}</p>
-                    <div class="form-error">{{ f4.errors }}</div>
-                    {% endfor %}
-                    <h4>Повышение квалификации, курсы</h4>
-                     {% for f5 in form5 %}
-                    <p><label class="form-label" for="{{ f5.id_for_label }}">{{ f5.label }}: </label>
-                        {{ f5 }}</p>
-                    <div class="form-error">{{ f5.errors }}</div>
-                    {% endfor %}
-                     <button type="submit" class="btn btn-primary btn-lg px-4 me-md-2">Опубликовать</button>
-                        <button type="submit" class="btn btn-primary btn-lg px-4 me-md-2">Сохранить в черновик</button>
-                </form>
+                <form method="post">
+                {% csrf_token %}
+                {% for f in form %}
+                    <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
+                    <div class="form-error">{{ f.errors }}</div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary btn-lg px-4 me-md-2">Опубликовать</button>
+                    <button type="submit" class="btn btn-primary btn-lg px-4 me-md-2">Сохранить в черновик</button>
+            </form>
     </div>
 </div>
 {% endblock %}
