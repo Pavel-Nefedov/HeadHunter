@@ -94,13 +94,60 @@ class ResumeCreateView(CreateView):
     def get_success_url(self):
         return reverse('candidate:resume', kwargs=self.kwargs)
 
-# @login_required()
-# def resume_read(request, pk):
-#     pass
+# @login_required
+# def resume_create(request):
+#     if request.method == "POST":
+#         name = request.POST['name']
+#         surname = request.POST['surname']
+#         patronymic = request.POST['patronymic']
+#         birthday = request.POST['birthday']
+#         city = request.POST['city']
+#
+#         contact_info = ContactInfo.objects.create(name=name,
+#                                             surname=surname,
+#                                             patronymic=patronymic,
+#                                             birthday=birthday, city=city,
+#                                             )
+#         contact_info.save()
+#         alert = True
+#         return render(request, 'candidateapp/resume.html', {'alert': alert})
+#     return render(request, 'candidateapp/resume_create.html')
+
+
+@login_required()
+def resume_create(request):
+    form1 = Resume()
+    if request.method == 'POST':
+        if form1.is_valid():
+            form1.save()
+            return redirect('candidate:resume')
+
+    context = {
+        'form1': form1,
+    }
+    return render(request, 'candidateapp/resume_create.html', context)
 
 
 @login_required()
 def resume_update(request, pk):
+    if request.method == 'POST':
+        form1 = Resume(request.POST, instance='form1')
+
+        if form1.is_valid():
+            form1.save()
+
+            return reverse('candidate:resume')
+
+    form1 = Resume()
+    data = {
+        'form1': form1,
+    }
+    return render(request, 'candidateapp/resume_update.html', data)
+
+
+@login_required()
+def resume_delete(request, pk):
+    title = 'Удаление резюме'
     resume = get_object_or_404(Resume, pk=pk)
 
     if request.method == 'POST':
