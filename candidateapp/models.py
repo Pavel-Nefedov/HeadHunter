@@ -58,7 +58,7 @@ class Resume(models.Model):
         """
     getting_started = models.DateField(auto_now=False, auto_now_add=False, verbose_name='Начало работы')
     end_work = models.DateField(auto_now=False, auto_now_add=False, verbose_name='Окончание работы')
-    working = models.BooleanField(verbose_name='Работаю по настоящее время')
+    working = models.BooleanField(verbose_name='Работаю по настоящее время', default=False)
     organization = models.CharField(max_length=150, blank=True, verbose_name='Организация')
     post = models.CharField(max_length=150, blank=True, verbose_name='Должность')
     responsibilities = models.TextField(blank=True, verbose_name='Обязанности на рабочем месте')
