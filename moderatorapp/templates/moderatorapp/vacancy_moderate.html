@@ -25,7 +25,7 @@
                                 <strong class="mb-1">
                                     Вакансия <b>{{ item.vacancy_name }}</b> от компании {{ item.company.company_name }}
                                 </strong>
-                                <small>Wed</small>
+                                <small>{{ item.updated_at }}</small>
                             </div>
                             <div class="col-10 mb-1 small">
                                 {{ item.salary_min }} - {{ item.salary_max }} ({{ item.currency }})

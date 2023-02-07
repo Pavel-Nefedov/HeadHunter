@@ -2,11 +2,12 @@ from django.conf import settings
 from django.db import models
 
 from authapp.models import HHUser
+from mainapp.models import AppCanvasModel
 
 NULLABLE = {'null': True, 'blank': True}
 
 
-class CompanyProfile(models.Model):
+class CompanyProfile(AppCanvasModel):
     is_moderated = models.BooleanField(default=False, verbose_name='Профайл прошел модерацию')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
     company_logo = models.ImageField(upload_to=settings.STATIC_ROOT / "company_logo", verbose_name="Логотип", **NULLABLE)
@@ -18,7 +19,7 @@ class CompanyProfile(models.Model):
     about_company = models.CharField(blank=True, max_length=512, verbose_name='О компании')
 
 
-class Vacancy(models.Model):
+class Vacancy(AppCanvasModel):
     is_moderated = models.BooleanField(default=False, verbose_name='Вакансия прошла модерацию')
     company = models.ForeignKey(CompanyProfile, unique=False, null=False, db_index=True, on_delete=models.CASCADE)
     vacancy_name = models.CharField(max_length=300, unique=False, null=False, db_index=True, default='SOME STRING')
