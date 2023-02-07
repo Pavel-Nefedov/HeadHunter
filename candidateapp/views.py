@@ -12,6 +12,7 @@ from candidateapp.forms import ResumeForm
 from candidateapp.models import Resume
 from companyapp.models import Vacancy
 
+
 # from candidateapp.forms import CandidateForm
 
 
@@ -74,14 +75,11 @@ class ShowResumeDetailView(DetailView):
 @login_required
 def resume(request):
     title = 'резюме'
-    # resume_items = Resume.objects.all()
-    resume_items = Resume.objects.all()
-    # candidate_items = Candidate.objects.filter(user=request.user).select_related()
+    resume_items = Resume.objects.filter(candidate=request.user)
 
     context = {
         'title': title,
         'resume_items': resume_items,
-        # 'candidate_items': candidate_items,
     }
     return render(request, 'candidateapp/resume.html', context)
 
@@ -93,6 +91,7 @@ class ResumeCreateView(CreateView):
 
     def get_success_url(self):
         return reverse('candidate:resume', kwargs=self.kwargs)
+
 
 # @login_required
 # def resume_create(request):
@@ -206,12 +205,7 @@ class FormVacancySearch(ListView):
         else:
             search_queryset = Vacancy.objects.all().select_related()
 
-
         return search_queryset
-
-
-
-
 
 # class ResumeView(DetailView):
 #     template_name = 'candidateapp/resume.html'
@@ -223,7 +217,6 @@ class FormVacancySearch(ListView):
 #         context['resume_items'] = Resume.objects.all()
 #         context['candidate_items'] = Candidate.objects.filter(user=request.user).select_related()
 #         return context
-
 
 
 # class ResumeCreateView(LoginRequiredMixin, CreateView):
