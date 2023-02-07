@@ -32,8 +32,6 @@ class LoginUser(LoginView):
                 new_list_of_fake_users = []
                 for item in list_of_fake_users:
                     some_title = item.split('[login: ')
-                    some_login = some_title[1]
-                    some_password = some_title[1]
 
                     new_list_of_fake_users.append(
                         {
@@ -44,7 +42,6 @@ class LoginUser(LoginView):
                     )
 
                 context['new_list_of_fake_users'] = new_list_of_fake_users
-                print(new_list_of_fake_users)
             except IndexError:
                 pass
 
