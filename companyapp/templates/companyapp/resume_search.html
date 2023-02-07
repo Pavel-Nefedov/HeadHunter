@@ -4,20 +4,21 @@
 
 {% block header %}
     {% include 'mainapp/includes/inc_header.html' %}
+    {% include 'companyapp/includes/inc_resume_search_panel.html' %}
 {% endblock %}
 
 
 {% block site_content %}
     <div class="b-example-divider"></div>
     <div class="container px-4 py-5" id="icon-grid">
-        <h2> Список резюме <a class="btn btn-primary" href="#" role="button">Расширенный поиск</a></h2>
+        <h2> Список резюме </h2>
             {% if not vacancies %}
                 <h5> Создайте вакансию, чтобы откликнутся на резюме </h5>
             {% endif %}
         {% for resume in resumes %}
             <div class="card" style="margin-bottom: 10px">
                 <div class="card-body">
-                    <h3 class="card-title" style="padding: 0"><a href="{% url 'candidate:resume' %}">
+                    <h3 class="card-title" style="padding: 0"><a href="{% url 'candidate:resume_detail' pk=resume.pk %}">
                         {{ resume.candidate }} </a></h3>
                     <h4 class="card-subtitle mb-2 text-muted">{{ resume.city }}</h4>
                     <p class="card-text">{{ resume.desired_position }}</p>
