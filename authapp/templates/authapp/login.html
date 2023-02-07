@@ -56,8 +56,13 @@
             </p>
             <div class="collapse" id="collapseExample">
                 <div class="card card-body">
-                    {% for item in fake_users_data %}
-                        <p>{{ item }}</p>
+                    {% for item in new_list_of_fake_users %}
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="{{ form.username.name }}" value="{{ item.login }}">
+                            <input type="hidden" name="{{ form.password.name }}" value="{{ item.password }}">
+                            <button class="btn btn-link" type="submit">{{ item.title }}</button>
+                        </form>
                     {% endfor %}
                 </div>
             </div>

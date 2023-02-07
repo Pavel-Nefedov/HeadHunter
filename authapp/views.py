@@ -27,7 +27,24 @@ class LoginUser(LoginView):
                         mode=FileMode.READ.value,
                         encoding='utf-8'
                 ) as fake_user_data_file:
-                    context['fake_users_data'] = fake_user_data_file.readlines()
+                    list_of_fake_users = fake_user_data_file.readlines()
+
+                new_list_of_fake_users = []
+                for item in list_of_fake_users:
+                    some_title = item.split('[login: ')
+                    some_login = some_title[1]
+                    some_password = some_title[1]
+
+                    new_list_of_fake_users.append(
+                        {
+                            'title': some_title[0].replace('created', ''),
+                            'login': some_title[1].split(' password: ')[0],
+                            'password': some_title[1].split(' password: ')[1].replace(']', '').strip(),
+                        }
+                    )
+
+                context['new_list_of_fake_users'] = new_list_of_fake_users
+                print(new_list_of_fake_users)
             except IndexError:
                 pass
 
