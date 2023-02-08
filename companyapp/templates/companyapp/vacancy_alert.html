@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header %}
+    {% include 'mainapp/includes/inc_header.html' %}
+{% endblock %}
+
+
+
+{% block site_content %}
+<div class="b-example-divider"></div>
+    <div class="container px-4 py-5" id="icon-grid">
+        <h2>Внимание!</h2>
+        <p>Нет доступных вакансий для отклика на резюме. Создайте вакансии в 
+            <a href="{% url 'companyapp:vacancy_create' %}">личном кабинете</a></p>
+        <a class="btn btn-primary" href="{% url 'company:resume_search' %}">Назад</a>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block footer %}
+{% include 'mainapp/includes/inc_footer.html' %}
+{% endblock %}

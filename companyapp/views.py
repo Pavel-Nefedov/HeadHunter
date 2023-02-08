@@ -135,6 +135,36 @@ class VacancyUpdate(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('companyapp:vacancy', kwargs={'pk': self.object.id})
 
+class VacanciesSelect(ListView):
+    template_name = 'companyapp/company_vacancies_select.html'
+    model = Vacancy
+
+    #
+    def dispatch(self, request, *args, **kwargs):
+        queryset = Vacancy.objects.filter(candidate_id=self.request.user)
+        if queryset:
+            return super(VacanciesList, self).dispatch(request, *args, **kwargs)
+        else:
+            return render(request, 'companyapp/vacancy_alert.html')
+
+    def get_context_data(self, request, pk=None, **kwargs):
+        context = super(VacanciesList, self).get_context_data(**kwargs)
+        context['user'] = self.request.user
+        context['company'] = CompanyProfile.objects.get(user=self.request.user)
+        context['vacancies'] = Vacancy.objects.filter(company_id=pk)
+        return context
+        # if context['company']:
+        #     return context
+        # else:
+        #     return render(request, 'candidateapp/vacancy_alert.html')
+
+    
+    # def vacancy_alert(request):
+    #     queryset = Vacancy.objects.filter(company_id=pk)
+    #     if not queryset:
+    #         return render(request, 'candidateapp/vacancy_alert.html')
+
+
 
 class ResumeSearch(TemplateView):
     template_name = 'companyapp/resume_search.html'
