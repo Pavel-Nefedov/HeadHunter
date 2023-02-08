@@ -14,33 +14,12 @@ from companyapp.models import CompanyProfile, Vacancy
 class CompProfile(ListView):
     template_name = 'companyapp/comp_profile.html'
     model = CompanyProfile
-    #
-    # def dispatch(self, request, *args, **kwargs):
-    #     return super(CompProfile, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, pk=None, **kwargs):
-        context = super(CompProfile, self).get_context_data(**kwargs)
-        context['profile'] = CompanyProfile.objects.filter(user_id=self.request.user.id)
+        context = super().get_context_data(pk=None, **kwargs)
+        context['profile'] = CompanyProfile.objects.filter(user=self.request.user)
         context['user'] = self.request.user
         return context
-
-
-# class CompanyProfileView(DetailView):
-#     template_name = 'companyapp/company_profile_view.html'
-#     model = CompanyProfile
-#
-#     def get(self, request, *args, **kwargs):
-#         try:
-#             return super().get(request, *args, **kwargs)
-#         except Http404:
-#             return redirect(reverse('company:empty_profile'))
-#
-#     def get_context_data(self, pk=None, **kwargs):
-#
-#         context = super(DetailView, self).get_context_data(**kwargs)
-#         context['profile'] = CompanyProfile.objects.filter(user_id= self.request.user)
-#         context['user'] = self.request.user
-#         return context
 
 
 class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
@@ -49,11 +28,9 @@ class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
     # success_url = reverse_lazy('companyapp:company_profile')
     form_class = CompanyProfileForm
 
-
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-
 
     def get_success_url(self):
         return reverse('companyapp:company_profile')
@@ -62,17 +39,6 @@ class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
         data = super().get_context_data(**kwargs)
         data['user'] = self.request.user
         return data
-
-
-# class CompanyProfileDeleteView(LoginRequiredMixin,DeleteView):
-#     model = CompanyProfile
-#     template_name = 'companyapp/company_lk.html'
-#     success_url = reverse_lazy('companyapp:company_profile')
-#     def delete(self, request, *args, **kwargs):
-#         self.object = self.get_object()
-#         self.object.is_active = False
-#         self.object.save()
-#         return HttpResponseRedirect(self.get_success_url())
 
 
 class CompanyProfileUpdateView(LoginRequiredMixin, UpdateView):
@@ -99,7 +65,7 @@ class VacanciesList(ListView):
         context = super(VacanciesList, self).get_context_data(**kwargs)
         context['user'] = self.request.user
         context['company'] = CompanyProfile.objects.get(user=self.request.user)
-        context['vacancies'] = Vacancy.objects.filter(company_id= pk)
+        context['vacancies'] = Vacancy.objects.filter(company_id=pk)
         return context
 
 
@@ -161,6 +127,7 @@ class ResumeSearch(TemplateView):
         data["resumes"] = Resume.objects.all()
         return data
 
+
 class FormResumeSearch(ListView):
     template_name = 'companyapp/form_resume_search.html'
     paginate_by = 10
@@ -190,22 +157,6 @@ class Favorites(TemplateView):
             "favorites_list": request.session.get('favorites'),
         }
         return render(request, 'favorites', context=context)
-
-
-# def CompanyK(request):
-#     if request.method == 'POST':
-#         form = CompanyProfileForm(data=request.POST, files=request.FILES, instance=request.user)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect(reverse('company_lk'))
-#     else:
-#         form = CompanyProfileForm(instance=request.user)
-#
-#     context = {
-#         'title': 'Профиль',
-#         'form': form,
-#     }
-#     return render(request, 'companyapp/company_lk.html', context)
 
 
 class PartnerCompanyView(DetailView):
