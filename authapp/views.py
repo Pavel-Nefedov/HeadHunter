@@ -68,6 +68,8 @@ class RegisterUser(CreateView):
 
         user = form.save()
 
+        print(f"{form=}")
+
         if form.cleaned_data['user_role'] == 'is_company':
             user.is_company = True
             user.save()

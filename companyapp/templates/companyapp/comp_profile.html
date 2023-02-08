@@ -10,28 +10,72 @@
 
 {% block site_content %}
     <div class="container px-4 py-5" id="icon-grid">
-        <!--{% for companyprofile in object_list %}-->
-            <!--{% if companyprofile.user_id == user.id%}-->
-
-                <h3 class="card-title" style="padding: 0"><a href="#">{{ companyprofile.company_logo }} </a></h3>
-                <h4 class="subtitle-title">Название : {{ companyprofile.company_name }} </h4>
-                <h3 class="subtitle-title">Юридическое лицо: {{ companyprofile.legal_entity }} </h3>
-                <h3 class="subtitle-title">Адрес: {{ companyprofile.company_address }} </h3>
-                <h3 class="subtitle-title">Email: {{ companyprofile.email }} </h3>
-                <h3 class="subtitle-title">Телефон: {{ companyprofile.phone_number }} </h3>
-                <h3 class="subtitle-title">О компании: {{ companyprofile.about_company }} </h3>
-
-                <h3 class="subtitle-title"><a href="{% url 'company:company_update' companyprofile.id %}">
-                    Редактировать профиль</a></h3>
-
-
-                <!--{% endif%}-->
-
-            <!--{% endfor%}-->
+        <h2>Профиль компании</h2>
+        <hr>
         {% if not profile %}
+            <h4 class="subtitle-title">
+                Вам нужно создать профиль компании для размещения вакансий!
+                <br>
+                <br>
+                <div style="text-align: center;">
+                    <a href="{% url 'company:company_create' %}" class="btn btn-outline-primary btn-lg">
+                        Создать профиль
+                    </a>
+                </div>
 
-            <h3 class="subtitle-title"><a href="{% url 'company:company_create' %}">
-                Создать профиль</a></h3>
+            </h4>
+        {% else %}
+
+
+            {% for companyprofile in profile %}
+                <div>
+                    {% if companyprofile.company_logo %}
+                        <img src="{{ companyprofile.company_logo.url }}" alt="Company logo" height="200">
+                    {% else %}
+                        <img src="{% static 'img/no_logo.png' %}" alt="No logo" height="200">
+                    {% endif %}
+                </div>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row" class="text-start fs-3">Название компании</th>
+                        <td class="fs-3 ">{{ companyprofile.company_name }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-start fs-3">Юридическое лицо</th>
+                        <td class="fs-3">{{ companyprofile.legal_entity }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-start fs-3">Адрес</th>
+                        <td class="fs-3">{{ companyprofile.company_address }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-start fs-3">Email</th>
+                        <td class="fs-3">{{ companyprofile.email }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-start fs-3">Телефон</th>
+                        <td class="fs-3">{{ companyprofile.phone_number }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-start fs-3">О компании</th>
+                        <td class="fs-3">{{ companyprofile.about_company }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-start fs-3" colspan="2">
+                            <a class="btn btn-outline-primary"
+                               href="{% url 'company:company_update' companyprofile.id %}">
+                                Редактировать профиль
+                            </a>
+                        </th>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            {% endfor %}
+
+
         {% endif %}
     </div>
 {% endblock %}

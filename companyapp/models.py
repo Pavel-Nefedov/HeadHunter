@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.validators import RegexValidator
 from django.db import models
 
 from authapp.models import HHUser
@@ -8,14 +9,19 @@ NULLABLE = {'null': True, 'blank': True}
 
 
 class CompanyProfile(AppCanvasModel):
+    phone_regex = RegexValidator(
+        regex=r'^\+?1?\d{9,15}$',
+        message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
+    )
+
     is_moderated = models.BooleanField(default=False, verbose_name='Профайл прошел модерацию')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
-    company_logo = models.ImageField(upload_to=settings.STATIC_ROOT / "company_logo", verbose_name="Логотип", **NULLABLE)
+    company_logo = models.ImageField(upload_to="company_logo/", verbose_name="Логотип", **NULLABLE)
     company_name = models.CharField(max_length=100, default='No name', verbose_name="Наименование компании")
     legal_entity = models.CharField(max_length=100, blank=True, verbose_name="Юридическое лицо")
     company_address = models.CharField(max_length=255, default='Some address', verbose_name='Адрес компании')
     email = models.EmailField(max_length=128, blank=True, verbose_name='Email')
-    phone_number = models.CharField(max_length=50, blank=True, verbose_name='Телефон')
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True, verbose_name='Телефон')
     about_company = models.CharField(blank=True, max_length=512, verbose_name='О компании')
 
 

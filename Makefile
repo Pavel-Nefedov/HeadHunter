@@ -22,9 +22,9 @@ rm-data-dirs:
 clean-start-for-non-docker-development:rm-migrations-dirs rm-data-dirs docker-down-remove-volumes docker-build-up \
 some-sleep makemigrations migrate createsuperuser parse_news add_fake_users runserver
 
-clean-start-for-docker-development:rm-migrations-dirs rm-data-dirs docker-down-remove-volumes docker-build-up \
-some-sleep docker-makemigrations docker-migrate docker-createsuperuser add_moderator_user docker-parse_news \
-docker-add_fake_users
+clean-start-for-docker-development:rm-migrations-dirs rm-data-dirs docker-down-remove-volumes \
+docker-build-up some-sleep docker-makemigrations docker-migrate docker-createsuperuser \
+add_moderator_user docker-parse_news docker-add_fake_users
 
 # --------------------------------------------
 
