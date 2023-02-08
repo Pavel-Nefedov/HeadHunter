@@ -10,11 +10,8 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
 from authapp.models import HHUser
 from authapp.forms import RegisterUserForm
 from candidateapp.forms import ResumeForm
-<<<<<<< HEAD
 from candidateapp.models import Candidate, PositionAndSalary, Resume
-=======
 from candidateapp.models import Resume
->>>>>>> f4560d764c8c0d85b9f5d0748bf6bcd97cbf9086
 from companyapp.models import Vacancy
 
 
