@@ -13,11 +13,17 @@
         <h2>Профиль компании</h2>
         <hr>
         {% if not profile %}
-            <h3 class="subtitle-title">
-                <a href="{% url 'company:company_create' %}">
-                    Создать профиль
-                </a>
-            </h3>
+            <h4 class="subtitle-title">
+                Вам нужно создать профиль компании для размещения вакансий!
+                <br>
+                <br>
+                <div style="text-align: center;">
+                    <a href="{% url 'company:company_create' %}" class="btn btn-outline-primary btn-lg">
+                        Создать профиль
+                    </a>
+                </div>
+
+            </h4>
         {% else %}
 
 
