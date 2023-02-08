@@ -8,22 +8,18 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   TemplateView, UpdateView)
 
 from authapp.models import HHUser
+from authapp.forms import RegisterUserForm
 from candidateapp.forms import ResumeForm
 from candidateapp.models import Resume
 from companyapp.models import Vacancy
 
 
-# from candidateapp.forms import CandidateForm
-
 
 # class CandidateMain(TemplateView):
 #     template_name = 'candidateapp/candidate_lk.html'
 
+""" Блок кандидата"""
 
-# class ShowProfilePageView(TemplateView):
-#     template_name = 'candidateapp/candidate.html'
-
-#
 @login_required
 def candidate_lk(request):
     title = 'candidate'
@@ -34,23 +30,25 @@ def candidate_lk(request):
         'user': user,
     }
     return render(request, 'candidateapp/candidate_lk.html', context)
-#
-#
-# class ShowProfileUpdateView(UpdateView):
-#     model = Candidate
-#     template_name = 'candidateapp/candidate_update.html'
-#     fields = [
-#         "first_name",
-#         "last_name",
-#         "email",
-#         "phone_number",
-#         "search_area",
-#     ]
 
 
-"""
-Блок резюме!!!!!!!!!!
-"""
+class ShowProfileUpdateView(LoginRequiredMixin, UpdateView):
+    model = HHUser
+    template_name = 'candidateapp/candidate_update.html'
+    fields = [
+        'username',
+        'first_name',
+        'last_name',
+        'patronymic',
+        'birthday',
+        'email',
+        'city'
+    ]
+
+    def get_success_url(self):
+        return reverse('candidate:user_profile')
+
+""" Блок резюме!!!!!!!!!!"""
 
 
 # class ResumeView(DetailView):
@@ -62,7 +60,6 @@ def candidate_lk(request):
 #         context['user'] = self.request.candidate
 #         context['resume_items'] = Resume.objects.filter(pk=pk)
 #         return context
-
 
 
 @login_required
@@ -125,10 +122,7 @@ class ResumeDeleteView(LoginRequiredMixin, DeleteView):
         return context
 
 
-
-"""
-Блок поиска вакансий
-"""
+"""Блок поиска вакансий"""
 
 
 class VacancySearch(TemplateView):
@@ -156,4 +150,3 @@ class FormVacancySearch(ListView):
             search_queryset = Vacancy.objects.all().select_related()
 
         return search_queryset
-

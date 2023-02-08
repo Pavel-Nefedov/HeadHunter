@@ -6,11 +6,20 @@
 {% endblock %}
 
 {% block site_content %}
-    <div class="container col-xxl-8 px-4 py-5">
-        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+<div class="b-example-divider"></div>
+    <div class="container px-4 py-5" id="icon-grid">
+         <a class="btn btn-primary" href="{% url 'candidate:user_profile' %}" role="button">Назад в профиль</a>
             <h1>Данные соискателя</h1>
-        </div>
+                    <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}<br>
+                        {% for f in form %}
+                        <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
+                        <div class="form-error">{{ f.errors }}</div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary btn-lg px-4 me-md-2">Сохранить</button>
+                </form>
     </div>
+</div>
 {% endblock %}
 
 {% block footer %}
