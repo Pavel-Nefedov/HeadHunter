@@ -31,7 +31,7 @@
                     <ul class="dropdown-menu text-small shadow">
                         <li>
                             <a class="dropdown-item" href="
-                                {% if user.is_candidate %}{% url 'candidate:candidate_lk' %}{% endif %}
+                                {% if user.is_candidate %}{% url 'candidate:user_profile' %}{% endif %}
                                 {% if user.is_company %}{% url 'company:company_profile' %}{% endif %}
                             ">
                                 Профиль пользователя
@@ -62,7 +62,7 @@
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 {% if user.is_candidate %}
                     <li>
-                        <a href="{% url 'candidateapp:vacancy_search' %}" class="nav-link px-2 link-secondary">
+                        <a href="{% url 'candidate:vacancy_search' %}" class="nav-link px-2 link-secondary">
                             <i class="fa fa-database" aria-hidden="true"></i>
                             Список вакансий
                         </a>

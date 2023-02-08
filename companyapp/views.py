@@ -41,6 +41,19 @@ class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
         return data
 
 
+
+# class CompanyProfileDeleteView(LoginRequiredMixin,DeleteView):
+#     model = CompanyProfile
+#     template_name = 'companyapp/company_lk.html'
+#     success_url = reverse_lazy('companyapp:company_profile')
+#     def delete(self, request, *args, **kwargs):
+#         self.object = self.get_object()
+#         self.object.is_active = False
+#         self.object.save()
+#         return HttpResponseRedirect(self.get_success_url())
+
+
+
 class CompanyProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = CompanyProfile
     template_name = 'companyapp/company_profile_upd_del.html'
@@ -64,7 +77,7 @@ class VacanciesList(ListView):
     def get_context_data(self, pk=None, **kwargs):
         context = super(VacanciesList, self).get_context_data(**kwargs)
         context['user'] = self.request.user
-        context['company'] = CompanyProfile.objects.filter(user=self.request.user)
+        context['company'] = CompanyProfile.objects.get(user=self.request.user)
         context['vacancies'] = Vacancy.objects.filter(company_id=pk)
         return context
 

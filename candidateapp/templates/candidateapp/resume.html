@@ -24,7 +24,7 @@
                         <h3 class="subtitle-title"> {{ resume.salary }} руб. </h3>
 
                         <h4 class="card-subtitle mb-2 text-muted">
-                            {{ resume.name }} {{ resume.surname }}</h4>
+                            {{ resume.candidate.first_name}} {{ resume.candidate.last_name}}</h4>
                         <p class="card-text">Вариант занятости: {{ resume.get_busyness_display }}</p>
                         <p class="card-text">График работы: {{ resume.get_work_schedule_display }}</p>
                         <p class="card-text">Образование: {{ resume.get_level_display|title }}</p>

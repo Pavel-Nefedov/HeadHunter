@@ -142,17 +142,14 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-12">
-                      <a href="{% url 'candidate:candidate_lk' %}" class="nav-link">
-                      <a class="btn btn-info " target="__blank" href="#">Изменить</a>
+                      <a href="{% url 'candidate:user_profile' %}" class="nav-link">
+                      <a class="btn btn-info " target="__blank" href="{% url 'candidate:candidate_update' user.pk %}">Изменить</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-sm-12">
-            <button class="btn btn-link" href="#">Удалить аккаунт</button>
-            <p></p>
         </div>
     </div>
 
