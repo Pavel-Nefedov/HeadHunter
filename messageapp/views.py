@@ -57,8 +57,9 @@ class MessagesView(View):
 
 class CreateDialogView(View):
     def get(self, request, user_id):
-        chats = Chat.objects.filter(members__in=[request.user.id, user_id], type=Chat.DIALOG).annotate(
-            c=Count('members')).filter(c=2)
+        chats = Chat.objects.filter(
+            members__in=[request.user.id, user_id], type=Chat.DIALOG
+        ).annotate(c=Count('members')).filter(c=2)
         if chats.count() == 0:
             chat = Chat.objects.create()
             chat.members.add(request.user)

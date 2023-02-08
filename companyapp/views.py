@@ -64,7 +64,7 @@ class VacanciesList(ListView):
     def get_context_data(self, pk=None, **kwargs):
         context = super(VacanciesList, self).get_context_data(**kwargs)
         context['user'] = self.request.user
-        context['company'] = CompanyProfile.objects.get(user=self.request.user)
+        context['company'] = CompanyProfile.objects.filter(user=self.request.user)
         context['vacancies'] = Vacancy.objects.filter(company_id=pk)
         return context
 
@@ -98,7 +98,7 @@ class VacancyCreate(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        data['company'] = CompanyProfile.objects.get(user=self.request.user)
+        data['company'] = CompanyProfile.objects.filter(user=self.request.user)
         return data
 
 
