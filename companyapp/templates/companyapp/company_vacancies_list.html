@@ -17,7 +17,7 @@
         <a class="btn btn-primary" href="{% url 'company:vacancy_create' %}"
            role="button">Создать вакансию</a>
         {% for vacancy in object_list %}
-
+{% if vacancy.company_id == company.id %}
 
 
             <div class="card" style="margin-bottom: 10px">
@@ -52,7 +52,7 @@
 
 
 
-
+{% endif %}
         {% endfor %}
                         {% else %}
             <h4 class="subtitle-title">
