@@ -8,6 +8,7 @@ from django.db import transaction
 from faker import Faker
 
 from authapp.models import HHUser
+from candidateapp.models import Resume
 from companyapp.models import CompanyProfile, Vacancy
 from mainapp.services import FileMode, HHVacancyParser
 
@@ -67,6 +68,32 @@ class Command(BaseCommand):
         print(f"\tCreated profile for company {company_name}")
 
         return this_profile
+
+    def __generate_fake_resume(self, user_object, verbose: bool = False):
+        Resume.objects.create(
+            is_moderated=[True, False][random.randint(0, 1)],
+            candidate=user_object,
+            desired_position=self.faker.job(),
+            salary=int(self.faker.bothify(text='#####')),
+            getting_started=self.faker.date_between(),
+            end_work=self.faker.date_between(),
+            organization=self.faker.company(),
+            post=self.faker.job(),
+            responsibilities=self.faker.paragraph(nb_sentences=3),
+            skills=self.faker.bs() + ', ' + self.faker.bs() + ', ' + self.faker.bs(),
+            about_me=self.faker.paragraph(nb_sentences=2),
+            educational_institution=self.faker.company(),
+            faculty=self.faker.company(),
+            specialization=self.faker.bs(),
+            year_graduation=self.faker.date_between(),
+            course_name=self.faker.paragraph(nb_sentences=1),
+            organization_conducted=self.faker.company(),
+            specialization_course=self.faker.paragraph(nb_sentences=1),
+            year_graduation_course=self.faker.date_between(),
+        )
+
+        if verbose:
+            print(f'\t- Resume for {user_object.username} generated.')
 
     def __generate_fake_vacancy(self, company_profile: CompanyProfile, vacancy_data: dict,
                                 verbose: bool = False) -> None:
@@ -138,7 +165,8 @@ class Command(BaseCommand):
 
         # Generate candidate profiles
         for fake_user in range(number_of_fake_users):
-            self.__generate_fake_user(is_candidate=True)
+            temp_user = self.__generate_fake_user(is_candidate=True)
+            self.__generate_fake_resume(temp_user, verbose=True)
 
         # Safe user fake data to file
         fake_user_data_dir = settings.BASE_DIR / 'mainapp' / 'management' / 'data'

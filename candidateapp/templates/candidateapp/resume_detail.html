@@ -13,23 +13,24 @@
 {% block site_content %}
     <div class="b-example-divider"></div>
     <div class="container px-4 py-5" id="icon-grid">
-        <a class="btn btn-primary" href="{% url 'candidate:resume' %}" role="button">Назад в мои резюме</a>
         <div class="card12">
         {% include 'candidateapp/includes/inc_resume_contact_info.html' %}
         </div>
+<!--        <br>-->
+<!--        {% include 'candidateapp/includes/inc_resume_position_and_salary.html' %}-->
+<!--        <br>-->
+<!--        {% include 'candidateapp/includes/inc_resume_work_experience.html' %}-->
+<!--        <br>-->
+<!--        {% include 'candidateapp/includes/inc_resume_work_experience_about_me.html' %}-->
+<!--        <br>-->
+<!--        {% include 'candidateapp/includes/inc_resume_education.html' %}-->
         <br>
-        {% include 'candidateapp/includes/inc_resume_position_and_salary.html' %}
-        <br>
-        {% include 'candidateapp/includes/inc_resume_work_experience.html' %}
-        <br>
-        {% include 'candidateapp/includes/inc_resume_work_experience_about_me.html' %}
-        <br>
-        {% include 'candidateapp/includes/inc_resume_education.html' %}
-        <br>
-        {% include 'candidateapp/includes/inc_resume_advanced_training.html' %}
-
+<!--        {% include 'candidateapp/includes/inc_resume_advanced_training.html' %}-->
+        {% if user.is_candidate %}
+            <a class="btn btn-primary" href="{% url 'candidate:resume' %}" role="button">Назад в мои резюме</a>
+        {% endif %}
     </div>
-    <a class="btn btn-primary" href="{% url 'candidate:resume' %}" role="button">Назад в мои резюме</a>
+
 {% endblock %}
 
 

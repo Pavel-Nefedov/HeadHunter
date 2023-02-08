@@ -1,9 +1,21 @@
 {% for resume_obj in resume %}
-<div class="card-title">
-    <h3 class="card-title" style="padding: 0">Ключевые навыки</h3>
-    <h6>{{ resume_obj.work_experience.skills }}</h6>
-    <br>
-    <h3 class="card-title" style="padding: 0">Обо мне</h3>
-    <h6>{{ resume_obj.work_experience.about_me }}</h6>
+{% if user.id == resume_obj.candidate.user.id %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Обо мне</h5>
+        <div class="row">
+            <p class="card-text">{{ resume_obj.about_me.about_me }}</p>
+        </div>
+    </div>
 </div>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Ключевые навыки</h5>
+        <div class="row">
+            <p class="card-text">{{ resume_obj.about_me.skills }}</p>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endfor %}

@@ -6,21 +6,21 @@
 {% endblock %}
 
 {% block site_content %}
-    <div id="site_content">
-        <div id="content">
-            <h1>Редактирование вакансии компании {{ company.company_name }}</h1>
-            <form method="post">
-                {% csrf_token %}
-                {% for f in form %}
-                    <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
-                    <div class="form-error">{{ f.errors }}</div>
-                {% endfor %}
-                <button type="submit" class="btn btn-primary btn-lg px-4 me-md-2">Обновить вакансию</button>
-            </form>
+    <div class="container px-4 py-5" id="icon-grid">
+        <div id="site_content">
+            <div id="content">
+                <h1>Редактирование вакансии компании {{ company.company_name }}</h1>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for f in form %}
+                        <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
+                        <div class="form-error">{{ f.errors }}</div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary btn-lg px-4 me-md-2">Обновить вакансию</button>
+                </form>
+            </div>
         </div>
     </div>
-
-
 {% endblock %}
 
 {% block footer %}

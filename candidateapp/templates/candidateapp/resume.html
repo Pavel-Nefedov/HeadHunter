@@ -8,53 +8,48 @@
 
 
 {% block site_content %}
-<div class="b-example-divider"></div>
+    <div class="b-example-divider"></div>
     <div class="container px-4 py-5" id="icon-grid">
         <h2>Мои резюме</h2>
-        <a class="btn btn-primary" href="{% url 'candidate:resume_create' %}">Создать новое</a>
-
-        {% for candidate in candidate_items %}
-        {% for resume in resume_items %}
-        {% if resume.candidate.user.id == candidate.user.id %}
-            <div class="card" style="margin-bottom: 10px">
-                <div class="card-body">
-                    <h3 class="card-title" style="padding: 0"><a href="{% url 'candidate:resume_detail' resume.id %}">
-                        {{ resume.position_and_salary.desired_position|title }} </a></h3>
-
-                        <h3 class="subtitle-title"> {{ resume.position_and_salary.salary }} руб. </h3>
-
-                    <h4 class="card-subtitle mb-2 text-muted">
-                        {{ resume.contact_info.name }} {{ resume.contact_info.surname }}</h4>
-                    <p class="card-text">Вариант занятости: {{ resume.position_and_salary.get_busyness_display }}</p>
-                    <p class="card-text">График работы: {{ resume.position_and_salary.get_work_schedule_display }}</p>
-                    <p class="card-text">Образование: {{ resume.education.get_level_display|title }}</p>
-<!--                    <a class="btn btn-primary" href="#" role="button">Откликнуться</a>-->
-                </div>
-            </div>
-
-            <div class="resume_actions">
-            <button>
-                <a class="btn btn-primary" href="{% url 'candidate:resume_detail' resume.id %}">
-                    подробнее
-                </a>
-            </button>
-            <button>
-                <a class="btn btn-primary" href="{% url 'candidate:resume_update' resume.pk %}">
-                    редактировать
-                </a>
-            </button>
-            <button>
-                <a class="btn btn-primary"  href="{% url 'candidate:resume_delete' resume.pk %}">
-                    удалить
-                </a>
-            </button>
-        </div>
-
-
-        {% else %}
-        <h3 class="subtitle-title"> У вас нету ни одного резюме </h3>
+        {% if user.is_candidate %}
+            <a class="btn btn-primary" href="{% url 'candidate:resume_create' %}">Создать новое</a>
         {% endif %}
-        {% endfor %}
+        {% for resume in resume_items %}
+                <div class="card" style="margin-bottom: 10px">
+                    <div class="card-body">
+                        <h3 class="card-title" style="padding: 0"><a
+                                href="{% url 'candidate:resume_detail' resume.id %}">
+                            {{ resume.desired_position|title }} </a></h3>
+
+                        <h3 class="subtitle-title"> {{ resume.salary }} руб. </h3>
+
+                        <h4 class="card-subtitle mb-2 text-muted">
+                            {{ resume.candidate.first_name}} {{ resume.candidate.last_name}}</h4>
+                        <p class="card-text">Вариант занятости: {{ resume.get_busyness_display }}</p>
+                        <p class="card-text">График работы: {{ resume.get_work_schedule_display }}</p>
+                        <p class="card-text">Образование: {{ resume.get_level_display|title }}</p>
+                        <!--                    <a class="btn btn-primary" href="#" role="button">Откликнуться</a>-->
+                    </div>
+                </div>
+
+                <div class="resume_actions">
+                    <button>
+                        <a class="btn btn-primary" href="{% url 'candidate:resume_detail' resume.id %}">
+                            подробнее
+                        </a>
+                    </button>
+                    <button>
+                        <a class="btn btn-primary" href="{% url 'candidate:resume_update' resume.pk %}">
+                            редактировать
+                        </a>
+                    </button>
+                    <button>
+                        <a class="btn btn-primary" href="{% url 'candidate:resume_delete' resume.pk %}">
+                            удалить
+                        </a>
+                    </button>
+                </div>
+
         {% endfor %}
 
     </div>
@@ -63,5 +58,5 @@
 
 
 {% block footer %}
-{% include 'mainapp/includes/inc_footer.html' %}
+    {% include 'mainapp/includes/inc_footer.html' %}
 {% endblock %}

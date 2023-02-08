@@ -25,13 +25,14 @@ mainapp/migrations
 candidateapp/migrations
 authapp/migrations
 companyapp/migrations
+favoriteapp/migrations
+messageapp/migrations
 
 ### Other ###
 *.DS_Store
 mainapp/management/data
 
 .coverage
-
 
 # папка с результатами выполнения команды coverage html ###
 /htmlcov

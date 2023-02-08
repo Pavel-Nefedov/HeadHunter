@@ -9,16 +9,18 @@
 <div class="b-example-divider"></div>
     <div class="container px-4 py-5" id="icon-grid">
          <a class="btn btn-primary" href="{% url 'candidate:resume' %}" role="button">Назад в мои резюме</a>
-            <h1>Создание резюме {{ resume.resume_create }}</h1>
-            <form method="post">
+            <h1>Создание резюме</h1>
+                <form method="post">
                 {% csrf_token %}
                 {% for f in form %}
                     <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
                     <div class="form-error">{{ f.errors }}</div>
                 {% endfor %}
-                <button type="submit" class="btn btn-primary btn-lg px-4 me-md-2">Добавить резюме</button>
+                <button type="submit" class="btn btn-primary btn-lg px-4 me-md-2">Опубликовать</button>
+                    <button type="submit" class="btn btn-primary btn-lg px-4 me-md-2">Сохранить в черновик</button>
             </form>
     </div>
+</div>
 {% endblock %}
 
 {% block footer %}

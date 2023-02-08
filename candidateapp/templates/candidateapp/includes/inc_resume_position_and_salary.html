@@ -1,11 +1,14 @@
-
 {% for resume_obj in resume %}
-<div class="card-title">
-    <h3 class="card-title" style="padding: 0"> {{ resume_obj.position_and_salary.desired_position|title }} </h3>
-    <br>
-    <h5>Желаемая зарплата {{ resume_obj.position_and_salary.salary }} руб.</h5>
-    <br>
-    <h6>Занятость: {{ resume_obj.position_and_salary.get_busyness_display }}</h6>
-    <h6>График работы: {{ resume_obj.position_and_salary.get_work_schedule_display }}</h6>
+{% if user.id == resume_obj.candidate.user.id %}
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title"> {{ resume_obj.position_and_salary.desired_position|title }} </h4>
+        <div class="row">
+            <h6 class="card-text">Желаемая зарплата {{ resume_obj.position_and_salary.salary }} руб.</h6>
+            <p class="card-text">Занятость: {{ resume_obj.position_and_salary.get_busyness_display }}</p>
+            <p class="card-text">График работы: {{ resume_obj.position_and_salary.get_work_schedule_display }}</p>
+        </div>
+    </div>
 </div>
+{% endif %}
 {% endfor %}

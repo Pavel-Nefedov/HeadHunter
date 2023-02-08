@@ -9,30 +9,175 @@
 
 
 {% block site_content %}
-<!--{% for companyprofile in object_list %}-->
-<!--{% if companyprofile.user_id == user.id%}-->
+<div class="container">
+    <div class="main-body">
+        <div class="row gutters-sm">
+                <h2>Профиль компании</h2>
+        <hr>
+        {% if not profile %}
+            <h4 class="subtitle-title">
+                Вам нужно создать профиль компании для размещения вакансий!
+                <br>
+                <br>
+                <div style="text-align: center;">
+                    <a href="{% url 'company:company_create' %}" class="btn btn-outline-primary btn-lg">
+                        Создать профиль
+                    </a>
+                </div>
+            </h4>
+        {% else %}
 
-        <h3 class="card-title" style="padding: 0"><a href="#">{{ companyprofile.company_logo }} </a></h3>
-        <h4 class="subtitle-title">Название : {{ companyprofile.company_name }} </h4>
-        <h3 class="subtitle-title">Юридическое лицо:  {{ companyprofile.legal_entity }} </h3>
-        <h3 class="subtitle-title">Адрес:   {{ companyprofile.company_address }} </h3>
-        <h3 class="subtitle-title">Email:  {{ companyprofile.email }} </h3>
-        <h3 class="subtitle-title">Телефон:   {{ companyprofile.phone_number }} </h3>
-        <h3 class="subtitle-title">О компании:  {{ companyprofile.about_company }} </h3>
+            {% for companyprofile in profile %}
 
-<h3 class="subtitle-title">  <a href="{% url 'company:company_update' companyprofile.id %}" >
-Редактировать профиль</a></h3>
+            <div class="col-md-8" style="width: 20%">
+            <div class="card mb-3">
+            <div class="card-body">
+            <div>
+                {% if companyprofile.company_logo %}
+                    <img src="{{ companyprofile.company_logo.url }}" alt="Company logo" height="200">
+                {% else %}
+                    <img src="{% static 'img/no_logo.png' %}" alt="No logo" height="200">
+                {% endif %}
+            </div>
+                <br style="margin: 10px">
+                <div class="row">
+                    <div class="text-secondary">
+                      {% if companyprofile %}
+                        {{ companyprofile.user.first_name }} {{ companyprofile.user.last_name }}
+                      {% else %}
+                        Не указано
+                      {% endif %}
+                    </div>
+                </div>
+                <hr style="margin: 10px">
+                <div class="row">
+                    <div class="text-secondary">
+                      {% if companyprofile %}
+                        {{ companyprofile.user.email }}
+                      {% else %}
+                        Не указано
+                      {% endif %}
+                    </div>
+                </div>
+                <hr style="margin: 10px">
+                <div class="row">
+                    <div class="text-secondary">
+                      {% if companyprofile %}
+                        {{ companyprofile.user.get_gender_display }}
+                      {% else %}
+                        Не указано
+                      {% endif %}
+                    </div>
+                </div>
+                <hr style="margin: 10px">
+                <div class="row">
+                    <div class="text-secondary">
+                      {% if companyprofile %}
+                        {{ companyprofile.user.city }}
+                      {% else %}
+                        Не указано
+                      {% endif %}
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
 
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Название</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {% if companyprofile %}
+                        {{ companyprofile.company_name }}
+                      {% else %}
+                        Не указано
+                      {% endif %}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Юридическое лицо</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {% if companyprofile %}
+                        {{ companyprofile.legal_entity }}
+                      {% else %}
+                        Не указано
+                      {% endif %}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Адрес</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {% if companyprofile %}
+                        {{ companyprofile.company_address }}
+                      {% else %}
+                        Не указана
+                      {% endif %}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {% if companyprofile %}
+                          {{ companyprofile.email }}
+                      {% else %}
+                        Не указан
+                      {% endif %}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Телефон</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {% if companyprofile %}
+                          {{ companyprofile.phone_number }}
+                      {% else %}
+                        Не указан
+                      {% endif %}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">О компании</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {% if companyprofile %}
+                        {{ companyprofile.about_company }}
+                      {% else %}
+                        Не указан
+                      {% endif %}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <a href="{% url 'candidate:user_profile' %}" class="nav-link">
+                      <a class="btn btn-info " target="__blank" href="{% url 'company:company_update' companyprofile.id %}">Изменить</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-<!--{% endif%}-->
-
-<!--{% endfor%}-->
-{% if not profile %}
-
-<h3 class="subtitle-title">  <a href="{% url 'company:company_create'   %}" >
-Создать профиль</a></h3>
-{% endif%}
-
+        {% endfor%}
+        {% endif %}
+    </div>
 {% endblock %}
 
 

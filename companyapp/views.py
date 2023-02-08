@@ -1,9 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.db.models import Q
+from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
-                                  TemplateView, UpdateView, View)
+from django.views.generic import (CreateView, DeleteView, DetailView,
+                                  TemplateView, UpdateView, View, ListView)
 
 from candidateapp.models import Resume
 from companyapp.forms import CompanyProfileForm, VacancyForm
@@ -13,28 +14,12 @@ from companyapp.models import CompanyProfile, Vacancy
 class CompProfile(ListView):
     template_name = 'companyapp/comp_profile.html'
     model = CompanyProfile
-    def dispatch(self, request, *args, **kwargs):
-        return super(CompProfile, self).dispatch(request, *args, **kwargs)
 
-
-
-# class CompanyProfileView(DetailView):
-#     template_name = 'companyapp/company_profile_view.html'
-#     model = CompanyProfile
-#
-#     def get(self, request, *args, **kwargs):
-#         try:
-#             return super().get(request, *args, **kwargs)
-#         except Http404:
-#             return redirect(reverse('company:empty_profile'))
-#
-#     def get_context_data(self, pk=None, **kwargs):
-#
-#         context = super(DetailView, self).get_context_data(**kwargs)
-#         context['profile'] = CompanyProfile.objects.filter(user_id= self.request.user)
-#         context['user'] = self.request.user
-#         return context
-
+    def get_context_data(self, pk=None, **kwargs):
+        context = super().get_context_data(pk=None, **kwargs)
+        context['profile'] = CompanyProfile.objects.filter(user=self.request.user)
+        context['user'] = self.request.user
+        return context
 
 
 class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
@@ -42,6 +27,10 @@ class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
     template_name = 'companyapp/company_lk.html'
     # success_url = reverse_lazy('companyapp:company_profile')
     form_class = CompanyProfileForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('companyapp:company_profile')
@@ -58,9 +47,22 @@ class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
 #         return HttpResponseRedirect(self.get_success_url())
 
 
+
+# class CompanyProfileDeleteView(LoginRequiredMixin,DeleteView):
+#     model = CompanyProfile
+#     template_name = 'companyapp/company_lk.html'
+#     success_url = reverse_lazy('companyapp:company_profile')
+#     def delete(self, request, *args, **kwargs):
+#         self.object = self.get_object()
+#         self.object.is_active = False
+#         self.object.save()
+#         return HttpResponseRedirect(self.get_success_url())
+
+
+
 class CompanyProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = CompanyProfile
-    template_name = 'companyapp/company_lk.html'
+    template_name = 'companyapp/company_profile_upd_del.html'
     success_url = reverse_lazy('companyapp:company_profile')
     form_class = CompanyProfileForm
 
@@ -70,6 +72,23 @@ class CompanyProfileUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
 
+class VacanciesList(ListView):
+    template_name = 'companyapp/company_vacancies_list.html'
+    model = Vacancy
+
+    #
+    def dispatch(self, request, *args, **kwargs):
+        return super(VacanciesList, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, pk=None, **kwargs):
+        context = super(VacanciesList, self).get_context_data(**kwargs)
+        context['user'] = self.request.user
+        context['company'] = CompanyProfile.objects.get(user=self.request.user)
+        context['vacancies'] = Vacancy.objects.filter(company_id=pk)
+        return context
+
+
+# уже есть class Vacancy. Это название модели поэтому переименовал контроллер class Vacancy в class VacancyView
 class VacancyView(DetailView):
     template_name = 'companyapp/vacancy.html'
     model = Vacancy
@@ -98,7 +117,7 @@ class VacancyCreate(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        data['company'] = CompanyProfile.objects.get(user=self.request.user)
+        data['company'] = CompanyProfile.objects.filter(user=self.request.user)
         return data
 
 
@@ -123,25 +142,40 @@ class ResumeSearch(TemplateView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        #data['resumes'] = Resume.objects.filter().order_by('candidate_id')[:10] ### Вот так тоже ок
-        data["resume"] = Resume.objects.all()
+        # data['resume'] = Resume.objects.filter().order_by('-created')[:10]
+        data["resumes"] = Resume.objects.all()
         return data
 
 
-# def CompanyK(request):
-#     if request.method == 'POST':
-#         form = CompanyProfileForm(data=request.POST, files=request.FILES, instance=request.user)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect(reverse('company_lk'))
-#     else:
-#         form = CompanyProfileForm(instance=request.user)
-#
-#     context = {
-#         'title': 'Профиль',
-#         'form': form,
-#     }
-#     return render(request, 'companyapp/company_lk.html', context)
+class FormResumeSearch(ListView):
+    template_name = 'companyapp/form_resume_search.html'
+    paginate_by = 10
+    model = Resume
+
+    def get_queryset(self):
+        search_text = self.request.GET.get('search_text')
+
+        if search_text:
+            search_queryset = Resume.objects.filter(
+                Q(level__contains=search_text) |
+                Q(specialization__contains=search_text) |
+                Q(skills__icontains=search_text) |
+                Q(responsibilities__icontains=search_text)).select_related()
+        else:
+            search_queryset = Resume.objects.all().select_related()
+
+        return search_queryset
+
+
+class Favorites(TemplateView):
+    template_name = 'companyapp/favorites.html'
+    model = Resume
+
+    def favorites_list(request):
+        context = {
+            "favorites_list": request.session.get('favorites'),
+        }
+        return render(request, 'favorites', context=context)
 
 
 class PartnerCompanyView(DetailView):

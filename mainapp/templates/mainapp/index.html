@@ -18,9 +18,9 @@
                 <p class="lead">Мы лучшее гибкое кадровое агентство* на этой планете. Обладаем большим набором
                     квалифицированных кандидатов, а также лучшими методами подбора персонала, основанными на машинном
                     обучении.</p>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Посмотреть что мы можем</button>
-                </div>
+{#                <div class="d-grid gap-2 d-md-flex justify-content-md-start">#}
+{#                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Посмотреть что мы можем</button>#}
+{#                </div>#}
             </div>
         </div>
     </div>
@@ -28,20 +28,22 @@
     <div class="b-example-divider"></div>
 
     <div class="container px-4 py-5" id="icon-grid">
-        <h2 class="pb-2 border-bottom">Наши партнеры</h2>
-        <div class="row">
-            {% for item in companys %}
-              <div class="col-sm-6 mb-3 mb-sm-0">
+    <h2 class="pb-2 border-bottom">Наши партнеры</h2>
+    <div class="row">
+        {% for item in companys %}
+            <div class="col-sm-6 mb-3 mb-sm-0">
                 <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">{{ item.company_name }}</h5>
-                    <p class="card-text">{{ item.about_company }}</p>
-                    <a href="{% url 'companyapp:partner' item.id %}" class="btn btn-primary">Check it out</a>
-                  </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.company_name }}</h5>
+                        <p class="card-text">{{ item.about_company }}</p>
+                        <a href="{% url 'companyapp:partner' item.id %}" class="btn btn-primary">
+                            Подробнее
+                        </a>
+                    </div>
                 </div>
-              </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
+    </div>
     <div class="b-example-divider"></div>
 
     <div class="container px-4 py-5" id="hanging-icons">

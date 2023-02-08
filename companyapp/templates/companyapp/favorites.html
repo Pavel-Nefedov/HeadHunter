@@ -8,8 +8,8 @@
 {% block site_content %}
     <div class="b-example-divider"></div>
     <div class="container px-4 py-5" id="icon-grid">
-        <a href="{% url 'company:vac_list' %}" class="btn btn-outline-primary"><<< Назад</a>
-        <h3 class="card-title" style="padding: 0">{{ vacancy.vacancy_name }} </h3>
+        <h3 class="card-title" style="padding: 0"><a href="{% url 'company:vacancy' pk=vacancy.pk %}">
+            {{ vacancy.vacancy_name }} </a></h3>
         <h4 class="subtitle-title"> {{ vacancy.city }} </h4>
         {% if vacancy.salary_min and vacancy.salary_max %}
             <h3 class="subtitle-title"> {{ vacancy.salary_min }} - {{ vacancy.salary_max }}
@@ -26,15 +26,15 @@
         {% endif %}
         <h4 class="card-subtitle mb-2 text-muted">{{ vacancy.company.company_name }}</h4>
         {% if vacancy.duties_description %}
-            <p class="card-text"> Обязанности : {{ vacancy.duties_description|safe }}</p>
+            <p class="card-text"> Обязанности : {{ vacancy.duties_description|striptags }}</p>
         {% endif %}
         <br>
         {% if vacancy.work_conditions %}
-            <p class="card-text"> Условия работы : {{ vacancy.work_conditions|safe }}</p>
+            <p class="card-text"> Условия работы : {{ vacancy.work_conditions|striptags }}</p>
         {% endif %}
         <br>
         {% if vacancy.requirements_description %}
-            <p class="card-text"> Требования : {{ vacancy.requirements_description|safe }}</p>
+            <p class="card-text"> Требования : {{ vacancy.requirements_description|striptags }}</p>
         {% endif %}
         <br>
         <p class="card-text">{{ vacancy.created }}</p>
