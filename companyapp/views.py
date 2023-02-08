@@ -76,16 +76,22 @@ class VacanciesList(ListView):
     template_name = 'companyapp/company_vacancies_list.html'
     model = Vacancy
 
-    #
     def dispatch(self, request, *args, **kwargs):
         return super(VacanciesList, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, pk=None, **kwargs):
         context = super(VacanciesList, self).get_context_data(**kwargs)
         context['user'] = self.request.user
-        context['company'] = CompanyProfile.objects.get(user=self.request.user)
-        context['vacancies'] = Vacancy.objects.filter(company_id=pk)
+        context['company'] = CompanyProfile.objects.filter(user=self.request.user)
+        context['vacancies'] = Vacancy.objects.filter(company=self.request.company)
         return context
+
+    #
+    # def get_context_data(self, pk=None, **kwargs):
+    #     context = super().get_context_data(pk=None, **kwargs)
+    #     context['profile'] = CompanyProfile.objects.filter(user=self.request.user)
+    #     context['user'] = self.request.user
+    #     return context
 
 
 # уже есть class Vacancy. Это название модели поэтому переименовал контроллер class Vacancy в class VacancyView
