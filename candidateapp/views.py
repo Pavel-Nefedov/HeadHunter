@@ -28,6 +28,7 @@ def candidate_lk(request):
     context = {
         'title': title,
         'user': user,
+
     }
     return render(request, 'candidateapp/candidate_lk.html', context)
 

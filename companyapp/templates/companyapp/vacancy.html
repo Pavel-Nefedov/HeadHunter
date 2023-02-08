@@ -8,7 +8,7 @@
 {% block site_content %}
     <div class="b-example-divider"></div>
     <div class="container px-4 py-5" id="icon-grid">
-        <a href="javascript: history.go(-1)" class="btn btn-outline-primary"><<< Назад</a>
+        <a href="{% url 'company:vac_list' %}" class="btn btn-outline-primary"><<< Назад</a>
         <h3 class="card-title" style="padding: 0">{{ vacancy.vacancy_name }} </h3>
         <h4 class="subtitle-title"> {{ vacancy.city }} </h4>
         {% if vacancy.salary_min and vacancy.salary_max %}
