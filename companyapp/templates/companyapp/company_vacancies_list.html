@@ -10,8 +10,8 @@
 
 {% block site_content %}
     <div class="container px-4 py-5" id="icon-grid">
-        <h3 class="subtitle-title"><a href="{% url 'company:vacancy_create' %}">
-            Создать вакансию</a></h3>
+        <a class="btn btn-primary" href="{% url 'company:vacancy_create' %}"
+           role="button">Создать вакансию</a>
         {% for vacancy in object_list %}
         {% if vacancy.company_id == company.id %}
 

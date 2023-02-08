@@ -97,30 +97,13 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Телефон</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      {% if candidate_items %}
-                       {% for candidate in candidate_items %}
-                          {{ candidate.phone_number }}
-                        {% endfor %}
-                      {% else %}
-                        Не указан
-                      {% endif %}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
                       <h6 class="mb-0">Город</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {% if candidate_items %}
-                        {% for candidate in candidate_items %}
-                          {{ candidate.city }}
-                        {% endfor %}
+                      {% if user.id %}
+                        {{ user.city }}
                       {% else %}
-                        Не указан
+                        Не указана
                       {% endif %}
                     </div>
                   </div>
