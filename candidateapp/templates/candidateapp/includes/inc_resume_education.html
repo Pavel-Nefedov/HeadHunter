@@ -1,11 +1,18 @@
 {% for resume_obj in resume %}
-<div class="card-title">
-    <h3 class="card-title" style="padding: 0">Образование: {{ resume_obj.education.get_level_display }}</h3>
-    <br>
-    <h6>{{ resume_obj.education.year_graduation }}</h6>
-    <h5>{{ resume_obj.education.educational_institution }}</h5>
-    <h6>{{ resume_obj.education.faculty }}</h6>
-    <h6>{{ resume_obj.education.specialization }}</h6>
-
+{% if user.id == resume_obj.candidate.user.id %}
+<div class="card">
+  <div class="card-body">
+      <h5 class="card-title">Образование: {{ resume_obj.education.get_level_display }}</h5>
+      <div class="row">
+          <div style="width: 20%">
+              <p class="card-text">{{ resume_obj.education.year_graduation }}</p>
+          </div>
+          <div style="width: 20%">
+              <h6 class="card-text">{{ resume_obj.education.educational_institution }}</h6>
+              <p class="card-text">{{ resume_obj.education.faculty }}, {{ resume_obj.education.specialization }}</p>
+          </div>
+      </div>
+  </div>
 </div>
+{% endif %}
 {% endfor %}

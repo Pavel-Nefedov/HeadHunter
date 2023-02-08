@@ -53,9 +53,9 @@ class LoginUser(LoginView):
         if user.is_moderator:
             return redirect('moderatorapp:moderator_lk')
         if user.is_candidate:
-            return redirect('candidateapp:user_profile')
+            return redirect('candidateapp:vacancy_search')
         if user.is_company:
-            return redirect('companyapp:company_profile')
+            return redirect('companyapp:resume_search')
         if user.is_superuser:
             return redirect('/admin', pk=user.pk)
 

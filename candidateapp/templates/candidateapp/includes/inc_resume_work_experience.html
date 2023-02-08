@@ -1,19 +1,25 @@
-
-{% for resume_obj in resume %}
-<div class="card-title">
-    <h3 class="card-title" style="padding: 0">Прошлый опыт работы</h3>
-    <br>
-    <h5 class="card-title" style="padding: 0">Место работы {{ resume_obj.work_experience.organization }} </h5>
-    <h5>Должность: {{ resume_obj.work_experience.post }} </h5>
-    <br>
-    {% if resume_obj.work_experience.working == "True" %}
-    <h4>Работал с {{ resume_obj.work_experience.getting_started }} по {{ resume_obj.work_experience.end_work }}</h4>
-    {% else %}
-    <h4>Работаю с {{ resume_obj.work_experience.getting_started }} по настоящее время</h4>
-    {% endif %}
-    <button>работаю по настоящее время {{ resume_obj.work_experience.working }}</button>
-    <br>
-    <h6>Обязанности на рабочем месте: {{ resume_obj.work_experience.responsibilities }}</h6>
-
+{% for resume_num in resume %}
+{% if user.id == resume_num.candidate.user.id %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Прошлый опыт работы</h5>
+        {% for resume_obj in resume_num.work_experience.all %}
+        <div class="row">
+            <div style="width: 20%">
+                {% if resume_obj.working == False %}
+                <h7>Работал с {{ resume_obj.getting_started }} по {{ resume_obj.end_work }}</h7>
+                {% else %}
+                <h7>Работаю с {{ resume_obj.getting_started }} по настоящее время</h7>
+                {% endif %}
+            </div>
+            <div style="width: 80%">
+                <h6 class="card-title">Место работы - {{ resume_obj.organization }} </h6>
+                <h6 class="card-title">Должность - {{ resume_obj.post }} </h6>
+                <p class="card-title">Обязанности на рабочем месте: {{ resume_obj.responsibilities }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
+{% endif %}
 {% endfor %}

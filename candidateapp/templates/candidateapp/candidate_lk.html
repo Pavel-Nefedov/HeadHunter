@@ -6,11 +6,11 @@
 {% endblock %}
 
 {% block site_content %}
-<div class="container col-xxl-8 px-4 py-5">
+<div class="container py-5">
     <!-- <div class="row flex-lg-row-reverse align-items-center g-5 py-5"> -->
 <!-- <div> -->
     <div>
-        <h2>Личные данные пользователя            <a class="btn btn-primary" style="float:inline-end" href="{% url 'candidate:resume_create' %}">Создать резюме</a></h2>
+        <h2 class="col-md-8">Личные данные пользователя<a class="btn btn-primary" style="float:inline-end" href="{% url 'candidate:resume_create' %}">Создать резюме</a></h2>
 
         <!-- <ul>{% if user.id %}
           <li>{{ user.id }}</li>
@@ -37,7 +37,7 @@
 </div>
 
 <div class="container">
-    <div class="main-body">    
+    <div class="main-body">
           <div class="row gutters-sm">
 
             <div class="col-md-8">
@@ -97,30 +97,13 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Телефон</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      {% if candidate_items %}
-                       {% for candidate in candidate_items %}
-                          {{ candidate.phone_number }}
-                        {% endfor %}  
-                      {% else %}
-                        Не указан
-                      {% endif %}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
                       <h6 class="mb-0">Город</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {% if candidate_items %}
-                        {% for candidate in candidate_items %}
-                          {{ candidate.city }}
-                        {% endfor %}  
+                      {% if user.id %}
+                        {{ user.city }}
                       {% else %}
-                        Не указан
+                        Не указана
                       {% endif %}
                     </div>
                   </div>
@@ -133,7 +116,7 @@
                       {% if candidate_items %}
                         {% for candidate in candidate_items %}
                           {{ candidate.search_area }}
-                        {% endfor %}  
+                        {% endfor %}
                       {% else %}
                         Не указан
                       {% endif %}
