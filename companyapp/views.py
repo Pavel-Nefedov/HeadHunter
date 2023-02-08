@@ -49,8 +49,19 @@ class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
     # success_url = reverse_lazy('companyapp:company_profile')
     form_class = CompanyProfileForm
 
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
     def get_success_url(self):
         return reverse('companyapp:company_profile')
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['user'] = self.request.user
+        return data
 
 
 # class CompanyProfileDeleteView(LoginRequiredMixin,DeleteView):
