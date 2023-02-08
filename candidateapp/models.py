@@ -32,6 +32,17 @@ class WorkScheduleChoices(models.TextChoices):
     REMOTE = 'DW', _('удаленная работа')
 
 
+class EducationLevelChoices(models.TextChoices):
+    SECONDARY = 'SE', _('Среднее')
+    SECONDARY_SPECIAL = 'SSE', _('Среднее специальное')
+    INCOMPLETE_HIGHER = 'IHE', _('Неоконченное высшее')
+    HIGHER = 'HE', _('Высшее')
+    BACHELOR = 'BE', _('Бакалавр')
+    MASTER = 'ME', _('Магистр')
+    CANDIDATE_OF_SCIENCES = 'CSE', _('Кандидат наук')
+    DOCTOR_OF_SCIENCES = 'DSE', _('Доктор наук')
+
+
 class Resume(AppCanvasModel):
     is_moderated = models.BooleanField(default=False, verbose_name='Резюме прошло модерацию')
     candidate = models.ForeignKey(HHUser,
@@ -68,25 +79,12 @@ class Resume(AppCanvasModel):
     """
         Образование - для резюме
         """
-    SECONDARY = 'SE'
-    SECONDARY_SPECIAL = 'SSE'
-    INCOMPLETE_HIGHER = 'IHE'
-    HIGHER = 'HE'
-    BACHELOR = 'BE'
-    MASTER = 'ME'
-    CANDIDATE_OF_SCIENCES = 'CSE'
-    DOCTOR_OF_SCIENCES = 'DSE'
-    LEVEL_CHOICES = (
-        (SECONDARY, 'Среднее'),
-        (SECONDARY_SPECIAL, 'Среднее специальное'),
-        (INCOMPLETE_HIGHER, 'Неоконченное высшее'),
-        (HIGHER, 'Высшее'),
-        (BACHELOR, 'Бакалавр'),
-        (MASTER, 'Магистр'),
-        (CANDIDATE_OF_SCIENCES, 'Кандидат наук'),
-        (DOCTOR_OF_SCIENCES, 'Доктор наук'),
+    level = models.CharField(
+        max_length=3,
+        choices=EducationLevelChoices.choices,
+        default=EducationLevelChoices.SECONDARY,
+        verbose_name='Образование'
     )
-    level = models.CharField(max_length=3, choices=LEVEL_CHOICES, default='SR', verbose_name='Образование')
     educational_institution = models.CharField(max_length=150, blank=True, verbose_name='Учебное заведение')
     faculty = models.CharField(max_length=150, blank=True, verbose_name='Факультет')
     specialization = models.CharField(max_length=150, blank=True, verbose_name='Специализация')
