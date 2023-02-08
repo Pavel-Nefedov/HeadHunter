@@ -22,6 +22,8 @@
                 <div class="container px-4 py-5" id="featured-3">
                     {% if not current_resume.is_moderated %}
                         <span class="badge text-bg-warning">Требует модерации</span>
+                    {% else %}
+                        <span class="badge text-bg-info">Принято модератором</span>
                     {% endif %}
                     <h2 class="pb-2 border-bottom" style="background-color: #efefef">
                         {{ current_resume.desired_position }}
@@ -197,8 +199,13 @@
                             <p class="fs-5">{{ current_resume.year_graduation_course }}</p>
                         </div>
                     </div>
-                    <a href="#" class="btn btn-primary">Принять</a>
-                    <a href="#" class="btn btn-danger">Отклонить</a>
+                    {% if not current_resume.is_moderated %}
+                        <a href="{% url 'message:approve_after_moderation' user_id=current_resume.candidate.pk resume_id=current_resume.pk %}"
+                           class="btn btn-primary">Принять</a>
+                        <a href="#" class="btn btn-danger">
+                            Отклонить
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>

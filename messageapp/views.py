@@ -1,10 +1,15 @@
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views import View
 
+from candidateapp.models import Resume
+from mainapp.mixins import IsModeratorCheckMixin
 from messageapp.forms import MessageForm
-from messageapp.models import Chat
+from messageapp.models import Chat, Message
 
 
 class DialogsView(View):
@@ -67,3 +72,32 @@ class CreateDialogView(View):
         else:
             chat = chats.first()
         return redirect(reverse('messageapp:messages', kwargs={'chat_id': chat.id}))
+
+
+@method_decorator(login_required, name='dispatch')
+class ModeratorApproveResumeView(IsModeratorCheckMixin, View):
+    def get(self, request, user_id, resume_id):
+        with transaction.atomic():
+            chats = Chat.objects.filter(
+                members__in=[request.user.id, user_id], type=Chat.DIALOG
+            ).annotate(c=Count('members')).filter(c=2)
+            if chats.count() == 0:
+                chat = Chat.objects.create()
+                chat.members.add(request.user)
+                chat.members.add(user_id)
+            else:
+                chat = chats.first()
+
+            # Делаем метку резюме, что оно отмодерировано
+            resume_qs = Resume.objects.get(pk=resume_id)
+            resume_qs.is_moderated = True
+            resume_qs.save()
+
+            # Отправим сообщение пользователю
+            Message.objects.create(
+                chat=chat,
+                author=request.user,
+                message=f"Ваше <a href='{reverse('candidateapp:resume_detail', kwargs={'pk': resume_qs.pk})}'>резюме<a> принято модератором.",
+            )
+
+        return redirect(reverse('moderator:moderator_lk_resume'))
