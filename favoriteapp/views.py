@@ -2,10 +2,14 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponseRedirect, get_object_or_404, render
 
-from companyapp.models import Vacancy
 from candidateapp.models import Resume
+from companyapp.models import Vacancy
 from favoriteapp.models import Favorite, FavoriteCompany
 
+
+"""
+Избранное для кандидата
+"""
 
 @login_required
 def favorites_candidate(request):
@@ -34,8 +38,9 @@ def favorite_remove_candidate(request, pk):
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
-
-
+"""
+Избранное для компании
+"""
 
 @login_required
 def favorites_company(request):

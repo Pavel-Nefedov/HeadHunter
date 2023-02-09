@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from authapp.models import HHUser, GenderChoices
+from authapp.models import GenderChoices, HHUser
 
 
 class RegisterUserForm(UserCreationForm):
