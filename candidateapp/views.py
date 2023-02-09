@@ -52,17 +52,6 @@ class ShowProfileUpdateView(LoginRequiredMixin, UpdateView):
 """ Блок резюме!!!!!!!!!!"""
 
 
-# class ResumeView(DetailView):
-#     template_name = 'candidateapp/resume.html'
-#     model = Resume
-#
-#     def get_context_data(self, request, pk=None, **kwargs):
-#         context = super(DetailView, self).get_context_data(**kwargs)
-#         context['user'] = self.request.candidate
-#         context['resume_items'] = Resume.objects.filter(pk=pk)
-#         return context
-
-
 # class ResumeList(ListView):
 #     template_name = 'candidateapp/resume.html'
 #     model = Resume
