@@ -8,114 +8,25 @@
 {% block site_content %}
     <div class="b-example-divider"></div>
     <div class="container px-4 py-5" id="icon-grid">
-        <h3 class="card-title" style="padding: 0"><a href="{% url 'company:vacancy' pk=vacancy.pk %}">
-            {{ vacancy.vacancy_name }} </a></h3>
-        <h4 class="subtitle-title"> {{ vacancy.city }} </h4>
-        {% if vacancy.salary_min and vacancy.salary_max %}
-            <h3 class="subtitle-title"> {{ vacancy.salary_min }} - {{ vacancy.salary_max }}
-                {{ vacancy.currency }}
-            </h3>
+        <h2> Избранные резюме </h2>
 
-        {% elif vacancy.salary_min %}
-            <h3 class="subtitle-title"> от {{ vacancy.salary_min }} {{ vacancy.currency }} </h3>
-
-        {% elif vacancy.salary_max %}
-            <h3 class="subtitle-title"> до {{ vacancy.salary_max }} {{ vacancy.currency }} </h3>
-        {% else %}
-            <h3 class="subtitle-title"> Зарплата не указана работодателем </h3>
-        {% endif %}
-        <h4 class="card-subtitle mb-2 text-muted">{{ vacancy.company.company_name }}</h4>
-        {% if vacancy.duties_description %}
-            <p class="card-text"> Обязанности : {{ vacancy.duties_description|striptags }}</p>
-        {% endif %}
-        <br>
-        {% if vacancy.work_conditions %}
-            <p class="card-text"> Условия работы : {{ vacancy.work_conditions|striptags }}</p>
-        {% endif %}
-        <br>
-        {% if vacancy.requirements_description %}
-            <p class="card-text"> Требования : {{ vacancy.requirements_description|striptags }}</p>
-        {% endif %}
-        <br>
-        <p class="card-text">{{ vacancy.created }}</p>
-        <br>
-
-        {% if vacancy.is_active %}
-            <p class="card-text"> Активна </p>
-        {% endif %}
-        {% if vacancy.is_for_disabled %}
-            <p class="card-text"> Подходит людям с ограниченными возможностями </p>
-        {% endif %}
-        {% if vacancy.is_full_day %}
-            <p class="card-text"> Полный рабочий день </p>
-        {% endif %}
-        {% if vacancy.is_intern %}
-            <p class="card-text"> Можно новичкам и стажерам </p>
-        {% endif %}
-        {% if user.is_candidate %}
-            <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
-        {% endif %}
-        {% if user == company.user %}
-            <a class="btn btn-primary" href="{% url 'company:vacancy_edit' pk=vacancy.pk %}"
-               role="button">Редактировать</a>
-        {% endif %}
-    </div>
-
-    <div class="b-example-divider"></div>
-
-    <div class="container px-4 py-5" id="icon-grid_2">
-        <h2 class="pb-2 border-bottom">Наши партнеры</h2>
-
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
-            <div class="col d-flex align-items-start">
-                <div>
-                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
-                    <p>Лидер рынка</p>
+        {% for item in favorite_items %}
+            <div class="card" style="margin-bottom: 10px">
+                <div class="card-body">
+                    <h3 class="card-title" style="padding: 0"><a href="{% url 'candidate:resume_detail' pk=item.resume.pk %}">
+                        {{ item.resume.candidate }} </a></h3>
+                    <h4 class="card-subtitle mb-2 text-muted">{{ item.resume.city }}</h4>
+                    <p class="card-text">{{ item.resume.desired_position }}</p>
+                    <p class="card-text">{{ item.resume.level }}</p>
+                    <p class="card-text">{{ item.resume.candidate }}</p>
+                    <button class="btn btn-round">
+                        <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
+                        <a class="btn btn-primary" href="{% url 'favorite:company_remove' item.pk %}" role="button">
+                        Удалить из избранного</a>
+                    </button>
                 </div>
             </div>
-            <div class="col d-flex align-items-start">
-                <div>
-                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
-                    <p>Лидер рынка</p>
-                </div>
-            </div>
-            <div class="col d-flex align-items-start">
-                <div>
-                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
-                    <p>Лидер рынка</p>
-                </div>
-            </div>
-            <div class="col d-flex align-items-start">
-                <div>
-                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
-                    <p>Лидер рынка</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="b-example-divider"></div>
-
-    <div class="container px-4 py-5" id="hanging-icons">
-        <h2 class="pb-2 border-bottom">Главные новости</h2>
-        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-
-            {% for item in news %}
-                <div class="col d-flex align-items-start">
-
-                    <div>
-                        <h3 class="fs-2">{{ item.title }}</h3>
-                        <p>{{ item.description }}</p>
-                        <a href="{{ item.link }}" class="btn btn-primary">
-                            Читать далее
-                        </a>
-                    </div>
-                </div>
-            {% empty %}
-                <p class="lead mb-4">Новостей пока нет</p>
-            {% endfor %}
-        </div>
+        {% endfor %}
     </div>
 {% endblock %}
 

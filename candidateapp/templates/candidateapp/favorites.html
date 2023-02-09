@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block site_content %}
-<div class="b-example-divider"></div>
-<div class="container px-4 py-5" id="icon-grid">
-    <h2> Список избранных вакансий </h2>
-    {% for item in favorite_items %}
-    <div class="card" style="margin-bottom: 10px">
-        <div class="card-body">
-            <h3 class="card-title" style="padding: 0"><a href="{% url 'company:vacancy' pk=item.vacancy.pk %}">
+    <div class="b-example-divider"></div>
+    <div class="container px-4 py-5" id="icon-grid">
+        <h2> Список избранных вакансий </h2>
+        {% for item in favorite_items %}
+        <div class="card" style="margin-bottom: 10px">
+            <div class="card-body">
+                <h3 class="card-title" style="padding: 0"><a href="{% url 'company:vacancy' pk=item.vacancy.pk %}">
                         {{ item.vacancy.vacancy_name }} </a></h3>
                     {% if vacancy.salary_min and vacancy.salary_max %}
                         <h3 class="subtitle-title"> {{ item.vacancy.salary_min }} - {{ item.vacancy.salary_max }}
@@ -23,13 +23,13 @@
                     <h4 class="card-subtitle mb-2 text-muted">{{ item.vacancy.company.company_name }}</h4>
                     <p class="card-text">{{ item.vacancy.work_conditions }}</p>
                     <p class="card-text">{{ item.vacancy.requirements_description }}</p>
-        <button class="btn btn-round">
-            <a class="btn btn-primary" href="{% url 'favorite:remove' item.pk %}" role="button">
-                удалить
-            </a>
-        </button>
+            <button class="btn btn-round">
+                <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
+                <a class="btn btn-primary" href="{% url 'favorite:candidate_remove' item.pk %}" role="button">
+                    Удалить из избранного</a>
+            </button>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-
-</div>
 {% endblock %}

@@ -54,31 +54,17 @@
                         <p class="card-text">График работы: {{ resume.get_work_schedule_display }}</p>
                         <p class="card-text">Образование: {{ resume.get_level_display|title }}</p>
                         <!--                    <a class="btn btn-primary" href="#" role="button">Откликнуться</a>-->
-                    </div>
-                </div>
-
-                <div class="resume_actions">
-                    <button>
-                        <a class="btn btn-primary" href="{% url 'candidate:resume_detail' resume.id %}">
-                            подробнее
-                        </a>
-                    </button>
-                    <button>
-                        <a class="btn btn-primary" href="{% url 'candidate:resume_update' resume.pk %}">
+                        <a class="btn btn-primary" href="{% url 'candidate:resume_update' resume.pk %}" role="button">
                             редактировать
                         </a>
-                    </button>
-                    <button>
-                        <a class="btn btn-primary" href="{% url 'candidate:resume_delete' resume.pk %}">
+                        <a class="btn btn-primary" href="{% url 'candidate:resume_delete' resume.pk %}" role="button">
                             удалить
                         </a>
-                    </button>
+                    </div>
                 </div>
                 {% endif %}
         {% endfor %}
-
     </div>
-
 {% endblock %}
 
 
