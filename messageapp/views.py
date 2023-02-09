@@ -120,7 +120,7 @@ class ModeratorApproveView(IsModeratorCheckMixin, View):
                 this_qs = CompanyProfile.objects.get(pk=query_set_id)
                 this_qs.is_moderated = True
                 this_qs.save()
-                current_message = f"Ваш  <a href='{reverse('company:company_profile')}'>профиль компании<a> одобрен модератором."
+                current_message = f"Ваш <a href='{reverse('company:company_profile')}'>профиль компании<a> одобрен модератором."
                 redirect_url = reverse('moderator:moderator_lk_company_profile')
 
             # Отправим сообщение пользователю
@@ -175,7 +175,7 @@ class ModeratorRejectView(IsModeratorCheckMixin, View):
             if reject_type == self.COMPANY_PROFILE:
                 # Делаем метку резюме, что оно отмодерировано
                 this_qs = CompanyProfile.objects.get(pk=query_set_id)
-                current_message = f"Ваш  a href='{reverse('company:company_profile')}'>профиль компании<a> не прошел модерацию. {reject_reason}"
+                current_message = f"Ваш <a href='{reverse('company:company_profile')}'>профиль компании<a> не прошел модерацию. {reject_reason}"
                 redirect_url = reverse('moderator:moderator_lk_company_profile')
 
             # Отправим сообщение пользователю

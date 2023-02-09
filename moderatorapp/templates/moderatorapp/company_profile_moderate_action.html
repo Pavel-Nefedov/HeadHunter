@@ -37,7 +37,8 @@
                         {% if current_company_profile.company_logo %}
                             <img src="{{ current_company_profile.company_logo.url }}" alt="Company logo" height="150">
                         {% else %}
-                            <img src="{% static 'img/no_logo.png' %}" class="img-fluid img-thumbnail" style=" max-height: 200px; max-width: 200px;" alt="No logo">
+                            <img src="{% static 'img/no_logo.png' %}" class="img-fluid img-thumbnail"
+                                 style=" max-height: 200px; max-width: 200px;" alt="No logo">
                         {% endif %}
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
@@ -83,9 +84,27 @@
                     {% if not current_company_profile.is_moderated %}
                         <a href="{% url 'message:approve_after_moderation' user_id=current_company_profile.user.pk query_set_id=current_company_profile.pk approve_type='company_profile' %}"
                            class="btn btn-primary">Принять</a>
-                        <a href="#" class="btn btn-danger">
-                            Отклонить
-                        </a>
+                        <button class="btn btn-link link-danger" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseExample" aria-expanded="false"
+                                aria-controls="collapseExample">
+                            Отклонить с пояснением
+                        </button>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <form method="get"
+                                      action="{% url 'message:reject_after_moderation' user_id=current_company_profile.user.pk query_set_id=current_company_profile.pk reject_type='company_profile' %}">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Причина: </span>
+                                        <textarea class="form-control" aria-label="With textarea"
+                                                  name="reject_reason"></textarea>
+                                    </div>
+                                    <br>
+                                    <div class="col-12">
+                                        <button class="btn btn-danger" type="submit">Отклонить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     {% endif %}
                 </div>
             </div>
