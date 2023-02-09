@@ -18,19 +18,23 @@
         {% for resume in resumes %}
             <div class="card" style="margin-bottom: 10px">
                 <div class="card-body">
-                    <h3 class="card-title" style="padding: 0"><a href="{% url 'candidate:resume_detail' pk=resume.pk %}">
-                        {{ resume.candidate }} </a></h3>
-                    <h4 class="card-subtitle mb-2 text-muted">{{ resume.city }}</h4>
-                    <p class="card-text">{{ resume.desired_position }}</p>
-                    <p class="card-text">{{ resume.level }}</p>
-                    <p class="card-text">{{ resume.candidate }}</p>
+                    <h3 class="card-title" style="padding: 0"><a
+                                href="{% url 'candidate:resume_detail' resume.id %}">
+                            {{ resume.desired_position|title }} </a></h3>
+
+                        <h3 class="subtitle-title"> {{ resume.salary }} руб. </h3>
+
+                        <h4 class="card-subtitle mb-2 text-muted">
+                            {{ resume.candidate.first_name}} {{ resume.candidate.last_name}}</h4>
+                        <p class="card-text">Вариант занятости: {{ resume.get_busyness_display }}</p>
+                        <p class="card-text">График работы: {{ resume.get_work_schedule_display }}</p>
+                        <p class="card-text">Образование: {{ resume.get_level_display|title }}</p>
                     <a class="btn btn-primary" href="{% url 'companyapp:vac_select' %}" role="button">Откликнуться</a>
                     <a class="btn btn-primary" href="{% url 'favorite:company_add' resume.pk %}" role="button">Добавить в избранное</a>
                 </div>
             </div>
         {% endfor %}
     </div>
-
 {% endblock %}
 
 
