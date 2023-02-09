@@ -23,7 +23,7 @@
                     <h4 class="card-subtitle mb-2 text-muted">{{ vacancy.company.company_name }}</h4>
                     <p class="card-text">{{ vacancy.work_conditions }}</p>
                     <p class="card-text">{{ vacancy.requirements_description }}</p>
-                    <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
+                    <a class="btn btn-primary" href="{% url 'candidate:resume_select' %}" role="button">Откликнуться</a>
                     <a class="btn btn-primary" href="{% url 'message:create_dialog' user_id=vacancy.company.user.id %}"
                        role="button">Написать работодателю</a>
                     <a class="btn btn-primary" href="{% url 'favorite:candidate_add' vacancy.pk %}" role="button">Добавить в избранное</a>
