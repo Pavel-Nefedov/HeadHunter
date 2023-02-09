@@ -1,6 +1,6 @@
 from django.urls import path
 
-from messageapp.views import DialogsView, MessagesView, CreateDialogView, ModeratorApproveView
+from messageapp.views import DialogsView, MessagesView, CreateDialogView, ModeratorApproveView, ModeratorRejectView
 
 app_name = 'messageapp'
 
@@ -13,5 +13,10 @@ urlpatterns = [
         'approve_after_moderation/<int:user_id>/<int:query_set_id>/<str:approve_type>',
         ModeratorApproveView.as_view(),
         name='approve_after_moderation'
+    ),
+    path(
+        'reject_after_moderation/<int:user_id>/<int:query_set_id>/<str:reject_type>',
+        ModeratorRejectView.as_view(),
+        name='reject_after_moderation'
     ),
 ]
