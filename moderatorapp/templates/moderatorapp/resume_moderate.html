@@ -20,7 +20,7 @@
                 <div class="list-group list-group-flush border-bottom">
 
                     {% for item in resume_for_moderation %}
-                        <a href="#" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
+                        <a href="{% url 'moderatorapp:moderator_lk_resume_moderate' pk=item.pk %}" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
                             <div class="d-flex w-100 align-items-center justify-content-between">
                                 <strong class="mb-1">
                                     Резюме {{ item.candidate.first_name }} {{ item.candidate.last_name }}

@@ -2,9 +2,9 @@ from django.urls import path
 
 import candidateapp.views as candidateapp
 
-from .views import (FormVacancySearch, ResumeUpdate,  ResumeCreateView,
-                    ShowProfileUpdateView,
-                    ShowResumeDetailView, VacancySearch, ResumeDeleteView)
+from .views import (FormVacancySearch, ResumeCreateView, ResumeDeleteView,
+                    ResumeUpdate, ShowProfileUpdateView, ShowResumeDetailView,
+                    VacancySearch)
 
 app_name = 'candidateapp'
 
@@ -16,7 +16,7 @@ urlpatterns = [
     path('candidate_update/<int:pk>/', ShowProfileUpdateView.as_view(), name='candidate_update'),
     path('user_profile/', candidateapp.candidate_lk, name='user_profile'),
 
-    # path('resume/<int:pk>/', ResumeView.as_view(), name='resume'),
+    # path('resume/', ResumeList.as_view(), name='resume'),
     path('resume/', candidateapp.resume, name='resume'),
     # path('resume_update/<int:pk>/', candidateapp.resume_update, name='resume_update'),
     path('resume_update/<int:pk>/', ResumeUpdate.as_view(), name='resume_update'),

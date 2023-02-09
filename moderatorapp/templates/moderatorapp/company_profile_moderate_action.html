@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load verbose_names %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sidebars.css' %}">
+{% endblock %}
+
+
+{% block header %}
+    {% include 'mainapp/includes/inc_header.html' %}
+{% endblock %}
+
+{% block site_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                {% include 'moderatorapp/includes/inc_moderator_left_menu.html' %}
+            </div>
+            <div class="col-8">
+                <div class="container px-4 py-5" id="featured-3">
+                    {% if not current_company_profile.is_moderated %}
+                        <span class="badge text-bg-warning">Требует модерации</span>
+                    {% else %}
+                        <span class="badge text-bg-info">Принято модератором</span>
+                    {% endif %}
+                    <h2 class="pb-2 border-bottom" style="background-color: #efefef">
+                        Компания: {{ current_company_profile.company_name }}
+
+                    </h2>
+                    <h4 class="pb-2 border-bottom" style="background-color: #efefef">
+                        Пользователь, привязанный к компании:
+                        {{ current_company_profile.user.first_name }}
+                        {{ current_company_profile.user.last_name }}
+                    </h4>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        {% if current_company_profile.company_logo %}
+                            <img src="{{ current_company_profile.company_logo.url }}" alt="Company logo" height="150">
+                        {% else %}
+                            <img src="{% static 'img/no_logo.png' %}" class="img-fluid img-thumbnail"
+                                 style=" max-height: 200px; max-width: 200px;" alt="No logo">
+                        {% endif %}
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name current_company_profile "legal_entity" %}
+                            </h3>
+                            <p class="fs-5">{{ current_company_profile.legal_entity }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name current_company_profile "company_address" %}
+                            </h3>
+                            <p class="fs-5">{{ current_company_profile.company_address }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name current_company_profile "email" %}
+                            </h3>
+                            <p class="fs-5">{{ current_company_profile.email }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name current_company_profile "phone_number" %}
+                            </h3>
+                            <p class="fs-5">{{ current_company_profile.phone_number }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name current_company_profile "about_company" %}
+                            </h3>
+                            <p class="fs-5">{{ current_company_profile.about_company }}</p>
+                        </div>
+                    </div>
+                    {% if not current_company_profile.is_moderated %}
+                        <a href="{% url 'message:approve_after_moderation' user_id=current_company_profile.user.pk query_set_id=current_company_profile.pk approve_type='company_profile' %}"
+                           class="btn btn-primary">Принять</a>
+                        <button class="btn btn-link link-danger" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseExample" aria-expanded="false"
+                                aria-controls="collapseExample">
+                            Отклонить с пояснением
+                        </button>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <form method="get"
+                                      action="{% url 'message:reject_after_moderation' user_id=current_company_profile.user.pk query_set_id=current_company_profile.pk reject_type='company_profile' %}">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Причина: </span>
+                                        <textarea class="form-control" aria-label="With textarea"
+                                                  name="reject_reason"></textarea>
+                                    </div>
+                                    <br>
+                                    <div class="col-12">
+                                        <button class="btn btn-danger" type="submit">Отклонить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+
+{% block footer %}
+    {% include 'mainapp/includes/inc_footer.html' %}
+{% endblock %}

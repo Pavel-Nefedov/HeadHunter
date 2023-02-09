@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from candidateapp.models import (Resume)
+from candidateapp.models import Resume
 
 # admin.site.register(Candidate)
 admin.site.register(Resume)

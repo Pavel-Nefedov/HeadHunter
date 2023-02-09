@@ -1,7 +1,11 @@
 
 {% for resume_obj in resume %}
 <div class="card-title">
-    <h3 class="card-title" style="padding: 0"> {{ resume_obj.candidate.first_name|title }} {{ resume_obj.candidate.last_name|title }} </h3>
+    <h2>Контактная информация</h2>
+    <h3 class="card-title" style="padding: 0"> {{ resume_obj.candidate.first_name|title }}
+                                        {{ resume_obj.candidate.last_name|title }}
+                                        {{ resume_obj.candidate.patronymic|title }}
+    </h3>
     <br>
     {% if resume_obj.candidate.gender == "M" %}
     <h6>{{ resume_obj.candidate.get_gender_display|title }}, родился {{ resume_obj.candidate.birthday }}</h6>
@@ -16,7 +20,6 @@
     <h6 class="card-title">
     {{ resume_obj.candidate.city }}, переезд {{ resume_obj.get_moving_display }}, к командировкам {{ resume_obj.get_business_trips_display|title }}
     </h6>
-
 </div>
 {% endfor %}
 

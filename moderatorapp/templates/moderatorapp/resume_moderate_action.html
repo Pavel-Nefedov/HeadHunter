@@ -1,62 +1,70 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 {% load verbose_names %}
 
 {% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sidebars.css' %}">
 {% endblock %}
+
 
 {% block header %}
     {% include 'mainapp/includes/inc_header.html' %}
-
 {% endblock %}
 
 {% block site_content %}
-<div class="b-example-divider"></div>
-    <div class="container px-4 py-5" id="icon-grid">
     <div class="container">
         <div class="row">
+            <div class="col-4">
+                {% include 'moderatorapp/includes/inc_moderator_left_menu.html' %}
+            </div>
             <div class="col-8">
+
                 <div class="container px-4 py-5" id="featured-3">
+                    {% if not current_resume.is_moderated %}
+                        <span class="badge text-bg-warning">Требует модерации</span>
+                    {% else %}
+                        <span class="badge text-bg-info">Принято модератором</span>
+                    {% endif %}
                     <h2 class="pb-2 border-bottom" style="background-color: #efefef">
-                        {{ resume.desired_position }}
+                        {{ current_resume.desired_position }}
+
                     </h2>
                     <h4 class="pb-2 border-bottom" style="background-color: #efefef">
-                        {{ resume.candidate.last_name }}
-                        {{ resume.candidate.first_name }}
-                        {{ resume.candidate.patronymic }}
-                        &nbsp;&nbsp;ожидаемая зарплата <b>{{ resume.salary }} р.</b>
+                        {{ current_resume.candidate.patronymic }}
+                        {{ current_resume.candidate.first_name }}
+                        {{ current_resume.candidate.last_name }}
+                        &nbsp;&nbsp;ожидаемая зарплата <b>{{ current_resume.salary }} р.</b>
                     </h4>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "moving" %}
+                                {% get_verbose_field_name current_resume "moving" %}
                             </h3>
-                            <p class="fs-5">{{ resume.get_moving_display }}</p>
+                            <p class="fs-5">{{ current_resume.get_moving_display }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "business_trips" %}
+                                {% get_verbose_field_name current_resume "business_trips" %}
                             </h3>
-                            <p class="fs-5">{{ resume.get_business_trips_display }}</p>
+                            <p class="fs-5">{{ current_resume.get_business_trips_display }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "busyness" %}
+                                {% get_verbose_field_name current_resume "busyness" %}
                             </h3>
-                            <p class="fs-5">{{ resume.get_busyness_display }}</p>
+                            <p class="fs-5">{{ current_resume.get_busyness_display }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "work_schedule" %}
+                                {% get_verbose_field_name current_resume "work_schedule" %}
                             </h3>
-                            <p class="fs-5">{{ resume.get_work_schedule_display }}</p>
+                            <p class="fs-5">{{ current_resume.get_work_schedule_display }}</p>
                         </div>
                     </div>
                     <h4 class="pb-2 border-bottom" style="background-color: #efefef">
@@ -65,11 +73,11 @@
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <p class="fs-5">
-                                работа с {{ resume.getting_started }} по
+                                работа с {{ current_resume.getting_started }} по
                                 {% if working %}
                                     настоящее время
                                 {% else %}
-                                    {{ resume.end_work }}
+                                    {{ current_resume.end_work }}
                                 {% endif %}
                             </p>
                         </div>
@@ -77,41 +85,41 @@
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "organization" %}
+                                {% get_verbose_field_name current_resume "organization" %}
                             </h3>
-                            <p class="fs-5">{{ resume.organization }}</p>
+                            <p class="fs-5">{{ current_resume.organization }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "post" %}
+                                {% get_verbose_field_name current_resume "post" %}
                             </h3>
-                            <p class="fs-5">{{ resume.post }}</p>
+                            <p class="fs-5">{{ current_resume.post }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "responsibilities" %}
+                                {% get_verbose_field_name current_resume "responsibilities" %}
                             </h3>
-                            <p class="fs-5">{{ resume.responsibilities }}</p>
+                            <p class="fs-5">{{ current_resume.responsibilities }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "skills" %}
+                                {% get_verbose_field_name current_resume "skills" %}
                             </h3>
-                            <p class="fs-5">{{ resume.skills }}</p>
+                            <p class="fs-5">{{ current_resume.skills }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "about_me" %}
+                                {% get_verbose_field_name current_resume "about_me" %}
                             </h3>
-                            <p class="fs-5">{{ resume.about_me }}</p>
+                            <p class="fs-5">{{ current_resume.about_me }}</p>
                         </div>
                     </div>
                     <h4 class="pb-2 border-bottom" style="background-color: #efefef">
@@ -120,40 +128,40 @@
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <p class="fs-5">
-                                {{ resume.get_level_display }}
+                                {{ current_resume.get_level_display }}
                             </p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "educational_institution" %}
+                                {% get_verbose_field_name current_resume "educational_institution" %}
                             </h3>
-                            <p class="fs-5">{{ resume.educational_institution }}</p>
+                            <p class="fs-5">{{ current_resume.educational_institution }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "faculty" %}
+                                {% get_verbose_field_name current_resume "faculty" %}
                             </h3>
-                            <p class="fs-5">{{ resume.faculty }}</p>
+                            <p class="fs-5">{{ current_resume.faculty }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "specialization" %}
+                                {% get_verbose_field_name current_resume "specialization" %}
                             </h3>
-                            <p class="fs-5">{{ resume.specialization }}</p>
+                            <p class="fs-5">{{ current_resume.specialization }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "year_graduation" %}
+                                {% get_verbose_field_name current_resume "year_graduation" %}
                             </h3>
-                            <p class="fs-5">{{ resume.year_graduation }}</p>
+                            <p class="fs-5">{{ current_resume.year_graduation }}</p>
                         </div>
                     </div>
                     <h4 class="pb-2 border-bottom" style="background-color: #efefef">
@@ -162,41 +170,64 @@
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "course_name" %}
+                                {% get_verbose_field_name current_resume "course_name" %}
                             </h3>
-                            <p class="fs-5">{{ resume.course_name }}</p>
+                            <p class="fs-5">{{ current_resume.course_name }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "organization_conducted" %}
+                                {% get_verbose_field_name current_resume "organization_conducted" %}
                             </h3>
-                            <p class="fs-5">{{ resume.organization_conducted }}</p>
+                            <p class="fs-5">{{ current_resume.organization_conducted }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "specialization_course" %}
+                                {% get_verbose_field_name current_resume "specialization_course" %}
                             </h3>
-                            <p class="fs-5">{{ resume.specialization_course }}</p>
+                            <p class="fs-5">{{ current_resume.specialization_course }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name resume "year_graduation_course" %}
+                                {% get_verbose_field_name current_resume "year_graduation_course" %}
                             </h3>
-                            <p class="fs-5">{{ resume.year_graduation_course }}</p>
+                            <p class="fs-5">{{ current_resume.year_graduation_course }}</p>
                         </div>
                     </div>
+                    {% if not current_resume.is_moderated %}
+                        <a href="{% url 'message:approve_after_moderation' user_id=current_resume.candidate.pk query_set_id=current_resume.pk approve_type='resume' %}"
+                           class="btn btn-primary">Принять</a>
+
+                        <button class="btn btn-link link-danger" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseExample" aria-expanded="false"
+                                aria-controls="collapseExample">
+                            Отклонить с пояснением
+                        </button>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <form method="get" action="{% url 'message:reject_after_moderation' user_id=current_resume.candidate.pk query_set_id=current_resume.pk reject_type='resume'%}">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Причина: </span>
+                                        <textarea class="form-control" aria-label="With textarea" name="reject_reason"></textarea>
+                                    </div>
+                                    <br>
+                                    <div class="col-12">
+                                        <button class="btn btn-danger" type="submit">Отклонить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
     </div>
-</div>
 {% endblock %}
 
 

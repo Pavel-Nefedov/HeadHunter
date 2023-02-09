@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from django.http import HttpResponseRedirect, Http404
-from django.shortcuts import render, redirect
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import (CreateView, DeleteView, DetailView,
-                                  TemplateView, UpdateView, View, ListView)
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  TemplateView, UpdateView, View)
 
 from candidateapp.models import Resume
 from companyapp.forms import CompanyProfileForm, VacancyForm
@@ -47,7 +47,6 @@ class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
 #         return HttpResponseRedirect(self.get_success_url())
 
 
-
 # class CompanyProfileDeleteView(LoginRequiredMixin,DeleteView):
 #     model = CompanyProfile
 #     template_name = 'companyapp/company_lk.html'
@@ -57,7 +56,6 @@ class CompanyProfileCreateView(LoginRequiredMixin, CreateView):
 #         self.object.is_active = False
 #         self.object.save()
 #         return HttpResponseRedirect(self.get_success_url())
-
 
 
 class CompanyProfileUpdateView(LoginRequiredMixin, UpdateView):

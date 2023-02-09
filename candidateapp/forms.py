@@ -1,4 +1,5 @@
 from django import forms
+
 from candidateapp.models import Resume
 
 
@@ -29,5 +30,5 @@ class ResumeForm(forms.ModelForm):
             'course_name',
             'organization_conducted',
             'specialization_course',
-            'year_graduation_course'
+            'year_graduation_course',
         ]
