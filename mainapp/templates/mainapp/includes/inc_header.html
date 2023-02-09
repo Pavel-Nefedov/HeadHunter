@@ -76,7 +76,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'favorite:view' %}" class="nav-link px-2 link-secondary">
+                        <a href="{% url 'favorite:candidate_view' %}" class="nav-link px-2 link-secondary">
                             <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                             Избранные вакансии
                         </a>
@@ -89,7 +89,14 @@
                             Список резюме</a></li>
                     <li><a href="{% url 'company:vac_list' %}" class="nav-link px-2 link-secondary">
                         <i class="fa fa-university" aria-hidden="true"></i>
-                        Вакансии</a></li>
+                        Вакансии</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'favorite:company_view' %}" class="nav-link px-2 link-secondary">
+                            <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                            Избранные резюме
+                        </a>
+                    </li>
                 {% endif %}
                 {% get_unread_messages user as unread_messages %}
                 {% if user.is_moderator %}

@@ -11,7 +11,6 @@ class CompanyProfileForm(forms.ModelForm):
         fields = ('company_logo', 'company_name', 'legal_entity', 'company_address', 'company_address', 'email',
                   'phone_number', 'about_company')
 
-
     def __init__(self, *args, **kwargs):
         super(CompanyProfileForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():

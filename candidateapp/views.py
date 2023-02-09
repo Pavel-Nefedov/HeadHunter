@@ -2,23 +2,22 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   TemplateView, UpdateView)
 
-from authapp.models import HHUser
 from authapp.forms import RegisterUserForm
+from authapp.models import HHUser
 from candidateapp.forms import ResumeForm
 from candidateapp.models import Resume
 from companyapp.models import Vacancy
-
-
 
 # class CandidateMain(TemplateView):
 #     template_name = 'candidateapp/candidate_lk.html'
 
 """ Блок кандидата"""
+
 
 @login_required
 def candidate_lk(request):
@@ -49,6 +48,7 @@ class ShowProfileUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('candidate:user_profile')
 
+
 """ Блок резюме!!!!!!!!!!"""
 
 
@@ -67,6 +67,7 @@ class ShowProfileUpdateView(LoginRequiredMixin, UpdateView):
 #         # context['candidate'] = Resume.objects.get(candidate=self.request.user)
 #         # context['resume'] = Resume.objects.filter(candidate_id=pk)
 #         return context
+
 
 @login_required
 def resume(request):
