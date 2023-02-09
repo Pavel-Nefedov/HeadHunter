@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block header %}
+    {% include 'mainapp/includes/inc_header.html' %}
+{% endblock %}
+
+
+
+{% block site_content %}
+    <div class="container px-4 py-5" id="icon-grid">
+        <!-- <a class="btn btn-primary" href="{% url 'company:vacancy_create' %}"
+           role="button">Создать вакансию</a> -->
+        {% for vacancy in object_list %}
+        {% if vacancy.company_id == company.id %}
+
+            <div class="card" style="margin-bottom: 10px">
+            <div class="card-body">
+                <h3 class="card-title" style="padding: 0"><a href="{% url 'company:vacancy' vacancy.pk %}">{{ vacancy.vacancy_name }} </a>
+                    <button style="float:inline-end">
+                        <a class="btn btn-primary" href="#">
+                            выбрать
+                        </a>
+                    </button></h3>
+                <h4 class="subtitle-title"> {{ vacancy.city }} </h4>
+
+
+                {% if vacancy.is_active %}
+                    <p class="card-text"> Активна </p>
+                {% endif %}
+                {% if vacancy.is_for_disabled %}
+                    <p class="card-text"> Подходит людям с ограниченными возможностями </p>
+                {% endif %}
+                {% if vacancy.is_full_day %}
+                    <p class="card-text"> Полный рабочий день </p>
+                {% endif %}
+                {% if vacancy.is_intern %}
+                    <p class="card-text"> Можно новичкам и стажерам </p>
+                {% endif %}
+                {% if user.is_candidate %}
+                    <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
+                {% endif %}
+                {% if user == company.user %}
+                    <a class="btn btn-primary" href="{% url 'company:vacancy_edit' pk=vacancy.pk %}"
+                       role="button">Редактировать</a>
+                {% endif %}
+            </div>
+            </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% include 'mainapp/includes/inc_footer.html' %}
+{% endblock %}

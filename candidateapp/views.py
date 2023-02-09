@@ -128,6 +128,53 @@ class ResumeDeleteView(LoginRequiredMixin, DeleteView):
         return context
 
 
+def resume_select(request):
+    title = 'выбор резюме'
+    resume_items = Resume.objects.filter(candidate=request.user)
+
+    context = {
+        'title': title,
+        'resume_items': resume_items,
+    }
+
+    queryset = Resume.objects.filter(candidate_id=request.user)
+
+    if queryset:
+        return render(request, 'candidateapp/resume_select.html', context)
+    else:
+        return render(request, 'candidateapp/resume_alert.html')
+
+
+def resume_alert(request):
+    title = 'предупреждение по отсутствию резюме'
+    # resume_items = Resume.objects.all()
+    # resume_items = Resume.objects.filter(candidate=request.user)
+    # candidate_items = Candidate.objects.filter(user=request.user).select_related()
+
+    # context = {
+    #     'title': title,
+    #     'resume_items': resume_items,
+    # }
+
+    return render(request, 'candidateapp/resume_alert.html')
+    
+    
+    # model = Resume
+    # template_name = 'candidateapp/resume_select.html'
+    # success_url = reverse_lazy('candidate:resume_select')
+
+    # def delete(self, request, *arg, **kwargs):
+    #     self.object = self.get_object()
+    #     success_url = self.get_success_url()
+    #     self.object.is_active = False
+    #     self.object.save()
+    #     return HttpResponseRedirect(success_url)
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['title'] = "Удаление резюме"
+    #     return context
+
 """Блок поиска вакансий"""
 
 

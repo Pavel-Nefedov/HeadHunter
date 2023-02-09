@@ -24,7 +24,7 @@
                     <p class="card-text">{{ resume.desired_position }}</p>
                     <p class="card-text">{{ resume.level }}</p>
                     <p class="card-text">{{ resume.candidate }}</p>
-                    <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
+                    <a class="btn btn-primary" href="{% url 'companyapp:vac_select' %}" role="button">Откликнуться</a>
                     <a class="btn btn-primary" href="{% url 'favorite:company_add' resume.pk %}" role="button">Добавить в избранное</a>
                 </div>
             </div>
