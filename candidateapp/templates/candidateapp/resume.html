@@ -17,7 +17,32 @@
         {% for resume in resume_items %}
                 <div class="card" style="margin-bottom: 10px">
                     <div class="card-body">
-                        <h3 class="card-title" style="padding: 0"><a
+                        {% if resume.is_draft %}
+                        <span class="badge text-bg-info">
+                            <h4>Черновик рeзюме</h4>
+                            <h5>Отредактируйте или удалите</h5>
+
+                        </span>
+                        <h3 class="card-title" style="padding: 0"> {{ resume.desired_position|title }} </a></h3>
+                        <h4 class="card-subtitle mb-2 text-muted">
+                            {{ resume.candidate.first_name}} {{ resume.candidate.last_name}}</h4>
+                    </div>
+                </div>
+
+                <div class="resume_actions">
+                    <button>
+                        <a class="btn btn-primary" href="{% url 'candidate:resume_update' resume.pk %}">
+                            редактировать
+                        </a>
+                    </button>
+                    <button>
+                        <a class="btn btn-primary" href="{% url 'candidate:resume_delete' resume.pk %}">
+                            удалить
+                        </a>
+                    </button>
+                </div>
+                {% else %}
+                    <h3 class="card-title" style="padding: 0"><a
                                 href="{% url 'candidate:resume_detail' resume.id %}">
                             {{ resume.desired_position|title }} </a></h3>
 
@@ -49,7 +74,7 @@
                         </a>
                     </button>
                 </div>
-
+                {% endif %}
         {% endfor %}
 
     </div>

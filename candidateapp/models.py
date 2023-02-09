@@ -97,9 +97,13 @@ class Resume(AppCanvasModel):
     specialization_course = models.CharField(max_length=150, blank=True, verbose_name='Специализация')
     year_graduation_course = models.DateField(auto_now=False, auto_now_add=False, verbose_name='Год окончания')
 
+    is_draft = models.BooleanField(default=False, verbose_name='Черновик')
+
 
     def __str__(self):
         return f"Резюме {self.candidate.username}"
+
+
 
 # class Candidate(models.Model):
 #     """
