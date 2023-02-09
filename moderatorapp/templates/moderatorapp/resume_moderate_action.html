@@ -200,7 +200,7 @@
                         </div>
                     </div>
                     {% if not current_resume.is_moderated %}
-                        <a href="{% url 'message:approve_after_moderation' user_id=current_resume.candidate.pk resume_id=current_resume.pk %}"
+                        <a href="{% url 'message:approve_after_moderation' user_id=current_resume.candidate.pk query_set_id=current_resume.pk approve_type='resume' %}"
                            class="btn btn-primary">Принять</a>
                         <a href="#" class="btn btn-danger">
                             Отклонить
