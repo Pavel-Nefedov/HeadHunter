@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load verbose_names %}
 
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
@@ -11,26 +12,191 @@
 {% endblock %}
 
 {% block site_content %}
-    <div class="b-example-divider"></div>
+<div class="b-example-divider"></div>
     <div class="container px-4 py-5" id="icon-grid">
-        <div class="card12">
-        {% include 'candidateapp/includes/inc_resume_contact_info.html' %}
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <div class="container px-4 py-5" id="featured-3">
+                    <h2 class="pb-2 border-bottom" style="background-color: #efefef">
+                        {{ resume.desired_position }}
+                    </h2>
+                    <h4 class="pb-2 border-bottom" style="background-color: #efefef">
+                        {{ resume.candidate.last_name }}
+                        {{ resume.candidate.first_name }}
+                        {{ resume.candidate.patronymic }}
+                        &nbsp;&nbsp;ожидаемая зарплата <b>{{ resume.salary }} р.</b>
+                    </h4>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "moving" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.get_moving_display }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "business_trips" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.get_business_trips_display }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "busyness" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.get_busyness_display }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "work_schedule" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.get_work_schedule_display }}</p>
+                        </div>
+                    </div>
+                    <h4 class="pb-2 border-bottom" style="background-color: #efefef">
+                        Опыт работы
+                    </h4>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <p class="fs-5">
+                                работа с {{ resume.getting_started }} по
+                                {% if working %}
+                                    настоящее время
+                                {% else %}
+                                    {{ resume.end_work }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "organization" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.organization }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "post" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.post }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "responsibilities" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.responsibilities }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "skills" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.skills }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "about_me" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.about_me }}</p>
+                        </div>
+                    </div>
+                    <h4 class="pb-2 border-bottom" style="background-color: #efefef">
+                        Образование
+                    </h4>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <p class="fs-5">
+                                {{ resume.get_level_display }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "educational_institution" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.educational_institution }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "faculty" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.faculty }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "specialization" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.specialization }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "year_graduation" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.year_graduation }}</p>
+                        </div>
+                    </div>
+                    <h4 class="pb-2 border-bottom" style="background-color: #efefef">
+                        Повышение квалификации, курсы
+                    </h4>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "course_name" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.course_name }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "organization_conducted" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.organization_conducted }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "specialization_course" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.specialization_course }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name resume "year_graduation_course" %}
+                            </h3>
+                            <p class="fs-5">{{ resume.year_graduation_course }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-<!--        <br>-->
-<!--        {% include 'candidateapp/includes/inc_resume_position_and_salary.html' %}-->
-<!--        <br>-->
-<!--        {% include 'candidateapp/includes/inc_resume_work_experience.html' %}-->
-<!--        <br>-->
-<!--        {% include 'candidateapp/includes/inc_resume_work_experience_about_me.html' %}-->
-<!--        <br>-->
-<!--        {% include 'candidateapp/includes/inc_resume_education.html' %}-->
-        <br>
-<!--        {% include 'candidateapp/includes/inc_resume_advanced_training.html' %}-->
-        {% if user.is_candidate %}
-            <a class="btn btn-primary" href="{% url 'candidate:resume' %}" role="button">Назад в мои резюме</a>
-        {% endif %}
     </div>
-
+    </div>
+</div>
 {% endblock %}
 
 

@@ -63,6 +63,22 @@ class ShowProfileUpdateView(LoginRequiredMixin, UpdateView):
 #         return context
 
 
+# class ResumeList(ListView):
+#     template_name = 'candidateapp/resume.html'
+#     model = Resume
+#
+#     #
+#     def dispatch(self, request, *args, **kwargs):
+#         return super(ResumeList, self).dispatch(request, *args, **kwargs)
+#
+#     def get_context_data(self, pk=None, *args, **kwargs):
+#         context = super(ResumeList, self).get_context_data(**kwargs)
+#         context['user'] = self.request.user
+#         context['candidate'] = Resume.objects.filter(user=self.user.id)
+#         # context['candidate'] = Resume.objects.get(candidate=self.request.user)
+#         # context['resume'] = Resume.objects.filter(candidate_id=pk)
+#         return context
+
 @login_required
 def resume(request):
     title = 'резюме'
@@ -79,10 +95,9 @@ class ShowResumeDetailView(DetailView):
     model = Resume
     template_name = 'candidateapp/resume_detail.html'
 
-    def get_context_data(self, pk=None, **kwargs):
-        context = super(DetailView, self).get_context_data(**kwargs)
-        context['user'] = self.request.user
-        context['resume'] = Resume.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['resume'] = Resume.objects.get(pk=self.kwargs['pk'])
         return context
 
 
