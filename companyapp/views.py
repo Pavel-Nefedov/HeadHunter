@@ -181,8 +181,8 @@ class ResumeSearch(TemplateView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        # data['resume'] = Resume.objects.filter().order_by('-created')[:10]
-        data["resumes"] = Resume.objects.all()
+        data['resumes'] = Resume.objects.filter(is_draft=False)
+        # data["resumes"] = Resume.objects.all()
         return data
 
 
