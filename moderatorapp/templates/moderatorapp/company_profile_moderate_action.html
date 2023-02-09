@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     {% if not current_company_profile.is_moderated %}
-                        <a href="#"
+                        <a href="{% url 'message:approve_after_moderation' user_id=current_company_profile.user.pk query_set_id=current_company_profile.pk approve_type='company_profile' %}"
                            class="btn btn-primary">Принять</a>
                         <a href="#" class="btn btn-danger">
                             Отклонить

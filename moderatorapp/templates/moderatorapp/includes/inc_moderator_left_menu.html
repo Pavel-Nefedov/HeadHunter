@@ -6,28 +6,31 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li>
-            <a href="{% url 'moderatorapp:moderator_lk_company_profile' %}" class="nav-link link-dark">
+            <a href="{% url 'moderatorapp:moderator_lk_company_profile'%}"
+               class="nav-link link-dark {% if "company_profile" in request.path %}active{% endif %}">
                 <i class="fa fa-id-card" aria-hidden="true"></i>
                 Компании
-                <span class="badge rounded-pill text-bg-primary">
+                <span class="badge rounded-pill text-bg-warning">
                     {{ company_profiles_for_moderation|length }}
                 </span>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{% url 'moderatorapp:moderator_lk_vacancy' %}" class="nav-link link-dark" aria-current="page">
+            <a href="{% url 'moderatorapp:moderator_lk_vacancy' %}"
+               class="nav-link link-dark {% if "vacancy" in request.path %}active{% endif %}" aria-current="page">
                 <i class="fa fa-id-card" aria-hidden="true"></i>
                 Вакансии
-                <span class="badge rounded-pill text-bg-primary">
+                <span class="badge rounded-pill text-bg-warning">
                     {{ vacancy_for_moderation|length }}
                 </span>
             </a>
         </li>
         <li>
-            <a href="{% url 'moderatorapp:moderator_lk_resume' %}" class="nav-link link-dark">
+            <a href="{% url 'moderatorapp:moderator_lk_resume' %}"
+               class="nav-link link-dark {% if "resume" in request.path %}active{% endif %}">
                 <i class="fa fa-id-card" aria-hidden="true"></i>
                 Резюме
-                <span class="badge rounded-pill text-bg-primary">
+                <span class="badge rounded-pill text-bg-warning">
                     {{ resume_for_moderation|length }}
                 </span>
             </a>

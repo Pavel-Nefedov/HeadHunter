@@ -29,17 +29,19 @@
 
                     </a>
                     <ul class="dropdown-menu text-small shadow">
-                        <li>
-                            <a class="dropdown-item" href="
+                        {% if not user.is_moderator %}
+                            <li>
+                                <a class="dropdown-item" href="
                                 {% if user.is_candidate %}{% url 'candidate:user_profile' %}{% endif %}
                                 {% if user.is_company %}{% url 'company:company_profile' %}{% endif %}
                             ">
-                                Профиль пользователя
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                                    Профиль пользователя
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                        {% endif %}
                         <li><a class="dropdown-item" href="{% url 'authapp:logout' %}">Выйти</a></li>
                     </ul>
                 </div>

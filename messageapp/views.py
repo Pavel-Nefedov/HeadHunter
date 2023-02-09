@@ -105,6 +105,7 @@ class ModeratorApproveView(IsModeratorCheckMixin, View):
                 this_qs.is_moderated = True
                 this_qs.save()
                 current_message = f"Ваше <a href='{reverse('candidateapp:resume_detail', kwargs={'pk': this_qs.pk})}'>резюме<a> принято модератором."
+                redirect_url = reverse('moderator:moderator_lk_resume')
 
             if approve_type == self.VACANCY:
                 # Делаем метку резюме, что оно отмодерировано
@@ -112,6 +113,7 @@ class ModeratorApproveView(IsModeratorCheckMixin, View):
                 this_qs.is_moderated = True
                 this_qs.save()
                 current_message = f"Ваша <a href='{reverse('company:vacancy', kwargs={'pk': this_qs.pk})}'>вакансия<a> принята модератором."
+                redirect_url = reverse('moderator:moderator_lk_vacancy')
 
             if approve_type == self.COMPANY_PROFILE:
                 # Делаем метку резюме, что оно отмодерировано
@@ -119,6 +121,7 @@ class ModeratorApproveView(IsModeratorCheckMixin, View):
                 this_qs.is_moderated = True
                 this_qs.save()
                 current_message = f"Ваш  <a href='{reverse('company:company_profile')}'>профайл компании<a> одобрен модератором."
+                redirect_url = reverse('moderator:moderator_lk_company_profile')
 
             # Отправим сообщение пользователю
             Message.objects.create(
@@ -127,4 +130,4 @@ class ModeratorApproveView(IsModeratorCheckMixin, View):
                 message=current_message,
             )
 
-        return redirect(reverse('moderator:moderator_lk_resume'))
+        return redirect(redirect_url)
