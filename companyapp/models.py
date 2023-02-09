@@ -29,7 +29,7 @@ class Vacancy(AppCanvasModel):
     is_moderated = models.BooleanField(default=False, verbose_name='Вакансия прошла модерацию')
     company = models.ForeignKey(CompanyProfile, unique=False, null=False, db_index=True, on_delete=models.CASCADE)
     vacancy_name = models.CharField(max_length=300, unique=False, null=False, db_index=True, default='SOME STRING')
-    city = models.CharField(max_length=100, db_index=True, default='CITY N')
+    city = models.CharField(max_length=100, db_index=True, default='', verbose_name='Город размещения')
     duties_description = models.TextField(blank=True, verbose_name='Обязанности')
     requirements_description = models.TextField(verbose_name='Требования', **NULLABLE)
     work_conditions = models.TextField(verbose_name='Условия труда', **NULLABLE)

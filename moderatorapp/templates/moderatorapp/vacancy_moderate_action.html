@@ -19,68 +19,74 @@
             </div>
             <div class="col-8">
                 <div class="container px-4 py-5" id="featured-3">
-                    {% if not current_company_profile.is_moderated %}
+                    {% if not current_vacancy.is_moderated %}
                         <span class="badge text-bg-warning">Требует модерации</span>
                     {% else %}
                         <span class="badge text-bg-info">Принято модератором</span>
                     {% endif %}
                     <h2 class="pb-2 border-bottom" style="background-color: #efefef">
-                        Компания: {{ current_company_profile.company_name }}
-
+                        Вакансия: {{ current_vacancy.vacancy_name }}
+                        {% if current_vacancy.is_active %}
+                            <span class="badge text-bg-success">Открыта</span>
+                        {% else %}
+                            <span class="badge text-bg-warning">Закрыта</span>
+                        {% endif %}
                     </h2>
                     <h4 class="pb-2 border-bottom" style="background-color: #efefef">
-                        Пользователь, привязанный к компании:
-                        {{ current_company_profile.user.first_name }}
-                        {{ current_company_profile.user.last_name }}
+                        От компании:
+                        {{ current_vacancy.company.company_name }}
+                    </h4>
+                    <h4 class="pb-2 border-bottom" style="background-color: #efefef">
+                        Зарплата :
+                        {% if current_vacancy.salary_min %}
+                            от {{ current_vacancy.salary_min }}
+                        {% endif %}
+                        {% if current_vacancy.salary_max %}
+                            до {{ current_vacancy.salary_max }}
+                        {% endif %}
+                        {{ current_vacancy.currency }}
                     </h4>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
-                        {% if current_company_profile.company_logo %}
-                            <img src="{{ current_company_profile.company_logo.url }}" alt="Company logo" height="150">
-                        {% else %}
-                            <img src="{% static 'img/no_logo.png' %}" class="img-fluid img-thumbnail" style=" max-height: 200px; max-width: 200px;" alt="No logo">
-                        {% endif %}
-                    </div>
-                    <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name current_company_profile "legal_entity" %}
+                                {% get_verbose_field_name current_vacancy "city" %}
                             </h3>
-                            <p class="fs-5">{{ current_company_profile.legal_entity }}</p>
+                            <p class="fs-5">{{ current_vacancy.city }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name current_company_profile "company_address" %}
+                                {% get_verbose_field_name current_vacancy "duties_description" %}
                             </h3>
-                            <p class="fs-5">{{ current_company_profile.company_address }}</p>
+                            <p class="fs-5">{{ current_vacancy.duties_description|safe }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name current_company_profile "email" %}
+                                {% get_verbose_field_name current_vacancy "requirements_description" %}
                             </h3>
-                            <p class="fs-5">{{ current_company_profile.email }}</p>
+                            <p class="fs-5">{{ current_vacancy.requirements_description|safe }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name current_company_profile "phone_number" %}
+                                {% get_verbose_field_name current_vacancy "work_conditions" %}
                             </h3>
-                            <p class="fs-5">{{ current_company_profile.phone_number }}</p>
+                            <p class="fs-5">{{ current_vacancy.work_conditions|safe }}</p>
                         </div>
                     </div>
                     <div class="row py-1 row-cols-1 row-cols-lg-12">
                         <div class="feature col">
                             <h3 class="fs-5">
-                                {% get_verbose_field_name current_company_profile "about_company" %}
+                                {% get_verbose_field_name current_vacancy "created" %}
                             </h3>
-                            <p class="fs-5">{{ current_company_profile.about_company }}</p>
+                            <p class="fs-5">{{ current_vacancy.created }}</p>
                         </div>
                     </div>
-                    {% if not current_company_profile.is_moderated %}
+                    {% if not current_vacancy.is_moderated %}
                         <a href="#"
                            class="btn btn-primary">Принять</a>
                         <a href="#" class="btn btn-danger">
