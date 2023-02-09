@@ -18,11 +18,7 @@
                 <div class="card" style="margin-bottom: 10px">
                     <div class="card-body">
                         {% if resume.is_draft %}
-                        <span class="badge text-bg-info">
-                            <h4>Черновик рeзюме</h4>
-                            <h5>Отредактируйте или удалите</h5>
-
-                        </span>
+                        <span class="badge text-bg-warning">Черновик рeзюме</span>
                         <h3 class="card-title" style="padding: 0"> {{ resume.desired_position|title }} </a></h3>
                         <h4 class="card-subtitle mb-2 text-muted">
                             {{ resume.candidate.first_name}} {{ resume.candidate.last_name}}</h4>
