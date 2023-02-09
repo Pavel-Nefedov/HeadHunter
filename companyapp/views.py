@@ -141,18 +141,29 @@ class VacanciesSelect(ListView):
 
     #
     def dispatch(self, request, *args, **kwargs):
-        queryset = Vacancy.objects.filter(candidate_id=self.request.user)
-        if queryset:
-            return super(VacanciesList, self).dispatch(request, *args, **kwargs)
-        else:
-            return render(request, 'companyapp/vacancy_alert.html')
-
-    def get_context_data(self, request, pk=None, **kwargs):
+        return super(VacanciesList, self).dispatch(request, *args, **kwargs)
+        
+    def get_context_data(self, pk=None, **kwargs):
         context = super(VacanciesList, self).get_context_data(**kwargs)
         context['user'] = self.request.user
         context['company'] = CompanyProfile.objects.get(user=self.request.user)
         context['vacancies'] = Vacancy.objects.filter(company_id=pk)
-        return context
+        if context['vacancies']:   
+            return context
+
+
+#                 if queryset:
+#             return super(VacanciesList, self).dispatch(request, *args, **kwargs)
+#         else:
+#             return render(request, 'companyapp/vacancy_alert.html')
+
+#    queryset = Resume.objects.filter(candidate_id=request.user)
+
+#     if queryset:
+#         return render(request, 'candidateapp/resume_select.html', context)
+#     else:
+#         return render(request, 'candidateapp/resume_alert.html')
+
         # if context['company']:
         #     return context
         # else:
