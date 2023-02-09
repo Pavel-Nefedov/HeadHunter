@@ -66,3 +66,29 @@ class ModeratorLkResumeModerate(IsModeratorCheckMixin, TemplateView):
         context['vacancy_for_moderation'] = Vacancy.objects.filter(is_moderated=False)
         context['current_resume'] = Resume.objects.get(pk=self.kwargs['pk'])
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class ModeratorLkCompanyProfileModerate(IsModeratorCheckMixin, TemplateView):
+    template_name = 'moderatorapp/company_profile_moderate_action.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['resume_for_moderation'] = Resume.objects.filter(is_moderated=False)
+        context['company_profiles_for_moderation'] = CompanyProfile.objects.filter(is_moderated=False)
+        context['vacancy_for_moderation'] = Vacancy.objects.filter(is_moderated=False)
+        context['current_company_profile'] = CompanyProfile.objects.get(pk=self.kwargs['pk'])
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class ModeratorLkVacancyModerate(IsModeratorCheckMixin, TemplateView):
+    template_name = 'moderatorapp/vacancy_moderate_action.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['resume_for_moderation'] = Resume.objects.filter(is_moderated=False)
+        context['company_profiles_for_moderation'] = CompanyProfile.objects.filter(is_moderated=False)
+        context['vacancy_for_moderation'] = Vacancy.objects.filter(is_moderated=False)
+        context['current_vacancy'] = Vacancy.objects.get(pk=self.kwargs['pk'])
+        return context

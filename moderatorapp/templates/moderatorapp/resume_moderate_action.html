@@ -200,11 +200,28 @@
                         </div>
                     </div>
                     {% if not current_resume.is_moderated %}
-                        <a href="{% url 'message:approve_after_moderation' user_id=current_resume.candidate.pk resume_id=current_resume.pk %}"
+                        <a href="{% url 'message:approve_after_moderation' user_id=current_resume.candidate.pk query_set_id=current_resume.pk approve_type='resume' %}"
                            class="btn btn-primary">Принять</a>
-                        <a href="#" class="btn btn-danger">
-                            Отклонить
-                        </a>
+
+                        <button class="btn btn-link link-danger" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseExample" aria-expanded="false"
+                                aria-controls="collapseExample">
+                            Отклонить с пояснением
+                        </button>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <form method="get" action="{% url 'message:reject_after_moderation' user_id=current_resume.candidate.pk query_set_id=current_resume.pk reject_type='resume'%}">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Причина: </span>
+                                        <textarea class="form-control" aria-label="With textarea" name="reject_reason"></textarea>
+                                    </div>
+                                    <br>
+                                    <div class="col-12">
+                                        <button class="btn btn-danger" type="submit">Отклонить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     {% endif %}
                 </div>
             </div>

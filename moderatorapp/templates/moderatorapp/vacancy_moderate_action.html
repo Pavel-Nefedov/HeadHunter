@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load verbose_names %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sidebars.css' %}">
+{% endblock %}
+
+
+{% block header %}
+    {% include 'mainapp/includes/inc_header.html' %}
+{% endblock %}
+
+{% block site_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                {% include 'moderatorapp/includes/inc_moderator_left_menu.html' %}
+            </div>
+            <div class="col-8">
+                <div class="container px-4 py-5" id="featured-3">
+                    {% if not current_vacancy.is_moderated %}
+                        <span class="badge text-bg-warning">Требует модерации</span>
+                    {% else %}
+                        <span class="badge text-bg-info">Принято модератором</span>
+                    {% endif %}
+                    <h2 class="pb-2 border-bottom" style="background-color: #efefef">
+                        Вакансия: {{ current_vacancy.vacancy_name }}
+                        {% if current_vacancy.is_active %}
+                            <span class="badge text-bg-success">Открыта</span>
+                        {% else %}
+                            <span class="badge text-bg-warning">Закрыта</span>
+                        {% endif %}
+                    </h2>
+                    <h4 class="pb-2 border-bottom" style="background-color: #efefef">
+                        От компании:
+                        {{ current_vacancy.company.company_name }}
+                        (пользователь {{ current_vacancy.company.user.first_name }} {{ current_vacancy.company.user.last_name }})
+                    </h4>
+                    <h4 class="pb-2 border-bottom" style="background-color: #efefef">
+                        Зарплата :
+                        {% if current_vacancy.salary_min %}
+                            от {{ current_vacancy.salary_min }}
+                        {% endif %}
+                        {% if current_vacancy.salary_max %}
+                            до {{ current_vacancy.salary_max }}
+                        {% endif %}
+                        {{ current_vacancy.currency }}
+                    </h4>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name current_vacancy "city" %}
+                            </h3>
+                            <p class="fs-5">{{ current_vacancy.city }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name current_vacancy "duties_description" %}
+                            </h3>
+                            <p class="fs-5">{{ current_vacancy.duties_description|safe }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name current_vacancy "requirements_description" %}
+                            </h3>
+                            <p class="fs-5">{{ current_vacancy.requirements_description|safe }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name current_vacancy "work_conditions" %}
+                            </h3>
+                            <p class="fs-5">{{ current_vacancy.work_conditions|safe }}</p>
+                        </div>
+                    </div>
+                    <div class="row py-1 row-cols-1 row-cols-lg-12">
+                        <div class="feature col">
+                            <h3 class="fs-5">
+                                {% get_verbose_field_name current_vacancy "created" %}
+                            </h3>
+                            <p class="fs-5">{{ current_vacancy.created }}</p>
+                        </div>
+                    </div>
+                    {% if not current_vacancy.is_moderated %}
+                        <a href="{% url 'message:approve_after_moderation' user_id=current_vacancy.company.user.pk query_set_id=current_vacancy.pk approve_type='vacancy' %}"
+                           class="btn btn-primary">Принять</a>
+                        <button class="btn btn-link link-danger" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseExample" aria-expanded="false"
+                                aria-controls="collapseExample">
+                            Отклонить с пояснением
+                        </button>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <form method="get"
+                                      action="{% url 'message:reject_after_moderation' user_id=current_vacancy.company.user.pk query_set_id=current_vacancy.pk reject_type='vacancy' %}">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Причина: </span>
+                                        <textarea class="form-control" aria-label="With textarea"
+                                                  name="reject_reason"></textarea>
+                                    </div>
+                                    <br>
+                                    <div class="col-12">
+                                        <button class="btn btn-danger" type="submit">Отклонить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+
+{% block footer %}
+    {% include 'mainapp/includes/inc_footer.html' %}
+{% endblock %}
