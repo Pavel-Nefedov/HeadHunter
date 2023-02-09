@@ -69,12 +69,6 @@
                             Список вакансий
                         </a>
                     </li>
-                    {#                    <li>#}
-                    {#                        <a href="{% url 'candidate:candidate_lk' %}" class="nav-link px-2 link-secondary">#}
-                    {#                            <i class="fa fa-user" aria-hidden="true"></i>#}
-                    {#                            Личный кабинет#}
-                    {#                        </a>#}
-                    {#                    </li>#}
                     <li>
                         <a href="{% url 'candidate:resume' %}" class="nav-link px-2 link-secondary">
                             <i class="fa fa-newspaper-o" aria-hidden="true"></i>
@@ -93,17 +87,20 @@
                         <a href="{% url 'company:resume_search' %}" class="nav-link px-2 link-secondary">
                             <i class="fa fa-address-card" aria-hidden="true"></i>
                             Список резюме</a></li>
-                    {#                    <li>#}
-                    {#                        <a href="{% url 'company:company_profile' %}" class="nav-link px-2 link-secondary">#}
-                    {#                            <i class="fa fa-university" aria-hidden="true"></i>#}
-                    {#                            Личный кабинет#}
-                    {#                        </a>#}
-                    {#                    </li>#}
                     <li><a href="{% url 'company:vac_list' %}" class="nav-link px-2 link-secondary">
                         <i class="fa fa-university" aria-hidden="true"></i>
                         Вакансии</a></li>
                 {% endif %}
                 {% get_unread_messages user as unread_messages %}
+                {% if user.is_moderator %}
+                    <li>
+                        <a href="{% url 'moderator:moderator_lk' %}" class="nav-link px-2 link-secondary">
+                            <i class="fa fa-university" aria-hidden="true"></i>
+                            Кабинет модератора
+                            <span class="badge bg-primary rounded-pill">{% if unread_messages %}
+                                {{ unread_messages }}{% endif %}</span></a>
+                    </li>
+                {% endif %}
                 <li>
                     <a href="{% url 'messageapp:dialogs' %}" class="nav-link px-2 link-secondary">
                         <i class="fa fa-university" aria-hidden="true"></i>
