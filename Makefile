@@ -15,6 +15,7 @@ rm-migrations-dirs:
 	rm -rf candidateapp/migrations
 	rm -rf companyapp/migrations
 	rm -rf favoriteapp/migrations
+	rm -rf messageapp/migrations
 
 rm-data-dirs:
 	rm -rf mainapp/management/data
