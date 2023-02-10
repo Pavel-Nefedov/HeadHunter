@@ -14,3 +14,9 @@ class IsCandidateCheckMixin:
         if not request.user.is_candidate:
             return HttpResponseRedirect(reverse('authapp:login'))
         return super().dispatch(request, *args, **kwargs)
+
+class IsCompanyCheckMixin:
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_company:
+            return HttpResponseRedirect(reverse('authapp:login'))
+        return super().dispatch(request, *args, **kwargs)

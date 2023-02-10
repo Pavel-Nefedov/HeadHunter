@@ -65,6 +65,10 @@ class ShowResumeDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['resume'] = Resume.objects.get(pk=self.kwargs['pk'])
+        if self.request.user.is_company:
+            context['company_vacancy'] = Vacancy.objects.filter(
+                company__pk=self.request.user.pk,
+            )
         return context
 
 
@@ -137,6 +141,12 @@ class VacancySearch(TemplateView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data['vacancies'] = Vacancy.objects.filter(is_active=True).order_by('-created')[:10]
+        if self.request.user.is_candidate:
+            data['candidate_resume'] = Resume.objects.filter(
+                candidate__pk=self.request.user.pk,
+                is_moderated=True,
+                is_draft=False
+            )
         return data
 
 

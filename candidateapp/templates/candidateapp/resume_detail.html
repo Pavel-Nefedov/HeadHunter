@@ -192,6 +192,45 @@
                             <p class="fs-5">{{ resume.year_graduation_course }}</p>
                         </div>
                     </div>
+                    {{ company_vacancy }}
+                    {{ resume.user.pk }}
+                    {% if user.is_company %}
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseExample" aria-expanded="false"
+                                aria-controls="collapseExample">
+                            Откликнуться
+                        </button>
+                        <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+
+                        {% if company_vacancy %}
+                            <form method="get"
+                                  action="{% url 'messageapp:response_to_resume' user_id=resume.candidate.pk resume_id=resume.pk %}">
+                                <h3>Выберите активную вакансию для отклика:</h3>
+                                {% for item in company_vacancy %}
+
+                                    <div class="form-check py-3">
+                                        <input class="form-check-input" type="radio" name="radio" id="flexRadioDefault{{ forloop.counter }}" value="{{ item.pk }}">
+                                        <label class="form-check-label" for="flexRadioDefault{{ forloop.counter }}">
+                                            {{ item.vacancy_name }} ({{ item.salary_min }} - {{ item.salary_max }}р)
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                                <div class="input-group">
+                                    <span class="input-group-text">Сопроводительное письмо: </span>
+                                    <textarea class="form-control" aria-label="With textarea"
+                                              name="letter"></textarea>
+                                </div>
+                                <br>
+                                <div class="col-12">
+                                    <button class="btn btn-primary" type="submit">Отправить отклик</button>
+                                </div>
+                            </form>
+                        {% else %}
+                            <h3>Сначала нужно <a href="{% url 'company:vac_list' %}">создать вакансию</a></h3>
+                        {% endif %}
+
+                    {% endif %}
                 </div>
             </div>
         </div>
