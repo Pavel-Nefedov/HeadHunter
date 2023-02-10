@@ -7,7 +7,6 @@ class ResumeForm(forms.ModelForm):
     class Meta:
         model = Resume
         fields = [
-            'candidate',
             'moving',
             'business_trips',
             'desired_position',
@@ -31,4 +30,11 @@ class ResumeForm(forms.ModelForm):
             'organization_conducted',
             'specialization_course',
             'year_graduation_course',
+            'is_draft'
         ]
+
+    def __init__(self, *args, **kwargs):
+        super(ResumeForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-input'
+

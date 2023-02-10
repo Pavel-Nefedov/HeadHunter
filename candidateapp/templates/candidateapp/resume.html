@@ -11,7 +11,7 @@
     <div class="b-example-divider"></div>
     <div class="container px-4 py-5" id="icon-grid">
         <h2>Мои резюме</h2>
-        {% if user.is_candidate %}
+        {% if user.id %}
             <a class="btn btn-primary" href="{% url 'candidate:resume_create' %}">Создать новое</a>
         {% endif %}
         {% for resume in resume_items %}
