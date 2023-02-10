@@ -4,7 +4,7 @@ from companyapp.views import (CompanyProfileCreateView,
                               CompanyProfileUpdateView, CompProfile,
                               FormResumeSearch, PartnerCompanyView,
                               ResumeSearch, VacanciesList, VacancyCreate,
-                              VacancyUpdate, VacancyView)
+                              VacancyUpdate, VacancyDeleteView, VacancyView)
 
 app_name = 'companyapp'
 
@@ -17,6 +17,7 @@ urlpatterns = [
     # path('comp_vacancies_alert/', VacanciesList.as_view(), name='vac_select'),
     path('vacancy/create/', VacancyCreate.as_view(), name='vacancy_create'),
     path('vacancy/edit/<int:pk>/', VacancyUpdate.as_view(), name='vacancy_edit'),
+    path('vacancy_delete/<int:pk>/', VacancyDeleteView.as_view(), name='vacancy_delete'),
     path('vacancy/<int:pk>/', VacancyView.as_view(), name='vacancy'),
     path('resume_search/', ResumeSearch.as_view(), name='resume_search'),
     path('form_resume_search/', FormResumeSearch.as_view(), name='form_resume_search'),
