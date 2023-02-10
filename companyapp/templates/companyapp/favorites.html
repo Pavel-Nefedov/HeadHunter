@@ -14,11 +14,15 @@
             <div class="card" style="margin-bottom: 10px">
                 <div class="card-body">
                     <h3 class="card-title" style="padding: 0"><a href="{% url 'candidate:resume_detail' pk=item.resume.pk %}">
-                        {{ item.resume.candidate }} </a></h3>
-                    <h4 class="card-subtitle mb-2 text-muted">{{ item.resume.city }}</h4>
-                    <p class="card-text">{{ item.resume.desired_position }}</p>
-                    <p class="card-text">{{ item.resume.level }}</p>
-                    <p class="card-text">{{ item.resume.candidate }}</p>
+                        {{ item.resume.desired_position|title }} </a></h3>
+
+                        <h3 class="subtitle-title"> {{ item.resume.salary }} руб. </h3>
+
+                        <h4 class="card-subtitle mb-2 text-muted">
+                            {{ item.resume.candidate.first_name}} {{ item.resume.candidate.last_name}}</h4>
+                        <p class="card-text">Вариант занятости: {{ item.resume.get_busyness_display }}</p>
+                        <p class="card-text">График работы: {{ item.resume.get_work_schedule_display }}</p>
+                        <p class="card-text">Образование: {{ item.resume.get_level_display|title }}</p>
                     <button class="btn btn-round">
                         <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
                         <a class="btn btn-primary" href="{% url 'favorite:company_remove' item.pk %}" role="button">
