@@ -9,11 +9,30 @@
 
 
 {% block site_content %}
+
+
+        {% if not company %}
+            <h4 class="subtitle-title">
+                Вам нужно создать профиль компании для размещения вакансий!
+                <br>
+                <br>
+                <div style="text-align: center;">
+                    <a href="{% url 'company:company_create' %}" class="btn btn-outline-primary btn-lg">
+                        Создать профиль
+                    </a>
+                </div>
+
+            </h4>
+{% else %}
+
     <div class="container px-4 py-5" id="icon-grid">
         <a class="btn btn-primary" href="{% url 'company:vacancy_create' %}"
            role="button">Создать вакансию</a>
-        {% for vacancy in object_list %}
-        {% if vacancy.company_id == company.id %}
+
+        {% for item in company  %}
+        {% for vacancy in object_list  %}
+{% if vacancy.company_id == item.id %}
+
 
             <div class="card" style="margin-bottom: 10px">
             <div class="card-body">
@@ -42,8 +61,17 @@
                 {% endif %}
             </div>
             </div>
-        {% endif %}
+
+
+
+
+
+{% endif %}
+{% endfor %}
         {% endfor %}
+
+
+        {% endif %}
     </div>
 {% endblock %}
 
