@@ -8,7 +8,7 @@
 {% block site_content %}
     <div class="b-example-divider"></div>
     <div class="container px-4 py-5" id="icon-grid">
-        <a href="{% url 'company:vac_list' %}" class="btn btn-outline-primary"><<< Назад</a>
+        <a href="#" class="btn btn-outline-primary" onclick="window.history.go(-1); return false;"><<< Назад</a>
         <h3 class="card-title" style="padding: 0">{{ vacancy.vacancy_name }} </h3>
         <h4 class="subtitle-title"> {{ vacancy.city }} </h4>
         {% if vacancy.salary_min and vacancy.salary_max %}
@@ -53,70 +53,53 @@
             <p class="card-text"> Можно новичкам и стажерам </p>
         {% endif %}
         {% if user.is_candidate %}
-            <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
-        {% endif %}
-        {% if user == company.user %}
-            <a class="btn btn-primary" href="{% url 'company:vacancy_edit' pk=vacancy.pk %}"
-               role="button">Редактировать</a>
-        {% endif %}
-    </div>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample" aria-expanded="false"
+                    aria-controls="collapseExample">
+                Откликнуться
+            </button>
+            <div class="collapse" id="collapseExample">
+            <div class="card card-body">
 
-    <div class="b-example-divider"></div>
-
-    <div class="container px-4 py-5" id="icon-grid_2">
-        <h2 class="pb-2 border-bottom">Наши партнеры</h2>
-
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
-            <div class="col d-flex align-items-start">
-                <div>
-                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
-                    <p>Лидер рынка</p>
-                </div>
-            </div>
-            <div class="col d-flex align-items-start">
-                <div>
-                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
-                    <p>Лидер рынка</p>
-                </div>
-            </div>
-            <div class="col d-flex align-items-start">
-                <div>
-                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
-                    <p>Лидер рынка</p>
-                </div>
-            </div>
-            <div class="col d-flex align-items-start">
-                <div>
-                    <h3 class="fw-bold mb-0 fs-4">Компания x</h3>
-                    <p>Лидер рынка</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="b-example-divider"></div>
-
-    <div class="container px-4 py-5" id="hanging-icons">
-        <h2 class="pb-2 border-bottom">Главные новости</h2>
-        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-
-            {% for item in news %}
-                <div class="col d-flex align-items-start">
-
-                    <div>
-                        <h3 class="fs-2">{{ item.title }}</h3>
-                        <p>{{ item.description }}</p>
-                        <a href="{{ item.link }}" class="btn btn-primary">
-                            Читать далее
-                        </a>
+            {% if candidate_resume %}
+                <form method="get"
+                      action="{% url 'messageapp:response_to_vacancy' user_id=vacancy.company.user.pk vacancy_id=vacancy.pk %}">
+                    <h3>Выберите активное резюме для отклика:</h3>
+                    {% for item in candidate_resume %}
+                        <div class="form-check py-3">
+                            <input class="form-check-input" type="radio" name="radio" id="flexRadioDefault{{ forloop.counter }}" value="{{ item.pk }}">
+                            <label class="form-check-label" for="flexRadioDefault{{ forloop.counter }}">
+                                {{ item.desired_position }} ({{ item.salary }}р)
+                            </label>
+                        </div>
+                    {% endfor %}
+                    <div class="input-group">
+                        <span class="input-group-text">Сопроводительное письмо: </span>
+                        <textarea class="form-control" aria-label="With textarea"
+                                  name="letter"></textarea>
                     </div>
-                </div>
-            {% empty %}
-                <p class="lead mb-4">Новостей пока нет</p>
-            {% endfor %}
+                    <br>
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Отправить отклик</button>
+                    </div>
+                </form>
+            {% else %}
+                <h3>Сначала нужно <a href="{% url 'candidate:resume' %}">создать резюме</a></h3>
+            {% endif %}
+
+        {% endif %}
+        </div>
+
         </div>
     </div>
+
+    {% if user == company.user %}
+        <a class="btn btn-primary" href="{% url 'company:vacancy_edit' pk=vacancy.pk %}"
+           role="button">Редактировать</a>
+    {% endif %}
+
+
+    <div class="b-example-divider"></div>
 {% endblock %}
 
 {% block footer %}

@@ -96,6 +96,12 @@ class VacancyView(DetailView):
         context['vacancies'] = Vacancy.objects.filter(pk=pk)
         context['user'] = self.request.user
         context['company'] = self.object.company
+        if self.request.user.is_candidate:
+            context['candidate_resume'] = Resume.objects.filter(
+                candidate__pk=self.request.user.pk,
+                is_moderated=True,
+                is_draft=False
+            )
         return context
 
 
@@ -133,6 +139,7 @@ class VacancyUpdate(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('companyapp:vacancy', kwargs={'pk': self.object.id})
 
+
 class VacanciesSelect(ListView):
     template_name = 'companyapp/company_vacancies_select.html'
     model = Vacancy
@@ -140,13 +147,13 @@ class VacanciesSelect(ListView):
     #
     def dispatch(self, request, *args, **kwargs):
         return super(VacanciesList, self).dispatch(request, *args, **kwargs)
-        
+
     def get_context_data(self, pk=None, **kwargs):
         context = super(VacanciesList, self).get_context_data(**kwargs)
         context['user'] = self.request.user
         context['company'] = CompanyProfile.objects.get(user=self.request.user)
         context['vacancies'] = Vacancy.objects.filter(company_id=pk)
-        if context['vacancies']:   
+        if context['vacancies']:
             return context
 
 
@@ -162,17 +169,16 @@ class VacanciesSelect(ListView):
 #     else:
 #         return render(request, 'candidateapp/resume_alert.html')
 
-        # if context['company']:
-        #     return context
-        # else:
-        #     return render(request, 'candidateapp/vacancy_alert.html')
+# if context['company']:
+#     return context
+# else:
+#     return render(request, 'candidateapp/vacancy_alert.html')
 
-    
-    # def vacancy_alert(request):
-    #     queryset = Vacancy.objects.filter(company_id=pk)
-    #     if not queryset:
-    #         return render(request, 'candidateapp/vacancy_alert.html')
 
+# def vacancy_alert(request):
+#     queryset = Vacancy.objects.filter(company_id=pk)
+#     if not queryset:
+#         return render(request, 'candidateapp/vacancy_alert.html')
 
 
 class ResumeSearch(TemplateView):

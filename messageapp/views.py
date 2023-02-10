@@ -9,7 +9,7 @@ from django.views import View
 
 from candidateapp.models import Resume
 from companyapp.models import Vacancy, CompanyProfile
-from mainapp.mixins import IsModeratorCheckMixin
+from mainapp.mixins import IsModeratorCheckMixin, IsCandidateCheckMixin
 from messageapp.forms import MessageForm
 from messageapp.models import Chat, Message
 
@@ -184,5 +184,56 @@ class ModeratorRejectView(IsModeratorCheckMixin, View):
                 author=request.user,
                 message=current_message,
             )
+
+        return redirect(redirect_url)
+
+
+@method_decorator(login_required, name='dispatch')
+class ResponseToVacancyView(IsCandidateCheckMixin, View):
+    def get(self, request, user_id, vacancy_id):
+
+        with transaction.atomic():
+            chats = Chat.objects.filter(
+                members__in=[request.user.id, user_id], type=Chat.DIALOG
+            ).annotate(c=Count('members')).filter(c=2)
+            if chats.count() == 0:
+                chat = Chat.objects.create()
+                chat.members.add(request.user)
+                chat.members.add(user_id)
+            else:
+                chat = chats.first()
+
+            print(f'{request.GET=}')
+
+            if request.GET['letter']:
+                letter = 'Сопроводительное письмо: ' + request.GET['letter']
+
+            if 'radio' in request.GET:
+                resume_form_id = request.GET['radio']
+            else:
+                return redirect(reverse('company:vacancy', kwargs={'pk': vacancy_id}))
+
+            vacancy = Vacancy.objects.get(pk=vacancy_id)
+            resume = Resume.objects.get(candidate=request.user)
+
+            current_message = f"На вашу <a href='{reverse('company:vacancy', kwargs={'pk': vacancy_id})}'>" \
+                              f"вакансию ({vacancy.vacancy_name})<a> поступил отклик от пользователя {request.user.first_name} " \
+                              f"{request.user.last_name}  <a href='{reverse('candidateapp:resume_detail', kwargs={'pk': resume_form_id})}'>его резюме ({resume.desired_position})<a>."
+            redirect_url = reverse('candidate:vacancy_search')
+
+            # Отправим сообщение компании
+            Message.objects.create(
+                chat=chat,
+                author=request.user,
+                message=current_message,
+            )
+
+            if letter:
+                # Отправим сопроводительное
+                Message.objects.create(
+                    chat=chat,
+                    author=request.user,
+                    message=letter,
+                )
 
         return redirect(redirect_url)

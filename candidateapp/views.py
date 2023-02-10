@@ -2,23 +2,17 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   TemplateView, UpdateView)
 
-from authapp.forms import RegisterUserForm
 from authapp.models import HHUser
 from candidateapp.forms import ResumeForm
 from candidateapp.models import Resume
 from companyapp.models import Vacancy
 
-# class CandidateMain(TemplateView):
-#     template_name = 'candidateapp/candidate_lk.html'
-
 """ Блок кандидата"""
-
-
 @login_required
 def candidate_lk(request):
     title = 'candidate'
@@ -50,23 +44,6 @@ class ShowProfileUpdateView(LoginRequiredMixin, UpdateView):
 
 
 """ Блок резюме!!!!!!!!!!"""
-
-
-# class ResumeList(ListView):
-#     template_name = 'candidateapp/resume.html'
-#     model = Resume
-#
-#     #
-#     def dispatch(self, request, *args, **kwargs):
-#         return super(ResumeList, self).dispatch(request, *args, **kwargs)
-#
-#     def get_context_data(self, pk=None, *args, **kwargs):
-#         context = super(ResumeList, self).get_context_data(**kwargs)
-#         context['user'] = self.request.user
-#         context['candidate'] = Resume.objects.filter(user=self.user.id)
-#         # context['candidate'] = Resume.objects.get(candidate=self.request.user)
-#         # context['resume'] = Resume.objects.filter(candidate_id=pk)
-#         return context
 
 
 @login_required
@@ -147,33 +124,8 @@ def resume_select(request):
 
 def resume_alert(request):
     title = 'предупреждение по отсутствию резюме'
-    # resume_items = Resume.objects.all()
-    # resume_items = Resume.objects.filter(candidate=request.user)
-    # candidate_items = Candidate.objects.filter(user=request.user).select_related()
-
-    # context = {
-    #     'title': title,
-    #     'resume_items': resume_items,
-    # }
-
     return render(request, 'candidateapp/resume_alert.html')
-    
-    
-    # model = Resume
-    # template_name = 'candidateapp/resume_select.html'
-    # success_url = reverse_lazy('candidate:resume_select')
 
-    # def delete(self, request, *arg, **kwargs):
-    #     self.object = self.get_object()
-    #     success_url = self.get_success_url()
-    #     self.object.is_active = False
-    #     self.object.save()
-    #     return HttpResponseRedirect(success_url)
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['title'] = "Удаление резюме"
-    #     return context
 
 """Блок поиска вакансий"""
 
