@@ -16,6 +16,7 @@ rm-migrations-dirs:
 	rm -rf companyapp/migrations
 	rm -rf favoriteapp/migrations
 	rm -rf messageapp/migrations
+	rm -rf moderatorapp/migrations
 
 rm-data-dirs:
 	rm -rf mainapp/management/data
@@ -71,6 +72,7 @@ makemigrations:
 	python manage.py makemigrations companyapp
 	python manage.py makemigrations messageapp
 	python manage.py makemigrations favoriteapp
+	python manage.py makemigrations moderatorapp
 
 
 docker-makemigrations:
@@ -80,6 +82,7 @@ docker-makemigrations:
 	docker-compose run --rm web-app sh -c "python manage.py makemigrations companyapp"
 	docker-compose run --rm web-app sh -c "python manage.py makemigrations favoriteapp"
 	docker-compose run --rm web-app sh -c "python manage.py makemigrations messageapp"
+	docker-compose run --rm web-app sh -c "python manage.py makemigrations moderatorapp"
 
 
 migrate:
