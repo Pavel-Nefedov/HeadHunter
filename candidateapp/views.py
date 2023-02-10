@@ -8,22 +8,34 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   TemplateView, UpdateView)
 
 from authapp.models import HHUser
+from authapp.forms import RegisterUserForm
 from candidateapp.forms import ResumeForm
 from candidateapp.models import Resume
 from companyapp.models import Vacancy
 
 """ Блок кандидата"""
-@login_required
-def candidate_lk(request):
-    title = 'candidate'
-    user = request.user
+# @login_required
+# def candidate_lk(request):
+#     title = 'candidate'
+#     user = request.user
+#
+#     context = {
+#         'title': title,
+#         'user': user,
+#
+#     }
+#     return render(request, 'candidateapp/candidate_lk.html', context)
 
-    context = {
-        'title': title,
-        'user': user,
 
-    }
-    return render(request, 'candidateapp/candidate_lk.html', context)
+class CandidateMain(ListView):
+    template_name = 'candidateapp/candidate_lk.html'
+    model = HHUser
+
+    def get_context_data(self, pk=None, **kwargs):
+        context = super().get_context_data(pk=None, **kwargs)
+        context['profile'] = HHUser.objects.filter(username=self.request.user)
+        context['user'] = self.request.user
+        return context
 
 
 class ShowProfileUpdateView(LoginRequiredMixin, UpdateView):
@@ -38,6 +50,12 @@ class ShowProfileUpdateView(LoginRequiredMixin, UpdateView):
         'email',
         'city'
     ]
+    # form_class = RegisterUserForm
+
+    def get_context_data(self, **kwargs):
+        context = super(ShowProfileUpdateView, self).get_context_data(**kwargs)
+        context['title'] = 'Candidate profile update'
+        return context
 
     def get_success_url(self):
         return reverse('candidate:user_profile')
@@ -46,16 +64,27 @@ class ShowProfileUpdateView(LoginRequiredMixin, UpdateView):
 """ Блок резюме!!!!!!!!!!"""
 
 
-@login_required
-def resume(request):
-    title = 'резюме'
-    resume_items = Resume.objects.filter(candidate=request.user)
+# @login_required
+# def resume(request):
+#     title = 'резюме'
+#     resume_items = Resume.objects.filter(candidate=request.user)
+#
+#     context = {
+#         'title': title,
+#         'resume_items': resume_items,
+#     }
+#     return render(request, 'candidateapp/resume.html', context)
 
-    context = {
-        'title': title,
-        'resume_items': resume_items,
-    }
-    return render(request, 'candidateapp/resume.html', context)
+
+class ResumeView(ListView):
+    template_name = 'candidateapp/resume.html'
+    model = Resume
+    form_model = ResumeForm
+
+    def get_context_data(self, pk=None, **kwargs):
+        context = super(ResumeView, self).get_context_data(**kwargs)
+        context['resume_items'] = Resume.objects.filter(candidate=self.request.user)
+        return context
 
 
 class ShowResumeDetailView(DetailView):
@@ -75,17 +104,51 @@ class ShowResumeDetailView(DetailView):
 class ResumeCreateView(CreateView):
     model = Resume
     template_name = 'candidateapp/resume_create.html'
-    fields = '__all__'
+    fields = [
+            'moving',
+            'business_trips',
+            'desired_position',
+            'salary',
+            'busyness',
+            'work_schedule',
+            'getting_started',
+            'end_work',
+            'working',
+            'organization',
+            'post',
+            'responsibilities',
+            'skills',
+            'about_me',
+            'level',
+            'educational_institution',
+            'faculty',
+            'specialization',
+            'year_graduation',
+            'course_name',
+            'organization_conducted',
+            'specialization_course',
+            'year_graduation_course',
+            'is_draft'
+        ]
+    form_model = ResumeForm
 
     def get_success_url(self):
         return reverse('candidate:resume')
+
+    def form_valid(self, form):
+        form.instance.candidate = HHUser.objects.get(username=self.request.user)
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['candidate'] = Resume.objects.filter(candidate=self.request.user)
+        return data
 
 
 class ResumeUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'candidateapp/resume_update.html'
     model = Resume
     fields = '__all__'
-    form_model = ResumeForm
 
     def get_success_url(self):
         return reverse('candidateapp:resume')
