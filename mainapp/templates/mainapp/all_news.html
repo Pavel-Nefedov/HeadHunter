@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header %}
+    {% include 'mainapp/includes/inc_header.html' %}
+{% endblock %}
+
+{% block site_content %}
+
+    <div class="container px-4 py-5" id="icon-grid">
+        {% for item in news %}
+            <div class="col d-flex align-items-startpy-5">
+
+                <div>
+                    <h3 class="fs-2">{{ item.title }}</h3>
+                    <mark>{{ item.date }}</mark>
+                    <p>{{ item.description }}</p>
+                    <a href="{{ item.link }}" class="btn btn-primary">
+                        Читать далее
+                    </a>
+                    <hr>
+                </div>
+            </div>
+        {% empty %}
+            <p class="lead mb-4">Новостей пока нет</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+    {% include 'mainapp/includes/inc_footer.html' %}
+{% endblock %}

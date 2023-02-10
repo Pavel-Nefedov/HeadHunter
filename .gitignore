@@ -27,6 +27,7 @@ authapp/migrations
 companyapp/migrations
 favoriteapp/migrations
 messageapp/migrations
+moderatorapp/migrations
 
 ### Other ###
 *.DS_Store

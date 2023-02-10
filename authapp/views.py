@@ -65,10 +65,10 @@ class RegisterUser(CreateView):
     template_name = 'authapp/register.html'
 
     def form_valid(self, form):
-
         user = form.save()
-
-        print(f"{form=}")
+        user.birthday = form.cleaned_data['birthday']
+        user.city = form.cleaned_data['city']
+        user.gender = form.cleaned_data['gender']
 
         if form.cleaned_data['user_role'] == 'is_company':
             user.is_company = True

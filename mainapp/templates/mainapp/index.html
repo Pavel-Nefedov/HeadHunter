@@ -18,9 +18,9 @@
                 <p class="lead">Мы лучшее гибкое кадровое агентство* на этой планете. Обладаем большим набором
                     квалифицированных кандидатов, а также лучшими методами подбора персонала, основанными на машинном
                     обучении.</p>
-{#                <div class="d-grid gap-2 d-md-flex justify-content-md-start">#}
-{#                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Посмотреть что мы можем</button>#}
-{#                </div>#}
+                {#                <div class="d-grid gap-2 d-md-flex justify-content-md-start">#}
+                {#                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Посмотреть что мы можем</button>#}
+                {#                </div>#}
             </div>
         </div>
     </div>
@@ -47,7 +47,12 @@
     <div class="b-example-divider"></div>
 
     <div class="container px-4 py-5" id="hanging-icons">
-        <h2 class="pb-2 border-bottom">Главные новости</h2>
+        <h2 class="pb-2 border-bottom">
+            Главные новости
+            <a href="{% url 'mainapp:all_news' %}" class="btn btn-outline-primary">
+                Читать все новости
+            </a>
+        </h2>
         <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
 
             {% for item in news %}
@@ -55,6 +60,7 @@
 
                     <div>
                         <h3 class="fs-2">{{ item.title }}</h3>
+                        <mark>{{ item.date }}</mark>
                         <p>{{ item.description }}</p>
                         <a href="{{ item.link }}" class="btn btn-primary">
                             Читать далее

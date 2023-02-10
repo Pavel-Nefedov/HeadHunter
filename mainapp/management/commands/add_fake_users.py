@@ -41,6 +41,7 @@ class Command(BaseCommand):
             first_name=temp_first_name,
             last_name=self.faker.last_name(),
             patronymic=self.faker.last_name(),
+            gender=['F', 'M'][random.randint(0, 1)],
             is_company=is_company,
             is_candidate=is_candidate,
         )
