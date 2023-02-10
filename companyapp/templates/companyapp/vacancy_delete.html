@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block header %}
+    {% include 'mainapp/includes/inc_header.html' %}
+{% endblock %}
+
+{% block site_content %}
+<div class="b-example-divider"></div>
+    <div class="container px-4 py-5" id="icon-grid">
+         <a class="btn btn-primary" href="{% url 'company:vac_list' %}" role="button">Назад в мои вакансии</a>
+                <form method="post">
+                    {% csrf_token %}
+                            <h3>Вы уверены что хотите удалить вакансию???</h3>
+                    <input class="btn btn-danger" type="submit" value="удалить вакансию">
+                </form>
+                <a class="btn btn-primary" href="{% url 'company:vac_list' %}">
+                    Отмена
+                </a>
+    </div>
+{% endblock %}

@@ -146,6 +146,24 @@ class VacancyUpdate(LoginRequiredMixin, UpdateView):
         return reverse('companyapp:vacancy', kwargs={'pk': self.object.id})
 
 
+class VacancyDeleteView(LoginRequiredMixin, DeleteView):
+    model = Vacancy
+    template_name = 'companyapp/vacancy_delete.html'
+    success_url = reverse_lazy('company:vac_list')
+
+    def delete(self, request, *arg, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        self.object.is_active = False
+        self.object.save()
+        return HttpResponseRedirect(success_url)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Удаление вакансии"
+        return context
+
+
 class VacanciesSelect(ListView):
     template_name = 'companyapp/company_vacancies_select.html'
     model = Vacancy

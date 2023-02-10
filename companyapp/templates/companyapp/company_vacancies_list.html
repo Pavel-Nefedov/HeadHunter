@@ -11,35 +11,31 @@
 {% block site_content %}
 
 
-        {% if not company %}
-            <h4 class="subtitle-title">
-                Вам нужно создать профиль компании для размещения вакансий!
-                <br>
-                <br>
-                <div style="text-align: center;">
-                    <a href="{% url 'company:company_create' %}" class="btn btn-outline-primary btn-lg">
-                        Создать профиль
-                    </a>
-                </div>
+    {% if not company %}
+        <h4 class="subtitle-title">
+            Вам нужно создать профиль компании для размещения вакансий!
+            <br>
+            <br>
+            <div style="text-align: center;">
+                <a href="{% url 'company:company_create' %}" class="btn btn-outline-primary btn-lg">
+                    Создать профиль
+                </a>
+            </div>
 
-            </h4>
-{% else %}
+        </h4>
+    {% else %}
 
     <div class="container px-4 py-5" id="icon-grid">
         <a class="btn btn-primary" href="{% url 'company:vacancy_create' %}"
            role="button">Создать вакансию</a>
 
-        {% for item in company  %}
-        {% for vacancy in object_list  %}
-{% if vacancy.company_id == item.id %}
-
-
+        {% for item in company %}
+        {% for vacancy in object_list %}
+        {% if vacancy.company_id == item.id %}
             <div class="card" style="margin-bottom: 10px">
             <div class="card-body">
                 <h3 class="card-title" style="padding: 0"><a href="{% url 'company:vacancy' vacancy.pk %}">{{ vacancy.vacancy_name }} </a></h3>
                 <h4 class="subtitle-title"> {{ vacancy.city }} </h4>
-
-
                 {% if vacancy.is_active %}
                     <p class="card-text"> Активна </p>
                 {% endif %}
@@ -55,22 +51,17 @@
                 {% if user.is_candidate %}
                     <a class="btn btn-primary" href="#" role="button">Откликнуться</a>
                 {% endif %}
-                {% if user == company.user %}
+                {% if user.is_company %}
                     <a class="btn btn-primary" href="{% url 'company:vacancy_edit' pk=vacancy.pk %}"
                        role="button">Редактировать</a>
+                    <a class="btn btn-primary" href="{% url 'company:vacancy_delete' pk=vacancy.pk %}"
+                       role="button">Удалить</a>
                 {% endif %}
+                </div>
             </div>
-            </div>
-
-
-
-
-
-{% endif %}
-{% endfor %}
+        {% endif %}
         {% endfor %}
-
-
+        {% endfor %}
         {% endif %}
     </div>
 {% endblock %}
