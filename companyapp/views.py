@@ -195,6 +195,10 @@ class ResumeSearch(TemplateView):
         data = super().get_context_data(**kwargs)
         data['resumes'] = Resume.objects.filter(is_draft=False)
         # data["resumes"] = Resume.objects.all()
+        if self.request.user.is_company:
+            data['company_vacancy'] = Vacancy.objects.filter(
+                company__pk=self.request.user.pk,
+            )
         return data
 
 

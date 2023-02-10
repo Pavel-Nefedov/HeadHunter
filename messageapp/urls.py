@@ -1,7 +1,7 @@
 from django.urls import path
 
 from messageapp.views import DialogsView, MessagesView, CreateDialogView, ModeratorApproveView, ModeratorRejectView, \
-    ResponseToVacancyView
+    ResponseToVacancyView, ResponseToResumeView
 
 app_name = 'messageapp'
 
@@ -24,5 +24,10 @@ urlpatterns = [
         'response_to_vacancy/<int:user_id>/<int:vacancy_id>',
         ResponseToVacancyView.as_view(),
         name='response_to_vacancy'
+    ),
+    path(
+        'response_to_resume/<int:user_id>/<int:resume_id>',
+        ResponseToResumeView.as_view(),
+        name='response_to_resume'
     ),
 ]
