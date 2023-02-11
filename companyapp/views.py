@@ -228,12 +228,14 @@ class FormResumeSearch(ListView):
     def get_queryset(self):
         search_text = self.request.GET.get('search_text')
 
+        print(f"{search_text=}")
+
         if search_text:
             search_queryset = Resume.objects.filter(
-                Q(level__contains=search_text) |
-                Q(specialization__contains=search_text) |
-                Q(skills__icontains=search_text) |
-                Q(responsibilities__icontains=search_text)).select_related()
+                Q(desired_position__contains=search_text)).select_related()
+                # Q(specialization__contains=search_text) |
+                # Q(skills__icontains=search_text) |
+                # Q(responsibilities__icontains=search_text)).select_related()
         else:
             search_queryset = Resume.objects.all().select_related()
 
