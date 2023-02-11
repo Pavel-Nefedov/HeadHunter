@@ -105,6 +105,7 @@ class ResumeCreateView(CreateView):
     model = Resume
     template_name = 'candidateapp/resume_create.html'
     fields = [
+            'is_moderated',
             'moving',
             'business_trips',
             'desired_position',
@@ -148,7 +149,31 @@ class ResumeCreateView(CreateView):
 class ResumeUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'candidateapp/resume_update.html'
     model = Resume
-    fields = '__all__'
+    fields = ['is_moderated',
+            'moving',
+            'business_trips',
+            'desired_position',
+            'salary',
+            'busyness',
+            'work_schedule',
+            'getting_started',
+            'end_work',
+            'working',
+            'organization',
+            'post',
+            'responsibilities',
+            'skills',
+            'about_me',
+            'level',
+            'educational_institution',
+            'faculty',
+            'specialization',
+            'year_graduation',
+            'course_name',
+            'organization_conducted',
+            'specialization_course',
+            'year_graduation_course',
+            'is_draft']
 
     def get_success_url(self):
         return reverse('candidateapp:resume')
